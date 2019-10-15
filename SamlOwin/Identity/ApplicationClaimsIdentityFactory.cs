@@ -11,7 +11,7 @@ namespace SamlOwin.Identity
         public override Task<ClaimsIdentity> CreateAsync(UserManager<ApplicationUser, Guid> manager,
             ApplicationUser user, string authenticationType)
         {
-            ClaimsIdentity id = new ClaimsIdentity(authenticationType, UserNameClaimType, RoleClaimType);
+            var id = new ClaimsIdentity(authenticationType, UserNameClaimType, RoleClaimType);
 
             id.AddClaim(new Claim(UserIdClaimType, ConvertIdToString(user.Id),
                 "http://www.w3.org/2001/XMLSchema#string"));

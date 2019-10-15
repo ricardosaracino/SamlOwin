@@ -36,18 +36,13 @@ namespace SamlOwin.Identity
             var userRoleStore = (IUserRoleStore<ApplicationUser, Guid>) Store;
 
             var user = await FindByIdAsync(userId).ConfigureAwait(false);
-            
-            if (user == null)
-            {
-                throw new InvalidOperationException("Invalid user Id");
-            }
+
+            if (user == null) throw new InvalidOperationException("Invalid user Id");
 
             var userRoles = await userRoleStore.GetRolesAsync(user).ConfigureAwait(false);
             // Add user to each role using UserRoleStore
             foreach (var role in roles.Where(role => !userRoles.Contains(role)))
-            {
                 await userRoleStore.AddToRoleAsync(user, role).ConfigureAwait(false);
-            }
 
             // Call update once when all roles are added
             return await UpdateAsync(user).ConfigureAwait(false);

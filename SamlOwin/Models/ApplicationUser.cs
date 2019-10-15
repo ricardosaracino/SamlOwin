@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,25 +15,22 @@ namespace SamlOwin.Models
         public Guid Id { get; set; }
 
         [Name]
-        [Column("csc_name", AttributeType = "StringType", Length = 100)]
-        public string UserName { get; set; }
+        [Column("csc_name")]
+        public string UserName { get; set; } 
 
-        [Name]
-        [Column("csc_providerkey", AttributeType = "StringType", Length = 100)]
+        [Column("csc_providerkey")]
         public string ProviderKey { get; set; }
-        
-        [Name]
-        [Column("csc_loginprovider", AttributeType = "StringType", Length = 100)]
+
+        [Column("csc_loginprovider")]
         public string LoginProvider { get; set; }
         
         public List<string> Roles { get; set; }
-        
-        
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            
+
             // Add custom user claims here
             return userIdentity;
         }
