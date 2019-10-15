@@ -11,11 +11,11 @@ using XrmFramework;
 /**
  * https://stackoverflow.com/questions/22652543/does-new-asp-net-mvc-identity-framework-work-without-entity-framework-and-sql-se
  */
-namespace SamlOwin.Managers
+namespace SamlOwin.Identity
 {
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser, Guid>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, Guid> store)
             : base(store)
         {
         }
@@ -23,42 +23,39 @@ namespace SamlOwin.Managers
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
             IOwinContext context)
         {
-            var manager =
-                new ApplicationUserManager(
-                    new UserStore<ApplicationUser>(context.Get<XrmContext>()));
-            
-            // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<XrmService>()))
+            {
+                ClaimsIdentityFactory = new ApplicationClaimsIdentityFactory()
+            };
 
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-                manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             return manager;
         }
 
-        public virtual async Task<IdentityResult> AddUserToRolesAsync(string userId, IList<string> roles)
+        public virtual async Task<IdentityResult> AddUserToRolesAsync(Guid userId, IEnumerable<string> roles)
         {
-            var userRoleStore = (IUserRoleStore<ApplicationUser, string>) Store;
+            var userRoleStore = (IUserRoleStore<ApplicationUser, Guid>) Store;
 
             var user = await FindByIdAsync(userId).ConfigureAwait(false);
+            
             if (user == null)
+            {
                 throw new InvalidOperationException("Invalid user Id");
+            }
 
             var userRoles = await userRoleStore.GetRolesAsync(user).ConfigureAwait(false);
             // Add user to each role using UserRoleStore
             foreach (var role in roles.Where(role => !userRoles.Contains(role)))
+            {
                 await userRoleStore.AddToRoleAsync(user, role).ConfigureAwait(false);
+            }
 
             // Call update once when all roles are added
             return await UpdateAsync(user).ConfigureAwait(false);
         }
 
-        public virtual async Task<IdentityResult> RemoveUserFromRolesAsync(string userId, IList<string> roles)
+        public virtual async Task<IdentityResult> RemoveUserFromRolesAsync(Guid userId, IEnumerable<string> roles)
         {
-            var userRoleStore = (IUserRoleStore<ApplicationUser, string>) Store;
+            var userRoleStore = (IUserRoleStore<ApplicationUser, Guid>) Store;
 
             var user = await FindByIdAsync(userId).ConfigureAwait(false);
             if (user == null)

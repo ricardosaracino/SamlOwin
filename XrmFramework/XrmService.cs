@@ -6,14 +6,14 @@ using Microsoft.Xrm.Tooling.Connector;
 
 namespace XrmFramework
 {
-    public class XrmContext: IDisposable
+    public class XrmService: IDisposable
     {
         private static CrmServiceClient _client;
 
         public void Dispose()
         {
         }
-        public static XrmContext Create(string crmConnectionString)
+        public static XrmService Create(string crmConnectionString)
         {
             if (_client?.IsReady == null)
             {
@@ -22,7 +22,7 @@ namespace XrmFramework
             
             // todo what about if IsReady is false
             
-            return new XrmContext();
+            return new XrmService();
         }
         
         public QueryExpression BuildQuery<T>()

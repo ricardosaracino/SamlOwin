@@ -1,13 +1,14 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using SamlOwin.Models;
 
-namespace SamlOwin.Managers
+namespace SamlOwin.Identity
 {
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class ApplicationSignInManager : SignInManager<ApplicationUser, Guid>
     {
         private ApplicationSignInManager(ApplicationUserManager userManager,
             IAuthenticationManager authenticationManager)

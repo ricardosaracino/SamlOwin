@@ -2,8 +2,12 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
 using Owin;
-using SamlOwin.Managers;
+using SamlOwin.Identity;
+using SamlOwin.Models;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
@@ -18,12 +22,27 @@ namespace SamlOwin
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         private static void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext<XrmContext>(() => XrmContext.Create(
+            app.CreatePerOwinContext(() => XrmService.Create(
             ));
 
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-
+            
+            // Configure the sign in cookie
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                ExpireTimeSpan = TimeSpan.FromMinutes(1),
+                // TODO LoginPath = new PathString("/Saml2/Signin"),
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, Guid>(
+                        TimeSpan.FromMinutes(1),
+                        (manager, user) => user.GenerateUserIdentityAsync(manager),
+                        (user) => Guid.Parse(user.GetUserId()))
+                }
+            });
+            
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             app.UseSaml2Authentication(CreateSaml2Options());

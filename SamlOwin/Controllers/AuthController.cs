@@ -9,7 +9,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SamlOwin.Managers;
+using SamlOwin.Identity;
 using Claim = System.IdentityModel.Claims.Claim;
 using ClaimTypes = System.IdentityModel.Claims.ClaimTypes;
 
@@ -63,21 +63,22 @@ namespace SamlOwin.Controllers
             if (loginInfo == null)
             {
                 response.Headers.Location = new Uri(HttpRuntime.AppDomainAppPath + "api/auth/failure");
+                return response;
             }
 
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            // If IsPersistent property of AuthenticationProperties is set to false, then the cookie expiration time is set to Session.
+            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: true);
 
             return response;
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet]
         [ActionName("Success")]
         public string LoginSuccess()
         {
             var user = AuthenticationManager.User;
-            
             
             return ":)";
         }
