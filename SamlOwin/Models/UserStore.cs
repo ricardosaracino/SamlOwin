@@ -1,95 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Microsoft.Xrm.Sdk.Query;
+using XrmFramework;
 
 namespace SamlOwin.Models
 {
     public class UserStore<TUser> : IUserStore<TUser>,
-        IUserRoleStore<TUser>
+        IUserRoleStore<TUser>,
+        IUserLoginStore<TUser>
         where TUser : ApplicationUser
     {
-        private readonly IList<TUser> _users;
-        
-        public UserStore(IList<TUser> users)
+        private XrmContext _context;
+
+        public UserStore(XrmContext context)
         {
-            _users = users;
+            _context = context;
         }
 
-        public virtual Task SetPasswordHashAsync(TUser user, string passwordHash)
+        public Task AddLoginAsync(TUser user, UserLoginInfo login)
         {
-            user.Password = passwordHash;
-            return Task.FromResult(0);
+            throw new NotImplementedException();
         }
 
-        public virtual Task<string> GetPasswordHashAsync(TUser user)
+        public Task RemoveLoginAsync(TUser user, UserLoginInfo login)
         {
-            return Task.FromResult(user.Password);
+            throw new NotImplementedException();
         }
 
-        public virtual Task<bool> HasPasswordAsync(TUser user)
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(TUser user)
         {
-            return Task.FromResult(user.Password != null);
+            throw new NotImplementedException();
         }
 
-        public virtual Task AddToRoleAsync(TUser user, string roleName)
+        public Task<TUser> FindAsync(UserLoginInfo login)
+        {
+            var queryExpression = _context.BuildQuery<ApplicationUser>();
+            
+            var user = _context.FindFirst<ApplicationUser>(queryExpression);
+            
+            throw new NotImplementedException();
+        }
+
+        public Task AddToRoleAsync(TUser user, string roleName)
         {
             user.AddRole(roleName);
             return Task.FromResult(0);
         }
 
-        public virtual Task RemoveFromRoleAsync(TUser user, string roleName)
+        public Task RemoveFromRoleAsync(TUser user, string roleName)
         {
             user.RemoveRole(roleName);
             return Task.FromResult(0);
         }
 
-        public virtual Task<IList<string>> GetRolesAsync(TUser user)
+        public Task<IList<string>> GetRolesAsync(TUser user)
         {
             return Task.FromResult((IList<string>) user.Roles);
         }
 
-        public virtual Task<bool> IsInRoleAsync(TUser user, string roleName)
+        public Task<bool> IsInRoleAsync(TUser user, string roleName)
         {
             return Task.FromResult(user.Roles.Contains(roleName));
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
         }
 
-        public virtual Task CreateAsync(TUser user)
+        public Task CreateAsync(TUser user)
         {
-            user.CreatedTime = DateTime.Now;
-            user.UpdatedTime = DateTime.Now;
-            _users.Add(user);
-            return Task.FromResult(true);
+            throw new NotImplementedException();
         }
 
-        public virtual Task UpdateAsync(TUser user)
+        public Task UpdateAsync(TUser user)
         {
-            // todo should add an optimistic concurrency check
-            user.UpdatedTime = DateTime.Now;
-            _users.Remove(user);
-            _users.Add(user);
-            return Task.FromResult(true);
+            throw new NotImplementedException();
         }
 
-        public virtual Task DeleteAsync(TUser user)
+        public Task DeleteAsync(TUser user)
         {
-            return Task.FromResult(_users.Remove(user));
+            throw new NotImplementedException();
         }
 
-        public virtual Task<TUser> FindByIdAsync(string userId)
+        public Task<TUser> FindByIdAsync(string userId)
         {
-            return Task.FromResult(_users.FirstOrDefault(u => u.Id == userId));
+            throw new NotImplementedException();
         }
 
-        public virtual Task<TUser> FindByNameAsync(string userName)
+        public Task<TUser> FindByNameAsync(string userName)
         {
-            // todo exception on duplicates? or better to enforce unique index to ensure this
-            return Task.FromResult(_users.FirstOrDefault(u => u.Email == userName));
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using SamlOwin.Models;
+using XrmFramework;
 
 /**
  * https://stackoverflow.com/questions/22652543/does-new-asp-net-mvc-identity-framework-work-without-entity-framework-and-sql-se
@@ -24,7 +25,7 @@ namespace SamlOwin.Managers
         {
             var manager =
                 new ApplicationUserManager(
-                    new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>().Users));
+                    new UserStore<ApplicationUser>(context.Get<XrmContext>()));
             
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;

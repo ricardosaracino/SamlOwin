@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using XrmFramework.Attributes;
 
 namespace SamlOwin.Models
 {
+    [Entity("csc_portaluser")]
     public class ApplicationUser : IUser
     {
-        public ApplicationUser()
-        {
-            Id = Guid.NewGuid().ToString();
-            Roles = new List<string>();
-        }
+        [Id] 
+        [Column("csc_portaluserid")] 
+        public string Id { get; set; }
+
+        [Name]
+        [Column("csc_name", AttributeType = "StringType", Length = 100)]
+        public string UserName { get; set; }
+
+        [Name]
+        [Column("csc_providerkey", AttributeType = "StringType", Length = 100)]
+        public string ProviderKey { get; set; }
         
+        [Name]
+        [Column("csc_loginprovider", AttributeType = "StringType", Length = 100)]
+        public string LoginProvider { get; set; }
         
+        public List<string> Roles { get; set; }
+        
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -23,16 +37,6 @@ namespace SamlOwin.Models
             // Add custom user claims here
             return userIdentity;
         }
-
-        public virtual string Email { get; set; }
-        public List<string> Roles { get; set; }
-        public virtual string Password { get; set; }
-        public DateTime CreatedTime { get; set; }
-
-        public DateTime UpdatedTime { get; set; }
-
-        public string Id { get; }
-        public string UserName { get; set; }
 
         public virtual void AddRole(string role)
         {

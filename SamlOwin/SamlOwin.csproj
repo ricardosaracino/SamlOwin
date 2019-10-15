@@ -263,7 +263,6 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\UserStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -271,7 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\idp-metadata.xml" />
-    <Content Include="App_Data\response.xml" />
+    <Content Include="App_Data\idp5.canadacentral.cloudapp.azure.com.cer" />
     <Content Include="App_Data\sp-metadata.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -292,6 +291,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XrmFramework\XrmFramework.csproj">
+      <Project>{02502905-0cad-49ac-8fab-ea8eaf6e2fa6}</Project>
+      <Name>XrmFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

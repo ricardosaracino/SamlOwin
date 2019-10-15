@@ -2,47 +2,29 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
 using Owin;
 using SamlOwin.Managers;
-using SamlOwin.Models;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.Owin;
 using Sustainsys.Saml2.WebSso;
+using XrmFramework;
 
 namespace SamlOwin
 {
     public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
+        private static void ConfigureAuth(IAppBuilder app)
         {
-            // Enable the application to use a cookie to store information for the signed in user
-            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            // Configure the sign in cookie
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                CookieName = "AspNetAuthorize",
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
-                Provider = new CookieAuthenticationProvider
-                {
-                    // Enables the application to validate the security stamp when the user logs in.
-                    // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity =
-                        SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                            validateInterval: TimeSpan.FromMinutes(30),
-                            regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
-                }
-            });
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            app.CreatePerOwinContext<XrmContext>(() => XrmContext.Create(
+            ));
 
-            app.UseSaml2Authentication(CreateSaml2Options());
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             app.UseSaml2Authentication(CreateSaml2Options());
         }
@@ -50,6 +32,7 @@ namespace SamlOwin
         private static Saml2AuthenticationOptions CreateSaml2Options()
         {
             var spOptions = CreateSpOptions();
+
             var saml2Options = new Saml2AuthenticationOptions(false)
             {
                 SPOptions = spOptions
@@ -67,7 +50,8 @@ namespace SamlOwin
             };
 
             idp.SigningKeys.AddConfiguredKey(
-                new X509Certificate2(HostingEnvironment.MapPath("~/App_Data/stubidp.sustainsys.com.cer")));
+                new X509Certificate2(
+                    HostingEnvironment.MapPath("~/App_Data/idp5.canadacentral.cloudapp.azure.com.cer")));
 
             saml2Options.IdentityProviders.Add(idp);
 
