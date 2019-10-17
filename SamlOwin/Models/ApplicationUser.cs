@@ -10,21 +10,15 @@ namespace SamlOwin.Models
     [Entity("csc_portaluser")]
     public class ApplicationUser : IUser<Guid>
     {
-        [Id] 
-        [Column("csc_portaluserid")] 
-        public Guid Id { get; set; }
+        [Column("csc_providerkey")] public string ProviderKey { get; set; }
 
-        [Name]
-        [Column("csc_name")]
-        public string UserName { get; set; } 
+        [Column("csc_loginprovider")] public string LoginProvider { get; set; }
 
-        [Column("csc_providerkey")]
-        public string ProviderKey { get; set; }
-
-        [Column("csc_loginprovider")]
-        public string LoginProvider { get; set; }
-        
         public List<string> Roles { get; set; }
+
+        [Id] [Column("csc_portaluserid")] public Guid Id { get; set; }
+
+        [Name] [Column("csc_name")] public string UserName { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager)
         {

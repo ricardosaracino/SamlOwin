@@ -12,9 +12,9 @@ namespace SamlOwin.Identity
             ApplicationUser user, string authenticationType)
         {
             var id = new ClaimsIdentity(authenticationType, UserNameClaimType, RoleClaimType);
-            
+
             // An item with the same key has already been added.
-            
+
             id.AddClaim(new Claim(UserIdClaimType, ConvertIdToString(user.Id),
                 "http://www.w3.org/2001/XMLSchema#string"));
 

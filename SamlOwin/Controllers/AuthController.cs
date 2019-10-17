@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SamlOwin.Identity;
-using SamlOwin.Models;
 
 namespace SamlOwin.Controllers
 {
     public class AuthController : ApiController
     {
-        private ApplicationUserManager _userManager;
-
         private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
 
         public AuthController()
         {
@@ -34,14 +30,12 @@ namespace SamlOwin.Controllers
         public ApplicationSignInManager SignInManager
         {
             get => _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
-
             set => _signInManager = value;
         }
 
         public ApplicationUserManager UserManager
         {
             get => _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
             set => _userManager = value;
         }
 
@@ -49,7 +43,9 @@ namespace SamlOwin.Controllers
             HttpContext.Current.GetOwinContext().Authentication;
 
 
-        [AllowAnonymous, HttpGet, ActionName("LoginCallback")]
+        [AllowAnonymous]
+        [HttpGet]
+        [ActionName("LoginCallback")]
         public async Task<HttpResponseMessage> LoginCallback(string returnUrl = "")
         {
             var response = Request.CreateResponse(HttpStatusCode.Redirect);
@@ -68,10 +64,10 @@ namespace SamlOwin.Controllers
 
             // If IsPersistent property of AuthenticationProperties is set to false, then the cookie expiration time is set to Session.
             var signInStatus = await SignInManager.ExternalSignInAsync(loginInfo, true);
-            
+
             // https://saml2.sustainsys.com/en/2.0/claims-authentication-manager.html
             AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
-            
+
             switch (signInStatus)
             {
                 // user null
@@ -97,13 +93,19 @@ namespace SamlOwin.Controllers
             return response;
         }
 
-        [Authorize, HttpGet, ActionName("Ping")]
+        [Authorize]
+        [HttpGet]
+        [ActionName("Ping")]
         public Dictionary<string, string> Ping()
         {
+            var user = HttpContext.Current.User;
+
             return AuthenticationManager.User.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
         }
 
-        [AllowAnonymous, HttpGet, ActionName("Error")]
+        [AllowAnonymous]
+        [HttpGet]
+        [ActionName("Error")]
         public string Error()
         {
             return ":(";

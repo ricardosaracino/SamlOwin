@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Serialization;
-using System.Web.Http;
-using System.Web.Http.Cors;
+﻿using System.Web.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace SamlOwin
 {
@@ -17,9 +17,9 @@ namespace SamlOwin
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                "ActionApi",
+                "api/{controller}/{action}/{id}",
+                new {id = RouteParameter.Optional}
             );
         }
 
@@ -28,8 +28,7 @@ namespace SamlOwin
             var jsonFormatter = config.Formatters.JsonFormatter;
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.Remove(config.Formatters.XmlFormatter);
-            jsonFormatter.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+            jsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
         }
     }
 }
-
