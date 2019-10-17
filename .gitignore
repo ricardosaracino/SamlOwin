@@ -354,3 +354,5 @@ MigrationBackup/
 
 # IDEA
 .idea
+
+App.config

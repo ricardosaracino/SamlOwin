@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+        body, html {
+            height: 100%;
+        }
+        
+        body, a {
+            font-family: Calibri, Arial, serif;
+            color: white;
+            font-size: 22pt;
+            font-weight: 600;
+            text-shadow: 2px 1px black;
+        }
+
+        body {
+            margin: 50px;
+            
+            background: url("https://dev-ep-pe.csc-scc.gc.ca/wet-v4/dist/GCWeb/assets/sp-bg-2.jpg");
+            
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <title>Portal</title>
+</head>
+<body>
+<h1>Choose a secure Sign-In Method</h1>
+<h3>You must sign in to access the service you requested</h3>
+<a href="/api/saml/signin?idp=http://idp5.canadacentral.cloudapp.azure.com:80/opensso">Continue to Idp5</a><br><br>
+<a href="/api/saml/signin?idp=https://cbs-uat-cbs.securekey.com">Continue to Sign-In Partner</a><br><br>
+<a href="/api/saml/signin?idp=https://te.clegc-gckey.gc.ca">Continue to GCKey</a><br><br>
+
+<hr>
+<a href="/api/saml/logout?Status=LoggedOut">Logout</a><br><br>
+<a href="http://idp5.canadacentral.cloudapp.azure.com:80/opensso" target="_blank">Idp5</a><br><br>
+<a href="/api/auth/ping" target="_blank">Ping</a><br><br>
+
+</body>
+</html>

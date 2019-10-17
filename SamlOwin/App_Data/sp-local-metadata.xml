@@ -1,10 +1,9 @@
-﻿<EntityDescriptor xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
-                  entityID="https://dev-ep-pe.csc-scc.gc.ca" xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
-                  ID="_a4f399470547494bb60af4d831013495">
+﻿<EntityDescriptor  xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+                  entityID="https://localhost:44325" xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+                  ID="_7075e6e8fc254dd887d317a2763a439a">
     
     <SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true"
                      protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-        
         <KeyDescriptor use="encryption">
             <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
                 <X509Data>
@@ -14,8 +13,8 @@
                 </X509Data>
             </KeyInfo>
             <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+
         </KeyDescriptor>
-        
         <KeyDescriptor use="signing">
             <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
                 <X509Data>
@@ -26,17 +25,15 @@
             </KeyInfo>
         </KeyDescriptor>
 
-        <SingleLogoutService ResponseLocation="https://dev-ep-pe.csc-scc.gc.ca/api/saml/Logout"
-                             Location="https://dev-ep-pe.csc-scc.gc.ca/api/saml/Logout"
-                             Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"/>
-
-        <SingleLogoutService ResponseLocation="https://dev-ep-pe.csc-scc.gc.ca/api/saml/Logout"
-                             Location="https://dev-ep-pe.csc-scc.gc.ca/api/saml/Logout"
-                             Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"/>
-
         <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
 
-        <AssertionConsumerService Location="https://dev-ep-pe.csc-scc.gc.ca/api/saml/Acs"
-                                  Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" isDefault="true" index="0"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                             Location="https://localhost:44325/api/saml/Logout"/>
+        
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                             Location="https://localhost:44325/api/saml/Logout"/>
+        
+        <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                  Location="https://localhost:44325/api/saml/Acs" isDefault="true" index="0"/>
     </SPSSODescriptor>
 </EntityDescriptor>
