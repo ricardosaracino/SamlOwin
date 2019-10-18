@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SamlOwin.ActionFilters;
 
 namespace SamlOwin
 {
@@ -10,6 +11,8 @@ namespace SamlOwin
         {
             // Web API configuration and services
             RegisterFormatters(config);
+            
+            RegisterFilters(config);
 
             // config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));
 
@@ -23,6 +26,11 @@ namespace SamlOwin
             );
         }
 
+        private static void RegisterFilters(HttpConfiguration config)
+        {
+            config.Filters.Add(new CookieActionFilter());
+        }   
+        
         private static void RegisterFormatters(HttpConfiguration config)
         {
             var jsonFormatter = config.Formatters.JsonFormatter;

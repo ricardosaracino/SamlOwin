@@ -27,13 +27,13 @@ namespace SamlOwin.Controllers
             SignInManager = signInManager;
         }
 
-        public ApplicationSignInManager SignInManager
+        private ApplicationSignInManager SignInManager
         {
             get => _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
             set => _signInManager = value;
         }
 
-        public ApplicationUserManager UserManager
+        private ApplicationUserManager UserManager
         {
             get => _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             set => _userManager = value;
@@ -98,8 +98,6 @@ namespace SamlOwin.Controllers
         [ActionName("Ping")]
         public Dictionary<string, string> Ping()
         {
-            var user = HttpContext.Current.User;
-
             return AuthenticationManager.User.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
         }
 

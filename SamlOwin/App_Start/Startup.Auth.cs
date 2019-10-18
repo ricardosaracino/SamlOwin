@@ -30,16 +30,12 @@ namespace SamlOwin
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                ExpireTimeSpan = TimeSpan.FromMinutes(1),
-                SlidingExpiration = false,
+                CookieSecure = CookieSecureOption.SameAsRequest,
+                ExpireTimeSpan = TimeSpan.FromMinutes(4),
+                SlidingExpiration = true,
                 Provider = new CookieAuthenticationProvider
                 {
-                    // check portal user still active?
-                    OnValidateIdentity = SecurityStampValidator
-                        .OnValidateIdentity<ApplicationUserManager, ApplicationUser, Guid>(
-                            TimeSpan.FromMinutes(1),
-                            (manager, user) => user.GenerateUserIdentityAsync(manager),
-                            user => Guid.Parse(user.GetUserId()))
+                    OnValidateIdentity = ApplicationCookieValidateIdentityContext.ApplicationValidateIdentity
                 }
             });
 
@@ -66,14 +62,15 @@ namespace SamlOwin
                 new EntityId("http://idp5.canadacentral.cloudapp.azure.com:80/opensso"), spOptions)
             {
                 MetadataLocation = HostingEnvironment.MapPath("~/App_Data/idp5-metadata.xml"),
-
                 AllowUnsolicitedAuthnResponse = true
             };
 
+            // Key from IDP COT
             idp5.SigningKeys.AddConfiguredKey(new X509Certificate2(
                 HostingEnvironment.MapPath("~/App_Data/idp5.canadacentral.cloudapp.azure.com.cer")));
 
-
+            
+            
             var cbs = new IdentityProvider(
                 new EntityId("https://cbs-uat-cbs.securekey.com"), spOptions)
             {
@@ -81,6 +78,7 @@ namespace SamlOwin
             };
 
 
+            
             var gckey = new IdentityProvider(
                 new EntityId("https://te.clegc-gckey.gc.ca"), spOptions)
             {
@@ -98,6 +96,7 @@ namespace SamlOwin
         {
             var spOptions = new SPOptions
             {
+                // remove from metadata: xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
                 EntityId = new EntityId("https://dev-ep-pe.csc-scc.gc.ca"),
 
                 // 	proxied 
@@ -109,6 +108,7 @@ namespace SamlOwin
                 // 
                 ReturnUrl = new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/loginCallback"),
 
+                // add to metadata: <X509SubjectName>CN=dev-ep-pe,OU=csc-scc,O=GC,C=CA</X509SubjectName>
                 WantAssertionsSigned = true,
                 AuthenticateRequestSigningBehavior = SigningBehavior.Always,
                 MinIncomingSigningAlgorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
@@ -123,17 +123,50 @@ namespace SamlOwin
             // add to metadata: <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
             spOptions.ServiceCertificates.Add(new ServiceCertificate
             {
-                Certificate = new X509Certificate2(HostingEnvironment.MapPath("~/App_Data/Sustainsys.Saml2.Tests.pfx")),
+                Certificate = GetEncryptionCertificate(),
                 Use = CertificateUse.Encryption
             });
 
             spOptions.ServiceCertificates.Add(new ServiceCertificate
             {
-                Certificate = new X509Certificate2(HostingEnvironment.MapPath("~/App_Data/Sustainsys.Saml2.Tests.pfx")),
-                Use = CertificateUse.Signing
+                Certificate = GetSigninCertificate(),
+                Use = CertificateUse.Signing,
             });
 
             return spOptions;
+        }
+
+        private static X509Certificate2 GetEncryptionCertificate()
+        {
+            return FindFirstByFriendlyName("GCCF Encryption", "CN=dev-ep-pe, OU=csc-scc, O=GC, C=CA");
+        }
+
+        private static X509Certificate2 GetSigninCertificate()
+        {
+            return FindFirstByFriendlyName("GCCF Verification", "CN=dev-ep-pe, OU=csc-scc, O=GC, C=CA");
+        }
+
+        private static X509Certificate2 FindFirstByFriendlyName(string friendlyName, string subjectName = null)
+        {
+            var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+
+            store.Open(OpenFlags.ReadOnly);
+
+            var certificates = subjectName == null
+                ? store.Certificates
+                : store.Certificates.Find(X509FindType.FindByIssuerName, "1CA-AC1", false);
+
+            foreach (var certificate in certificates)
+            {
+                if (certificate.FriendlyName == friendlyName)
+                {
+                    store.Close();
+                    return certificate;
+                }
+            }
+
+            store.Close();
+            return null;
         }
     }
 }
