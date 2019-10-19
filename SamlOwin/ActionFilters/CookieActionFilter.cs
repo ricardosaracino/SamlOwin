@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Http.Filters;
-using System.Web.WebPages;
 using Microsoft.AspNet.Identity;
 
 namespace SamlOwin.ActionFilters
 {
     internal class ExpiredCookeHeaderValue : CookieHeaderValue
     {
-        public ExpiredCookeHeaderValue(string name, string value) : base(name, value)
+        public ExpiredCookeHeaderValue(string name) : base(name, "")
         {
             Expires = DateTimeOffset.Now.AddDays(-1);
             HttpOnly = false;
@@ -21,7 +20,7 @@ namespace SamlOwin.ActionFilters
             Path = "/";
         }
     }
-    
+
     internal class SessionCookeHeaderValue : CookieHeaderValue
     {
         public SessionCookeHeaderValue(string name, string value) : base(name, value)
@@ -32,40 +31,48 @@ namespace SamlOwin.ActionFilters
             Path = "/";
         }
     }
-    
+
     public class CookieActionFilter : ActionFilterAttribute
     {
+        private readonly string[] _claimTypes =
+        {
+            "expiresAt", "volunteer.id", "volunteer.canApplyCac", "volunteer.canApplyCsc",
+            "volunteer.canApplyReac", "volunteer.emailVerified"
+        };
+
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
+            var identity =
+                HttpContext.Current.GetOwinContext()?.Authentication.AuthenticationResponseGrant != null
+                    ? HttpContext.Current.GetOwinContext().Authentication.AuthenticationResponseGrant.Identity
+                    : HttpContext.Current.User.Identity as ClaimsIdentity;
+            
             var cookieHeaderValues = new List<CookieHeaderValue>();
 
-            var expiration = GetExpiresAt();
-
-            if (expiration.IsEmpty())
+            if (identity == null || !identity.IsAuthenticated)
             {
-                cookieHeaderValues.Add(new ExpiredCookeHeaderValue("expiresAt", ""));
+                cookieHeaderValues.AddRange(_claimTypes.Select(claimType => new ExpiredCookeHeaderValue(claimType))
+                    .Cast<CookieHeaderValue>());
             }
             else
             {
-                cookieHeaderValues.Add(new SessionCookeHeaderValue("expiresAt", expiration));
+                foreach (var claimType in _claimTypes)
+                {
+                    if (identity.HasClaim(c => c.Type == claimType))
+                    {
+                        var claimValue = identity.FindFirstValue(claimType);
+                        cookieHeaderValues.Add(new SessionCookeHeaderValue(claimType, claimValue));
+                    }
+                    else
+                    {
+                        cookieHeaderValues.Add(new ExpiredCookeHeaderValue(claimType));
+                    }
+                }
             }
 
             actionExecutedContext.Response.Headers.AddCookies(cookieHeaderValues);
 
             base.OnActionExecuted(actionExecutedContext);
-        }
-
-        private static string GetExpiresAt()
-        {
-            var identity = HttpContext.Current.User.Identity as ClaimsIdentity;
-            const string claimType = "ExpiresAtIso"; // see ApplicationCookieValidateIdentityContext
-
-            if (identity != null && identity.HasClaim(c => c.Type == claimType))
-            {
-                return identity.FindFirstValue(claimType);
-            }
-
-            return "";
         }
     }
 }

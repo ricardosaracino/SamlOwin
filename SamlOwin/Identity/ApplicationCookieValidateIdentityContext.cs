@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -36,7 +35,7 @@ namespace SamlOwin.Identity
             // add the expiry time back to cookie as one of the claims, called 'myExpireUtc'
             // to ensure that the claim has latest value, we must keep only one claim
             // otherwise we will be having multiple claims with same type but different values
-            const string claimType = "ExpiresAtIso";
+            const string claimType = "expiresAt";
             var identity = context.Identity;
 
             if (identity == null) return Task.FromResult(0);

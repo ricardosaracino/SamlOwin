@@ -3,11 +3,9 @@ using System.Configuration;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using SamlOwin.Identity;
-using SamlOwin.Models;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
@@ -19,14 +17,12 @@ namespace SamlOwin
 {
     public partial class Startup
     {
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         private static void ConfigureAuth(IAppBuilder app)
         {
             app.CreatePerOwinContext(() => XrmService.Create(ConfigurationManager.AppSettings["CrmConnectionString"]));
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
-            // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -39,9 +35,9 @@ namespace SamlOwin
                 }
             });
 
-            // todo signout on expire
+            // todo global sign out session ?
+            // todo sign out of idp on expire
             // todo redirects on expire
-            // Request.GetOwinContext().Authentication.SignOut();
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
@@ -69,8 +65,7 @@ namespace SamlOwin
             idp5.SigningKeys.AddConfiguredKey(new X509Certificate2(
                 HostingEnvironment.MapPath("~/App_Data/idp5.canadacentral.cloudapp.azure.com.cer")));
 
-            
-            
+
             var cbs = new IdentityProvider(
                 new EntityId("https://cbs-uat-cbs.securekey.com"), spOptions)
             {
@@ -78,11 +73,18 @@ namespace SamlOwin
             };
 
 
-            
             var gckey = new IdentityProvider(
                 new EntityId("https://te.clegc-gckey.gc.ca"), spOptions)
             {
                 MetadataLocation = HostingEnvironment.MapPath("~/App_Data/gckey-metadata-signed.xml")
+            };
+            
+            // can this be leveraged for global logout?
+            saml2Options.Notifications = new Saml2Notifications
+            {
+                // global logout hits this
+                LogoutCommandResultCreated = cr => { Console.WriteLine("LogoutCommandResultCreated"); },
+                SignInCommandResultCreated = (cr, r) => { Console.WriteLine("SignInCommandResultCreated"); },
             };
 
             saml2Options.IdentityProviders.Add(idp5);
@@ -138,31 +140,29 @@ namespace SamlOwin
 
         private static X509Certificate2 GetEncryptionCertificate()
         {
-            return FindFirstByFriendlyName("GCCF Encryption", "CN=dev-ep-pe, OU=csc-scc, O=GC, C=CA");
+            return FindFirstByFriendlyName("GCCF Encryption", "1CA-AC1");
         }
 
         private static X509Certificate2 GetSigninCertificate()
         {
-            return FindFirstByFriendlyName("GCCF Verification", "CN=dev-ep-pe, OU=csc-scc, O=GC, C=CA");
+            return FindFirstByFriendlyName("GCCF Verification", "1CA-AC1");
         }
 
-        private static X509Certificate2 FindFirstByFriendlyName(string friendlyName, string subjectName = null)
+        private static X509Certificate2 FindFirstByFriendlyName(string friendlyName, string issuerName = null)
         {
             var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
 
             store.Open(OpenFlags.ReadOnly);
 
-            var certificates = subjectName == null
+            var certificates = issuerName == null
                 ? store.Certificates
-                : store.Certificates.Find(X509FindType.FindByIssuerName, "1CA-AC1", false);
+                : store.Certificates.Find(X509FindType.FindByIssuerName, issuerName, false);
 
             foreach (var certificate in certificates)
             {
-                if (certificate.FriendlyName == friendlyName)
-                {
-                    store.Close();
-                    return certificate;
-                }
+                if (certificate.FriendlyName != friendlyName) continue;
+                store.Close();
+                return certificate;
             }
 
             store.Close();
