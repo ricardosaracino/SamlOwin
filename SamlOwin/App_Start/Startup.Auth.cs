@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
@@ -11,6 +12,7 @@ using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.Owin;
 using Sustainsys.Saml2.Saml2P;
+using Sustainsys.Saml2.WebSso;
 using XrmFramework;
 
 namespace SamlOwin
@@ -78,13 +80,27 @@ namespace SamlOwin
             {
                 MetadataLocation = HostingEnvironment.MapPath("~/App_Data/gckey-metadata-signed.xml")
             };
-            
+
             // can this be leveraged for global logout?
             saml2Options.Notifications = new Saml2Notifications
             {
-                // global logout hits this
-                LogoutCommandResultCreated = cr => { Console.WriteLine("LogoutCommandResultCreated"); },
-                SignInCommandResultCreated = (cr, r) => { Console.WriteLine("SignInCommandResultCreated"); },
+                GetBinding = (request) =>
+                {
+                    Console.WriteLine("GetBinding");
+
+                    if (request.Url.ToString() == "http://localhost:50229/api/saml/Acs")
+                    {
+                        return Saml2Binding.Get(Saml2BindingType.HttpPost);
+                    }
+
+                    var sessionIndex = request.User.Claims
+                        .Where(c => c.Type == "http://Sustainsys.se/Saml2/SessionIndex")
+                        .Select(c => c.Value).LastOrDefault();
+
+                    Console.WriteLine("LOGOUT Session {0}", sessionIndex);
+
+                    return null;
+                },
             };
 
             saml2Options.IdentityProviders.Add(idp5);
