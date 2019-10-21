@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Principal;
 using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using SamlOwin.ActionFilters;
 using SamlOwin.Identity;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.Configuration;
@@ -29,7 +32,7 @@ namespace SamlOwin
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 CookieSecure = CookieSecureOption.SameAsRequest,
-                ExpireTimeSpan = TimeSpan.FromMinutes(4),
+                ExpireTimeSpan = TimeSpan.FromMinutes(20),
                 SlidingExpiration = true,
                 Provider = new CookieAuthenticationProvider
                 {
@@ -81,26 +84,9 @@ namespace SamlOwin
                 MetadataLocation = HostingEnvironment.MapPath("~/App_Data/gckey-metadata-signed.xml")
             };
 
-            // can this be leveraged for global logout?
             saml2Options.Notifications = new Saml2Notifications
             {
-                GetBinding = (request) =>
-                {
-                    Console.WriteLine("GetBinding");
-
-                    if (request.Url.ToString() == "http://localhost:50229/api/saml/Acs")
-                    {
-                        return Saml2Binding.Get(Saml2BindingType.HttpPost);
-                    }
-
-                    var sessionIndex = request.User.Claims
-                        .Where(c => c.Type == "http://Sustainsys.se/Saml2/SessionIndex")
-                        .Select(c => c.Value).LastOrDefault();
-
-                    Console.WriteLine("LOGOUT Session {0}", sessionIndex);
-
-                    return null;
-                },
+                GetBinding = SessionActionFilter.GetSaml2Binding()
             };
 
             saml2Options.IdentityProviders.Add(idp5);

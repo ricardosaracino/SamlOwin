@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Caching;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SamlOwin.ActionFilters;
 using SamlOwin.Identity;
 
 namespace SamlOwin.Controllers
@@ -69,9 +72,11 @@ namespace SamlOwin.Controllers
 
             // If IsPersistent property of AuthenticationProperties is set to false, then the cookie expiration time is set to Session.
             var signInStatus = await SignInManager.ExternalSignInAsync(loginInfo, true);
-            
+
             // required for saml2 single sign out
             AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
+
+            SessionActionFilter.RegisterSession(loginInfo.ExternalIdentity);
 
             switch (signInStatus)
             {
@@ -106,13 +111,11 @@ namespace SamlOwin.Controllers
             // triggers the saml2 sign out
             AuthenticationManager.SignOut();
             
-            // Sets IsAuthenticated = false for CookieActionFilter
-            HttpContext.Current.User =
-                new GenericPrincipal(new GenericIdentity(string.Empty), null);
-
+            SessionActionFilter.DeregisterSession(HttpContext.Current.User as ClaimsPrincipal);
+            
             var response = Request.CreateResponse(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(returnUrl);
-            
+
             return response;
         }
 

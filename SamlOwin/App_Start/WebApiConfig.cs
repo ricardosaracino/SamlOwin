@@ -28,6 +28,7 @@ namespace SamlOwin
 
         private static void RegisterFilters(HttpConfiguration config)
         {
+            config.Filters.Add(new SessionActionFilter());
             config.Filters.Add(new CookieActionFilter());
         }   
         
