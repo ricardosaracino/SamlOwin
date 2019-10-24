@@ -1,104 +1,175 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.Caching;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.ServiceModel.PeerResolvers;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Microsoft.AspNet.Identity;
+using Serilog;
 using Sustainsys.Saml2.WebSso;
 
 namespace SamlOwin.ActionFilters
 {
-    public class SessionActionFilter : ActionFilterAttribute
+    /// <summary>
+    /// This mess is to accomodate the GCCF Global logout.
+    /// Long story short there is a session id in MemoryCache that is unset by a SOAP call back.
+    /// </summary>
+    public class SessionActionFilter : AuthorizationFilterAttribute, IAuthorizationFilter
     {
-        public override void OnActionExecuting(HttpActionContext actionContext)
+        // Saml2Namespaces.Saml2P
+        private const string ClaimTypeSessionIndex = "http://Sustainsys.se/Saml2/SessionIndex";
+        private const string LoginCallbackAbsolutePath = "/api/auth/loginCallback";
+        private const string LogoutCallbackAbsolutePath = "/api/saml/Logout";
+
+        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
+            CancellationToken cancellationToken,
+            Func<Task<HttpResponseMessage>> continuation)
         {
-            // not on login
-            if (actionContext.Request.RequestUri.ToString() != "http://localhost:50229/api/auth/loginCallback")
+            Log.Logger.Information("SessionActionFilter.ExecuteAuthorizationFilterAsync");
+
+            var doSignOut = false;
+            
+            if (HttpContext.Current.User.Identity is ClaimsIdentity identity)
             {
-                if (HttpContext.Current.User.Identity is ClaimsIdentity identity)
+                // NOT on LOGIN
+                if (actionContext.Request.RequestUri.AbsolutePath != LoginCallbackAbsolutePath)
                 {
                     var sessionIndex = identity.Claims
-                        .Where(c => c.Type == "http://Sustainsys.se/Saml2/SessionIndex")
+                        .Where(c => c.Type == ClaimTypeSessionIndex)
                         .Select(c => c.Value).LastOrDefault();
 
-                    if (sessionIndex == null || MemoryCache.Default.Get(sessionIndex) == null)
+                    if (sessionIndex != null && MemoryCache.Default.Get(sessionIndex) == null)
                     {
-                        HttpContext.Current.GetOwinContext().Authentication.SignOut();
+                        Log.Logger.Information(
+                            "SessionActionFilter.OnActionExecuting Unauthorized User {sessionIndex}", sessionIndex);
                         
                         HttpContext.Current.User =
                             new GenericPrincipal(new GenericIdentity(string.Empty), null);
+                        
+                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+                        
+                        // Getting message Authorization has been denied for this request.
+                        actionContext.Response.Content = new StringContent("{\"message\":\"Unauthorized\"}");
 
-                        Console.WriteLine("LOGOUT User {0}", sessionIndex);
+                        actionContext.Response.Content.Headers.ContentType =
+                            new MediaTypeHeaderValue("application/json");
+
+                        doSignOut = true;
                     }
                 }
             }
+            
+            var response = await continuation();
 
-            base.OnActionExecuting(actionContext);
+            if (doSignOut)
+            {           
+                Log.Logger.Information(
+                    "SessionActionFilter.OnActionExecuting Remove Application Cookie");
+                
+                var cookieHeaderValues = new List<CookieHeaderValue>()
+                {
+                    // manually remove the OWIN ApplicationCookie cookie
+                    new ExpiredCookeHeaderValue(".AspNet.ApplicationCookie")
+                };
+
+                // remove these too to be safe, i set the cache expiration low and these got out of sync
+                cookieHeaderValues.AddRange(CookieActionFilter.ClaimTypes
+                    .Select(claimType => new ExpiredCookeHeaderValue(claimType))
+                    .Cast<CookieHeaderValue>());
+                    
+                actionContext.Response.Headers.AddCookies(cookieHeaderValues);
+            }
+            else
+            {
+                ExtendSession(HttpContext.Current.User.Identity as ClaimsIdentity);
+            }
+            
+            return response;
+        }
+
+        private static void ExtendSession(ClaimsIdentity claimsIdentity)
+        {
+            Log.Logger.Information("SessionActionFilter.ExtendSession");
+
+            // actionContext.RequestContext.Principal.Identity.IsAuthenticated is true on logout
+            // so we need to call DeregisterSession
+
+            // claimsIdentity is null on AbsolutePath == LoginCallbackAbsolutePath
+            // // So we need to call RegisterSession
+
+            var sessionIndex = claimsIdentity?.Claims
+                .Where(c => c.Type == ClaimTypeSessionIndex)
+                .Select(c => c.Value).LastOrDefault();
+
+            if (sessionIndex == null) return;
+
+            MemoryCache.Default.Add(sessionIndex, $"Active_{sessionIndex}",
+                new DateTimeOffset(DateTime.Now.AddMinutes(
+                    Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"]))));
+
+            Log.Logger.Information(
+                "Extended Session {sessionIndex}", sessionIndex);
         }
 
         public static void RegisterSession(ClaimsIdentity claimsIdentity)
         {
-            var sessionIndex = claimsIdentity.Claims
-                .Where(c => c.Type == "http://Sustainsys.se/Saml2/SessionIndex")
-                .Select(c => c.Value).LastOrDefault();
-            
-            if (sessionIndex != null)
-            {
-                MemoryCache.Default.Add(sessionIndex, "", new DateTimeOffset(DateTime.Now.AddDays(1)));
-            }
-            
-            Console.WriteLine("LOGIN Session {0}", sessionIndex);
+            Log.Logger.Information("SessionActionFilter.RegisterSession");
+
+            ExtendSession(claimsIdentity);
         }
-        
-        public static void DeregisterSession(ClaimsPrincipal claimsIdentity)
+
+        public static void DeregisterSession()
         {
-            var sessionIndex = claimsIdentity.Claims
-                .Where(c => c.Type == "http://Sustainsys.se/Saml2/SessionIndex")
+            Log.Logger.Information("SessionActionFilter.DeregisterSession");
+
+            var sessionIndex = (HttpContext.Current.User as ClaimsPrincipal)?.Claims
+                .Where(c => c.Type == ClaimTypeSessionIndex)
                 .Select(c => c.Value).LastOrDefault();
-            
+
             if (sessionIndex != null)
             {
                 MemoryCache.Default.Remove(sessionIndex);
             }
-            
-            // Sets IsAuthenticated = false for CookieActionFilter
-            HttpContext.Current.User =
-                new GenericPrincipal(new GenericIdentity(string.Empty), null);
 
-            Console.WriteLine("LOGOUT Session {0}", sessionIndex);
+            Log.Logger.Information("DeregisterSession Logout Session {sessionIndex}", sessionIndex);
         }
-        
+
         public static Func<HttpRequestData, Saml2Binding> GetSaml2Binding()
         {
             return (request) =>
             {
-                Console.WriteLine("GetBinding");
+                Log.Logger.Information("SessionActionFilter.GetSaml2Binding {AbsolutePath} {Method}",
+                    request.Url.AbsolutePath,
+                    request.HttpMethod);
 
-                if (request.Url.ToString() == "http://localhost:50229/api/saml/Acs")
+                // SOAP Logout
+                if (request.Url.AbsolutePath == LogoutCallbackAbsolutePath && request.HttpMethod == "POST")
                 {
-                    return Saml2Binding.Get(Saml2BindingType.HttpPost);
+                    var sessionIndex = request.User.Claims
+                        .Where(c => c.Type == ClaimTypeSessionIndex)
+                        .Select(c => c.Value).LastOrDefault();
+
+                    if (sessionIndex != null)
+                    {
+                        MemoryCache.Default.Remove(sessionIndex);
+                    }
+
+                    Log.Logger.Information("GetSaml2Binding SOAP Logout {sessionIndex}", sessionIndex);
+
+                    // We got a saml logout... just let it do its thing
+                    return null;
                 }
 
-                var sessionIndex = request.User.Claims
-                    .Where(c => c.Type == "http://Sustainsys.se/Saml2/SessionIndex")
-                    .Select(c => c.Value).LastOrDefault();
-
-                request.User =
-                    new GenericPrincipal(new GenericIdentity(string.Empty), null);
-
-                if (sessionIndex != null)
-                {
-                    MemoryCache.Default.Remove(sessionIndex);
-                }
-
-                Console.WriteLine("LOGOUT Session {0}", sessionIndex);
-
-                return null;
+                //  Post Assertion (/api/saml/Acs)
+                return Saml2Binding.Get(request);
             };
         }
     }

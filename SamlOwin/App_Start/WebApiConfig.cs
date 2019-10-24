@@ -1,7 +1,11 @@
-﻿using System.Web.Http;
+﻿using System.Diagnostics;
+using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SamlOwin.ActionFilters;
+using Serilog;
+using Serilog.Events;
 
 namespace SamlOwin
 {
@@ -13,8 +17,10 @@ namespace SamlOwin
             RegisterFormatters(config);
             
             RegisterFilters(config);
+            
+            RegisterLogger();
 
-            // config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -38,6 +44,14 @@ namespace SamlOwin
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             jsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+        }
+
+        private static void RegisterLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.ColoredConsole(LogEventLevel.Debug)
+                
+                .CreateLogger();
         }
     }
 }

@@ -75,7 +75,7 @@ namespace SamlOwin.Controllers
 
             // required for saml2 single sign out
             AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
-
+            
             SessionActionFilter.RegisterSession(loginInfo.ExternalIdentity);
 
             switch (signInStatus)
@@ -111,7 +111,10 @@ namespace SamlOwin.Controllers
             // triggers the saml2 sign out
             AuthenticationManager.SignOut();
             
-            SessionActionFilter.DeregisterSession(HttpContext.Current.User as ClaimsPrincipal);
+            // Dont clear Current.User needed for sign out
+            SessionActionFilter.DeregisterSession();
+            
+            // TODO CookieActionFilter clears application cookies where AbsolutePath == /api/uth/logout
             
             var response = Request.CreateResponse(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(returnUrl);

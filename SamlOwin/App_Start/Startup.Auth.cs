@@ -32,17 +32,13 @@ namespace SamlOwin
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 CookieSecure = CookieSecureOption.SameAsRequest,
-                ExpireTimeSpan = TimeSpan.FromMinutes(20),
+                ExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"])),
                 SlidingExpiration = true,
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = ApplicationCookieValidateIdentityContext.ApplicationValidateIdentity
                 }
             });
-
-            // todo global sign out session ?
-            // todo sign out of idp on expire
-            // todo redirects on expire
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
