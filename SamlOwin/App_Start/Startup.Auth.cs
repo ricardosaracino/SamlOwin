@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Configuration;
-using System.Linq;
-using System.Runtime.Caching;
 using System.Security.Cryptography.X509Certificates;
-using System.Security.Principal;
 using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using SamlOwin.ActionFilters;
 using SamlOwin.Identity;
+using SamlOwin.Models;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.Owin;
 using Sustainsys.Saml2.Saml2P;
-using Sustainsys.Saml2.WebSso;
 using XrmFramework;
 
 namespace SamlOwin
@@ -25,7 +23,12 @@ namespace SamlOwin
         private static void ConfigureAuth(IAppBuilder app)
         {
             app.CreatePerOwinContext(() => XrmService.Create(ConfigurationManager.AppSettings["CrmConnectionString"]));
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            
+            app.CreatePerOwinContext<ApplicationUserManager>((options, context) => new ApplicationUserManager(new PortalUserStore<ApplicationUser>(context.Get<XrmService>()))
+            {
+                ClaimsIdentityFactory = new ApplicationClaimsIdentityFactory()
+            });
+            
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -34,6 +37,7 @@ namespace SamlOwin
                 CookieSecure = CookieSecureOption.SameAsRequest,
                 ExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"])),
                 SlidingExpiration = true,
+                CookieName = ConfigurationManager.AppSettings["ApplicationCookieName"],
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = ApplicationCookieValidateIdentityContext.ApplicationValidateIdentity

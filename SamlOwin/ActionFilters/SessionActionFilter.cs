@@ -77,13 +77,12 @@ namespace SamlOwin.ActionFilters
                 var cookieHeaderValues = new List<CookieHeaderValue>()
                 {
                     // manually remove the OWIN ApplicationCookie cookie
-                    new ExpiredCookeHeaderValue(".AspNet.ApplicationCookie")
+                    new ExpiredCookeHeaderValue(ConfigurationManager.AppSettings["ApplicationCookieName"])
                 };
 
                 // remove these too to be safe, i set the cache expiration low and these got out of sync
                 cookieHeaderValues.AddRange(CookieActionFilter.ClaimTypes
-                    .Select(claimType => new ExpiredCookeHeaderValue(claimType))
-                    .Cast<CookieHeaderValue>());
+                    .Select(claimType => new ExpiredCookeHeaderValue(claimType)));
                     
                 actionContext.Response.Headers.AddCookies(cookieHeaderValues);
             }
@@ -116,7 +115,7 @@ namespace SamlOwin.ActionFilters
                     Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"]))));
 
             Log.Logger.Information(
-                "Extended Session {sessionIndex}", sessionIndex);
+                "SessionActionFilter.OnActionExecuting Extended Session {sessionIndex}", sessionIndex);
         }
 
         public static void RegisterSession(ClaimsIdentity claimsIdentity)
@@ -139,7 +138,7 @@ namespace SamlOwin.ActionFilters
                 MemoryCache.Default.Remove(sessionIndex);
             }
 
-            Log.Logger.Information("DeregisterSession Logout Session {sessionIndex}", sessionIndex);
+            Log.Logger.Information("SessionActionFilter.DeregisterSession Logout Session {sessionIndex}", sessionIndex);
         }
 
         public static Func<HttpRequestData, Saml2Binding> GetSaml2Binding()
@@ -162,7 +161,7 @@ namespace SamlOwin.ActionFilters
                         MemoryCache.Default.Remove(sessionIndex);
                     }
 
-                    Log.Logger.Information("GetSaml2Binding SOAP Logout {sessionIndex}", sessionIndex);
+                    Log.Logger.Information("SessionActionFilter.GetSaml2Binding SOAP Logout {sessionIndex}", sessionIndex);
 
                     // We got a saml logout... just let it do its thing
                     return null;

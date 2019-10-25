@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using SamlOwin.Models;
 
 namespace SamlOwin.Identity
 {

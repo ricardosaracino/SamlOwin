@@ -353,10 +353,11 @@
     <Compile Include="Identity\ApplicationClaimsIdentityFactory.cs" />
     <Compile Include="Identity\ApplicationCookieValidateIdentityContext.cs" />
     <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\AbstractStore.cs" />
-    <Compile Include="Models\UserStore.cs" />
+    <Compile Include="Identity\ApplicationUserStore.cs" />
+    <Compile Include="Models\PortalUser.cs" />
+    <Compile Include="Models\PortalUserStore.cs" />
     <Compile Include="Models\Volunteer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

@@ -4,7 +4,7 @@ using XrmFramework.Attributes;
 namespace SamlOwin.Models
 {    
     [Entity("csc_volunteer")]
-    public class Volunteer
+    public sealed class Volunteer
     {
         [Id] 
         [Column("csc_volunteerid")] 

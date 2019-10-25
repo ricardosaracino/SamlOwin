@@ -3,13 +3,13 @@
 namespace XrmFramework.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class EntityAttribute : Attribute
+    public sealed class EntityAttribute : Attribute
     {
         public EntityAttribute(string entityName)
         {
-            this.EntityName = entityName;
+            EntityName = entityName;
         }
 
-        public virtual string EntityName { get; }
+        public string EntityName { get; }
     }
 }

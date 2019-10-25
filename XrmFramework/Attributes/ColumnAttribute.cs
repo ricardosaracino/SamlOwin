@@ -3,7 +3,7 @@
 namespace XrmFramework.Attributes
 {
     // [AttributeUsage(AttributeTargets.Field | AttributeTargets.Method)]
-    public class ColumnAttribute : Attribute
+    public sealed class ColumnAttribute : Attribute
     {
         // logicalName
 
@@ -13,14 +13,14 @@ namespace XrmFramework.Attributes
 
         public ColumnAttribute(string logicalName)
         {
-            this.LogicalName = logicalName;
+            LogicalName = logicalName;
         }
 
-        public virtual string LogicalName { get; }
+        public string LogicalName { get; }
 
-        public virtual int Length { get; set; }
+        public int Length { get; set; }
 
-        public virtual string AttributeType { get; set; }
+        public string AttributeType { get; set; }
     }
 }
 

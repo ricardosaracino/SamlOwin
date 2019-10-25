@@ -1,19 +1,20 @@
-﻿using System;
-using System.Configuration;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
-using SamlOwin.Models;
 
 namespace SamlOwin.Identity
 {
     public static class ApplicationCookieValidateIdentityContext
     {
+        /// <summary>
+        /// Not Called on Login
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public static Task ApplicationValidateIdentity(CookieValidateIdentityContext context)
         {
             // https://stackoverflow.com/questions/23090706/how-to-know-when-owin-cookie-will-expire
+            // https://stackoverflow.com/questions/41397898/owin-cookieauthentication-onvalidateidentity-doesnt-call-regenerateidentitycall
             
             var identity = context.Identity;
             

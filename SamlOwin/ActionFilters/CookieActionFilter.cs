@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Caching;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Microsoft.AspNet.Identity;
@@ -31,7 +28,7 @@ namespace SamlOwin.ActionFilters
 
     internal class SessionCookeHeaderValue : CookieHeaderValue
     {
-        public SessionCookeHeaderValue(string name, string value, DateTimeOffset expires) : base(name, value)
+        public SessionCookeHeaderValue(string name, string value, DateTimeOffset? expires = null) : base(name, value)
         {
             Expires = expires;
             HttpOnly = false;
@@ -46,8 +43,8 @@ namespace SamlOwin.ActionFilters
 
         public static readonly string[] ClaimTypes =
         {
-            "expiresAt", "volunteer.id", "volunteer.canApplyCac", "volunteer.canApplyCsc",
-            "volunteer.canApplyReac", "volunteer.emailVerified"
+            "session.expiresAt", "session.authenticated", "volunteer.id", "volunteer.canApplyCac",
+            "volunteer.canApplyCsc", "volunteer.canApplyReac", "volunteer.emailVerified"
         };
 
         public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
@@ -55,8 +52,6 @@ namespace SamlOwin.ActionFilters
             Func<Task<HttpResponseMessage>> continuation)
         {
             Log.Logger.Information("CookieActionFilter.ExecuteAuthorizationFilterAsync");
-
-            // actionContext.RequestContext.Principal.Identity.IsAuthenticated is true on logout
 
             var response = await continuation();
 
@@ -68,33 +63,32 @@ namespace SamlOwin.ActionFilters
             var cookieHeaderValues = new List<CookieHeaderValue>();
 
             if (identity != null && identity.IsAuthenticated &&
+                // if logout clear cookies the identity is still set until Owin clears it
                 actionContext.Request.RequestUri.AbsolutePath != LogoutAbsolutePath)
             {
+                // make sure its defaulted because the claim is not set on the login callback
                 var expires = DateTimeOffset.Now.AddMinutes(
                     Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"]));
 
-                // if logout clear cookies
+
                 if (identity.HasClaim(c => c.Type == "expires"))
                 {
                     expires = DateTimeOffset.Parse(identity.FindFirstValue("expires"));
                 }
 
-                cookieHeaderValues.Add(new SessionCookeHeaderValue("expiresAt", expires.ToString("O"), expires));
+                cookieHeaderValues.Add(new SessionCookeHeaderValue("session.expiresAt", expires.ToString("O"),
+                    expires));
 
-                foreach (var claimType in ClaimTypes)
-                {
-                    // if logout clear cookies
-                    if (identity.HasClaim(c => c.Type == claimType))
-                    {
-                        var claimValue = identity.FindFirstValue(claimType);
-                        cookieHeaderValues.Add(new SessionCookeHeaderValue(claimType, claimValue, expires));
-                    }
-                }
+                cookieHeaderValues.Add(new SessionCookeHeaderValue("session.authenticated", "1", expires));
+
+                cookieHeaderValues.AddRange(
+                    (from claimType in ClaimTypes
+                        where identity.HasClaim(c => c.Type == claimType)
+                        select new SessionCookeHeaderValue(claimType, identity.FindFirstValue(claimType), expires)));
             }
             else
             {
-                cookieHeaderValues.AddRange(ClaimTypes.Select(claimType => new ExpiredCookeHeaderValue(claimType))
-                    .Cast<CookieHeaderValue>());
+                cookieHeaderValues.AddRange(ClaimTypes.Select(claimType => new ExpiredCookeHeaderValue(claimType)));
             }
 
             response.Headers.AddCookies(cookieHeaderValues);

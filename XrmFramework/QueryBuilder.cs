@@ -5,7 +5,7 @@ using XrmFramework.Attributes;
 
 namespace XrmFramework
 {
-    public class QueryBuilder
+    public static class QueryBuilder
     {
         public static QueryExpression Build<T>()
         {
@@ -35,14 +35,16 @@ namespace XrmFramework
             queryExpression.ColumnSet = columnSet;
 
             queryExpression.AddOrder("createdon", OrderType.Descending);
+            queryExpression.AddOrder("createdon", OrderType.Descending);
 
+            
             return queryExpression;
         }
 
         // TODO Depth in LinkAnnotation
         // TODO OrderBy in LinkAnnotation
 
-        public static LinkEntity BuildLinkEntity(string linkFromEntityName, PropertyInfo fromProperty,
+        private static LinkEntity BuildLinkEntity(string linkFromEntityName, PropertyInfo fromProperty,
             string aliasPrefix = "", int depth = 1)
         {
             var linkEntity = new LinkEntity

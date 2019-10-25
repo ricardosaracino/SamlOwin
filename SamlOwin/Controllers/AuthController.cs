@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Caching;
-using System.Security.Claims;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -113,8 +110,6 @@ namespace SamlOwin.Controllers
             
             // Dont clear Current.User needed for sign out
             SessionActionFilter.DeregisterSession();
-            
-            // TODO CookieActionFilter clears application cookies where AbsolutePath == /api/uth/logout
             
             var response = Request.CreateResponse(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(returnUrl);
