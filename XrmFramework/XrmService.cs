@@ -9,7 +9,7 @@ namespace XrmFramework
 {
     public class XrmService: IDisposable
     {
-        private static CrmServiceClient _client;
+        public static CrmServiceClient _client;
 
         public void Dispose()
         {

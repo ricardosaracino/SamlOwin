@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SamlOwin.Identity
 {
-    public abstract class ApplicationUser : IUser<Guid>
+    public abstract class ApplicationUserd : IUser<Guid>
     {
         public abstract Guid Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace SamlOwin.Identity
         
         public List<string> Roles { get; set; }
 
-        public abstract Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager);
+        public abstract Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUserd, Guid> manager);
 
         public void AddRole(string role)
         {

@@ -1,35 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Security.Claims;
+using System.ServiceModel.Description;
 using System.Threading.Tasks;
+using CrmEarlyBound;
 using Microsoft.AspNet.Identity;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Tooling.Connector;
 using SamlOwin.Identity;
-using XrmFramework;
+using Serilog;
+using Serilog.Core;
 
 namespace SamlOwin.Models
 {
     public sealed class PortalUserStore<TUser> : ApplicationUserStore<TUser> where TUser : ApplicationUser
     {
-        private readonly XrmService _xrm;
+        private readonly CrmServiceClient client;
 
-        public PortalUserStore(XrmService xrm)
+        // https://github.com/poloagustin/poloagustin-bsv/blob/master/ACCENDO/Accendo.DynamicsIntegration.Crm/Accendo.DynamicsIntegration.Crm2015/CrmConfiguration.cs
+        // https://github.com/poloagustin/poloagustin-bsv/blob/master/ACCENDO/Accendo.DynamicsIntegration.Crm/Accendo.DynamicsIntegration.Crm2015/app.config
+        public OrganizationServiceProxy GetProxy()
         {
-            _xrm = xrm;
+            var credentials = new ClientCredentials()
+            {
+                UserName =
+                {
+                    UserName = "CRM365.service@053gc.onmicrosoft.com", Password = "3wQMTD8G3577yA2BdDa7zD4IV7bRj6Jp3"
+                }
+            };
+
+            return new OrganizationServiceProxy(
+                new Uri("https://dev-csc-scc.crm3.dynamics.com/XRMServices/2011/Organization.svc"), null, credentials,
+                null);
+        }
+
+
+        public PortalUserStore(CrmServiceClient client)
+        {
+            this.client = client;
         }
 
         public override Task<TUser> FindAsync(UserLoginInfo login)
         {
-            // TODO refactor
-            var queryExpression = _xrm.BuildQuery<PortalUser>();
+            var query = new QueryExpression
+            {
+                EntityName = csc_PortalUser.EntityLogicalName,
+                ColumnSet = new ColumnSet(true),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression()
+                        {
+                            AttributeName = "csc_providerkey",
+                            Operator = ConditionOperator.Equal,
+                            Values = {login.ProviderKey}
+                        }
+                    }
+                },
+                LinkEntities =
+                {
+                    new LinkEntity(csc_PortalUser.EntityLogicalName, csc_Volunteer.EntityLogicalName, "csc_volunteer",
+                        "csc_volunteer", JoinOperator.LeftOuter)
+                }
+            };
 
-            queryExpression.Criteria.AddCondition(new ConditionExpression("csc_providerkey", ConditionOperator.Equal,
-                login.ProviderKey));
+            try
+            {
+                using (var serviceProxy = GetProxy())
+                {
+                    serviceProxy.EnableProxyTypes();
 
-            var user = _xrm.FindFirst<PortalUser>(queryExpression);
+                    var service = (IOrganizationService) serviceProxy;
 
-            // TODO why the cast
-            return Task.FromResult(user as TUser);
+                    var entity = service.RetrieveMultiple(query)
+                        .Entities
+                        .Select(e => e.ToEntity<ApplicationUser>())
+                        .First();
+
+
+                    //entity.csc_LastLoginDate = DateTime.Now;
+
+                    //serviceProxy.Update(entity);
+
+
+                    /*var entity = client.RetrieveMultiple(query)
+                        .Entities
+                        .Select(e => e.ToEntity<ApplicationUser>())
+                        .First();
+                    
+                    return Task.FromResult(entity as TUser);*/
+
+
+                    /*var portalUser = new csc_PortalUser()
+                    {
+                        csc_LoginProvider = login.LoginProvider
+                    };
+
+                    service.Create(portalUser);*/
+
+
+                    var context =
+                        new OrganizationServiceContext(service);
+
+                    context.LoadProperty(entity, "csc_Volunteer");
+
+                  //  csc_PortalUser portalUser = context..Where(c => c.FirstName == "Pamela").FirstOrDefault();
+
+                    return Task.FromResult(entity as TUser);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.Message);
+            }
+
+            return Task.FromResult(null as TUser);
         }
 
         public override Task<IList<Claim>> GetClaimsAsync(TUser user)
@@ -40,16 +131,31 @@ namespace SamlOwin.Models
 
         public override Task<TUser> FindByIdAsync(Guid userId)
         {
-            // TODO refactor
-            var queryExpression = _xrm.BuildQuery<PortalUser>();
+            try
+            {
+                using (var serviceProxy = GetProxy())
+                {
+                    serviceProxy.EnableProxyTypes();
 
-            queryExpression.Criteria.AddCondition(new ConditionExpression("csc_portaluserid", ConditionOperator.Equal,
-                userId));
+                    var service = (IOrganizationService) serviceProxy;
 
-            var user = _xrm.FindFirst<PortalUser>(queryExpression);
+                    var entity = service.Retrieve(csc_PortalUser.EntityLogicalName, userId,
+                            new ColumnSet(true))
+                        .ToEntity<ApplicationUser>();
 
-            // TODO why the cast
-            return Task.FromResult(user as TUser);
+                    //entity.csc_LastLoginDate = DateTime.Now;
+
+                    //serviceProxy.Update(entity);
+
+                    return Task.FromResult(entity as TUser);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.Message);
+            }
+
+            return Task.FromResult(null as TUser);
         }
     }
 }
