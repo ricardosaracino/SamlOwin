@@ -30,7 +30,7 @@ namespace SamlOwin.Models
             {
                 UserName =
                 {
-                    UserName = "CRM365.service@053gc.onmicrosoft.com", Password = "3wQMTD8G3577yA2BdDa7zD4IV7bRj6Jp3"
+                    UserName = "CRM365.service@053gc.onmicrosoft.com", Password = ""
                 }
             };
 
