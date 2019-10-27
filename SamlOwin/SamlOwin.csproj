@@ -350,11 +350,12 @@
   <ItemGroup>
     <Compile Include="ActionFilters\CookieActionFilter.cs" />
     <Compile Include="ActionFilters\SessionActionFilter.cs" />
-    <Compile Include="App_Start\AutoMapperConfiguration.cs" />
+    <Compile Include="App_Start\AutoMapperProvider.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="CrmEarlyBound\CrmServiceContext.cs" />
     <Compile Include="CrmEarlyBound\csc_PortalUser.cs" />
     <Compile Include="CrmEarlyBound\csc_Volunteer.cs" />

@@ -15,34 +15,15 @@ namespace SamlOwin.Controllers
 {
     public class AuthController : ApiController
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private readonly ApplicationSignInManager _signInManager;
 
         public AuthController()
         {
-        }
-
-        public AuthController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        private ApplicationSignInManager SignInManager
-        {
-            get => _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
-            set => _signInManager = value;
-        }
-
-        private ApplicationUserManager UserManager
-        {
-            get => _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            set => _userManager = value;
+            _signInManager = HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
         }
 
         private static IAuthenticationManager AuthenticationManager =>
             HttpContext.Current.GetOwinContext().Authentication;
-
 
         [AllowAnonymous]
         [HttpGet]
@@ -68,11 +49,11 @@ namespace SamlOwin.Controllers
             }
 
             // If IsPersistent property of AuthenticationProperties is set to false, then the cookie expiration time is set to Session.
-            var signInStatus = await SignInManager.ExternalSignInAsync(loginInfo, true);
+            var signInStatus = await _signInManager.ExternalSignInAsync(loginInfo, true);
 
             // required for saml2 single sign out
             AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
-            
+
             SessionActionFilter.RegisterSession(loginInfo.ExternalIdentity);
 
             switch (signInStatus)
@@ -107,10 +88,10 @@ namespace SamlOwin.Controllers
         {
             // triggers the saml2 sign out
             AuthenticationManager.SignOut();
-            
+
             // Dont clear Current.User needed for sign out
             SessionActionFilter.DeregisterSession();
-            
+
             var response = Request.CreateResponse(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(returnUrl);
 

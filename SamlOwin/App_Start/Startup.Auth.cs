@@ -7,7 +7,6 @@ using CrmEarlyBound;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Owin;
 using SamlOwin.ActionFilters;
@@ -18,7 +17,6 @@ using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.Owin;
 using Sustainsys.Saml2.Saml2P;
-using XrmFramework;
 using IdentityProvider = Sustainsys.Saml2.IdentityProvider;
 
 namespace SamlOwin
