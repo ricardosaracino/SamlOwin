@@ -12,9 +12,9 @@ using Serilog;
 
 namespace SamlOwin.Models
 {
-    public class cscPortalUserToPortalUser : Profile
+    public class PortalUserEntityToPortalUserModel : Profile
     {
-        public cscPortalUserToPortalUser()
+        public PortalUserEntityToPortalUserModel()
         {
             CreateMap<csc_PortalUser, PortalUser>()
                 .ForMember(dest => dest.LoginProvider, opt => opt.MapFrom(s => s.csc_LoginProvider))
@@ -23,9 +23,9 @@ namespace SamlOwin.Models
         }
     }
 
-    public class cscVolunteerToVolunteer : Profile
+    public class VolunteerEntityToVolunteerModel : Profile
     {
-        public cscVolunteerToVolunteer()
+        public VolunteerEntityToVolunteerModel()
         {
             // todo vol id is not set correctly
             CreateMap<csc_Volunteer, Volunteer>()
@@ -60,8 +60,8 @@ namespace SamlOwin.Models
             if (result == null) return Task.FromResult(null as TUser);
 
             var cfg = new MapperConfigurationExpression();
-            cfg.AddProfile<cscPortalUserToPortalUser>();
-            cfg.AddProfile<cscVolunteerToVolunteer>();
+            cfg.AddProfile<PortalUserEntityToPortalUserModel>();
+            cfg.AddProfile<VolunteerEntityToVolunteerModel>();
             var mapperConfig = new MapperConfiguration(cfg);
             IMapper mapper = new Mapper(mapperConfig);
 
@@ -98,8 +98,8 @@ namespace SamlOwin.Models
             if (result == null) return Task.FromResult(null as TUser);
 
             var cfg = new MapperConfigurationExpression();
-            cfg.AddProfile<cscPortalUserToPortalUser>();
-            cfg.AddProfile<cscVolunteerToVolunteer>();
+            cfg.AddProfile<PortalUserEntityToPortalUserModel>();
+            cfg.AddProfile<VolunteerEntityToVolunteerModel>();
             var mapperConfig = new MapperConfiguration(cfg);
             IMapper mapper = new Mapper(mapperConfig);
 
