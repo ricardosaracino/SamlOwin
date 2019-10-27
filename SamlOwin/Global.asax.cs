@@ -1,11 +1,11 @@
 ﻿
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace SamlOwin
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {

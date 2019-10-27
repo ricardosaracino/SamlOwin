@@ -350,6 +350,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="CrmEarlyBound\CrmServiceContext.cs" />
     <Compile Include="CrmEarlyBound\csc_PortalUser.cs" />
     <Compile Include="CrmEarlyBound\csc_Volunteer.cs" />
     <Compile Include="Global.asax.cs">

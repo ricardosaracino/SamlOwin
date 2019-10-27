@@ -1,46 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CrmEarlyBound;
 using Microsoft.AspNet.Identity;
-using Microsoft.Xrm.Sdk.Query;
 using SamlOwin.Identity;
-using XrmFramework.Attributes;
 
 namespace SamlOwin.Models
 {
-    [Entity("csc_portaluser")]
-    public class ApplicationUser : csc_PortalUser, IUser<Guid>
+    public sealed class PortalUser : ApplicationUser
     {
+        public override Guid Id { get; set; }
 
-        public string UserName { get; set; }
-        
-        public List<string> Roles { get; set; }
-        
-        public void AddRole(string role)
-        {
-            Roles.Add(role);
-        }
+        public override string UserName { get; set; }
 
-        public void RemoveRole(string role)
-        {
-            Roles.Remove(role);
-        }
-    
+        public string ProviderKey { get; set; }
+
+        public string LoginProvider { get; set; }
+
+        public Volunteer Volunteer { get; set; }
         
-        public  async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager)
+        public override async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             
-            /*
-            if (csc_Volunteer?.Id != null)
+            if (Volunteer?.Id != null)
             {
-                userIdentity.AddClaim(new Claim("volunteer.id", csc_Volunteer.Id.ToString()));
+                userIdentity.AddClaim(new Claim("volunteer.id", Volunteer.Id.ToString()));
             }
 
-            if (csc_Volunteer.CanApplyCac == true)
+            if (Volunteer?.CanApplyCac == true)
             {
                 userIdentity.AddClaim(new Claim("volunteer.canApplyCac", "1"));
             }
@@ -58,7 +46,7 @@ namespace SamlOwin.Models
             if (Volunteer?.EmailVerifiedOn != null)
             {
                 userIdentity.AddClaim(new Claim("volunteer.emailVerified", "1"));
-            }*/
+            }
             
             return userIdentity;
         }

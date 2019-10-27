@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Configuration;
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel.Description;
 using System.Web.Hosting;
+using CrmEarlyBound;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Xrm.Tooling.Connector;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Client;
 using Owin;
 using SamlOwin.ActionFilters;
 using SamlOwin.Identity;
@@ -16,6 +19,7 @@ using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.Owin;
 using Sustainsys.Saml2.Saml2P;
 using XrmFramework;
+using IdentityProvider = Sustainsys.Saml2.IdentityProvider;
 
 namespace SamlOwin
 {
@@ -24,26 +28,39 @@ namespace SamlOwin
         private static void ConfigureAuth(IAppBuilder app)
         {
             app.CreatePerOwinContext(() =>
-            {
-                var client = new CrmServiceClient(ConfigurationManager.AppSettings["CrmConnectionString"]);
+                {
+                    var credentials = new ClientCredentials()
+                    {
+                        UserName =
+                        {
+                            UserName = "CRM365.service@053gc.onmicrosoft.com", Password = ""
+                        }
+                    };
 
-                client.OrganizationServiceProxy.EnableProxyTypes();
+                    var serviceProxy = new OrganizationServiceProxy(
+                        new Uri("https://dev-csc-scc.crm3.dynamics.com/XRMServices/2011/Organization.svc"), null, credentials,
+                        null);
+                    
+                    serviceProxy.EnableProxyTypes();
 
-                return client;
-            });
-            
-            app.CreatePerOwinContext<ApplicationUserManager>((options, context) => new ApplicationUserManager(new PortalUserStore<ApplicationUser>(context.Get<CrmServiceClient>()))
-            {
-                ClaimsIdentityFactory = new ApplicationClaimsIdentityFactory()
-            });
-            
+                    return new CrmServiceContext((IOrganizationService) serviceProxy);
+                }
+            );
+
+            app.CreatePerOwinContext<ApplicationUserManager>((options, context) =>
+                new ApplicationUserManager(new PortalUserStore<ApplicationUser>(context.Get<CrmServiceContext>()))
+                {
+                    ClaimsIdentityFactory = new ApplicationClaimsIdentityFactory()
+                });
+
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 CookieSecure = CookieSecureOption.SameAsRequest,
-                ExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"])),
+                ExpireTimeSpan =
+                    TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"])),
                 SlidingExpiration = true,
                 CookieName = ConfigurationManager.AppSettings["ApplicationCookieName"],
                 Provider = new CookieAuthenticationProvider

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using SamlOwin;
 
-[assembly: OwinStartupAttribute(typeof(SamlOwin.Startup))]
+[assembly: OwinStartupAttribute(typeof(Startup))]
 namespace SamlOwin
 {
     public partial class Startup
