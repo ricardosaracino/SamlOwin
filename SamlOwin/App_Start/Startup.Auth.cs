@@ -29,21 +29,22 @@ namespace SamlOwin
         {
             app.CreatePerOwinContext(() =>
                 {
-                    var credentials = new ClientCredentials()
-                    {
-                        UserName =
-                        {
-                            UserName = "CRM365.service@053gc.onmicrosoft.com", Password = ""
-                        }
-                    };
-
                     var serviceProxy = new OrganizationServiceProxy(
-                        new Uri("https://dev-csc-scc.crm3.dynamics.com/XRMServices/2011/Organization.svc"), null, credentials,
+                        new Uri(ConfigurationManager.AppSettings["CrmUri"]),
+                        null,
+                        new ClientCredentials()
+                        {
+                            UserName =
+                            {
+                                UserName = ConfigurationManager.AppSettings["CrmUserName"],
+                                Password = ConfigurationManager.AppSettings["CrmPassword"]
+                            }
+                        },
                         null);
-                    
+
                     serviceProxy.EnableProxyTypes();
 
-                    return new CrmServiceContext((IOrganizationService) serviceProxy);
+                    return new CrmServiceContext(serviceProxy);
                 }
             );
 

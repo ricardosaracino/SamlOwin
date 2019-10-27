@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.Configuration;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity;
 using SamlOwin.Identity;
@@ -10,6 +12,31 @@ using Serilog;
 
 namespace SamlOwin.Models
 {
+    public class cscPortalUserToPortalUser : Profile
+    {
+        public cscPortalUserToPortalUser()
+        {
+            CreateMap<csc_PortalUser, PortalUser>()
+                .ForMember(dest => dest.LoginProvider, opt => opt.MapFrom(s => s.csc_LoginProvider))
+                .ForMember(dest => dest.ProviderKey, opt => opt.MapFrom(s => s.csc_ProviderKey))
+                ;
+        }
+    }
+
+    public class cscVolunteerToVolunteer : Profile
+    {
+        public cscVolunteerToVolunteer()
+        {
+            // todo vol id is not set correctly
+            CreateMap<csc_Volunteer, Volunteer>()
+                .ForMember(dest => dest.CanApplyCac, opt => opt.MapFrom(s => s.csc_IsCACVolunteer))
+                .ForMember(dest => dest.CanApplyReac, opt => opt.MapFrom(s => s.csc_IsREACVolunteer))
+                .ForMember(dest => dest.CanApplyCsc, opt => opt.MapFrom(s => s.csc_IsCSCVolunteer))
+                .ForMember(dest => dest.EmailVerifiedOn, opt => opt.MapFrom(s => s.csc_EmailVerifiedOn))
+                ;
+        }
+    }
+
     public sealed class PortalUserStore<TUser> : ApplicationUserStore<TUser> where TUser : ApplicationUser
     {
         private readonly CrmServiceContext _ctx;
@@ -26,40 +53,30 @@ namespace SamlOwin.Models
             var queryable = from cscPortalUser in _ctx.csc_PortalUserSet
                 join cscVolunteer in _ctx.csc_VolunteerSet on cscPortalUser.csc_Volunteer.Id equals cscVolunteer.Id
                 where cscPortalUser.csc_ProviderKey.Contains(login.ProviderKey)
-                select new PortalUser()
-                {
-                    Id = cscPortalUser.Id,
-                    LoginProvider = cscPortalUser.csc_LoginProvider,
-                    ProviderKey = cscPortalUser.csc_ProviderKey,
-                    Volunteer = new Volunteer()
-                    {
-                        Id = cscVolunteer.Id,
-                        CanApplyCac = cscVolunteer.csc_IsCACVolunteer,
-                        CanApplyReac = cscVolunteer.csc_IsREACVolunteer,
-                        CanApplyCsc = cscVolunteer.csc_IsCSCVolunteer,
-                        EmailVerifiedOn = cscVolunteer.csc_EmailVerifiedOn,
-                    }
-                };
-
-            return Task.FromResult(queryable.FirstOrDefault() as TUser);
-                /*select new {cscPortalUser = pu, cscVolunteer = v};
+                select new {cscPortalUser, cscVolunteer};
 
             var result = queryable.FirstOrDefault();
 
-            if (result == null)
-                return Task.FromResult(null as TUser);
+            if (result == null) return Task.FromResult(null as TUser);
 
-            var cscPortalUser = result.cscPortalUser;
+            var cfg = new MapperConfigurationExpression();
+            cfg.AddProfile<cscPortalUserToPortalUser>();
+            cfg.AddProfile<cscVolunteerToVolunteer>();
+            var mapperConfig = new MapperConfiguration(cfg);
+            IMapper mapper = new Mapper(mapperConfig);
 
-            _ctx.Attach(cscPortalUser);
+            var portalUser = mapper.Map<PortalUser>(result.cscPortalUser);
+            portalUser.Volunteer = mapper.Map<Volunteer>(result.cscVolunteer);
 
-            cscPortalUser.csc_LastLoginDate = DateTime.Now.AddDays(3);
+            _ctx.Attach(result.cscPortalUser);
 
-            _ctx.UpdateObject(cscPortalUser);
+            result.cscPortalUser.csc_LastLoginDate = DateTime.Now.AddDays(3);
+
+            _ctx.UpdateObject(result.cscPortalUser);
 
             _ctx.SaveChanges();
 
-            return Task.FromResult(Transformer.GetModel<PortalUser>(cscPortalUser) as TUser);*/
+            return Task.FromResult(portalUser as TUser);
         }
 
         public override Task<IList<Claim>> GetClaimsAsync(TUser user)
@@ -74,22 +91,22 @@ namespace SamlOwin.Models
             var queryable = from cscPortalUser in _ctx.csc_PortalUserSet
                 join cscVolunteer in _ctx.csc_VolunteerSet on cscPortalUser.csc_Volunteer.Id equals cscVolunteer.Id
                 where cscPortalUser.csc_PortalUserId.Equals(userId)
-                select new PortalUser()
-                {
-                    Id = cscPortalUser.Id,
-                    LoginProvider = cscPortalUser.csc_LoginProvider,
-                    ProviderKey = cscPortalUser.csc_ProviderKey,
-                    Volunteer = new Volunteer()
-                    {
-                        Id = cscVolunteer.Id,
-                        CanApplyCac = cscVolunteer.csc_IsCACVolunteer,
-                        CanApplyReac = cscVolunteer.csc_IsREACVolunteer,
-                        CanApplyCsc = cscVolunteer.csc_IsCSCVolunteer,
-                        EmailVerifiedOn = cscVolunteer.csc_EmailVerifiedOn,
-                    }
-                };
+                select new {cscPortalUser, cscVolunteer};
 
-            return Task.FromResult(queryable.FirstOrDefault() as TUser);
+            var result = queryable.FirstOrDefault();
+
+            if (result == null) return Task.FromResult(null as TUser);
+
+            var cfg = new MapperConfigurationExpression();
+            cfg.AddProfile<cscPortalUserToPortalUser>();
+            cfg.AddProfile<cscVolunteerToVolunteer>();
+            var mapperConfig = new MapperConfiguration(cfg);
+            IMapper mapper = new Mapper(mapperConfig);
+
+            var portalUser = mapper.Map<PortalUser>(result.cscPortalUser);
+            portalUser.Volunteer = mapper.Map<Volunteer>(result.cscVolunteer);
+
+            return Task.FromResult(portalUser as TUser);
         }
     }
 }

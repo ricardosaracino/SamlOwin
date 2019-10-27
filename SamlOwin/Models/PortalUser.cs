@@ -17,12 +17,12 @@ namespace SamlOwin.Models
         public string LoginProvider { get; set; }
 
         public Volunteer Volunteer { get; set; }
-        
+
         public override async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            
+
             if (Volunteer?.Id != null)
             {
                 userIdentity.AddClaim(new Claim("volunteer.id", Volunteer.Id.ToString()));
@@ -47,7 +47,7 @@ namespace SamlOwin.Models
             {
                 userIdentity.AddClaim(new Claim("volunteer.emailVerified", "1"));
             }
-            
+
             return userIdentity;
         }
     }
