@@ -11,7 +11,7 @@ namespace SamlOwin.Controllers
     public class VolunteerController : ApiController
     {
         private readonly CrmServiceContext _ctx;
-        private readonly IMapper _mapper;
+        private readonly Mapper _mapper;
 
         public VolunteerController()
         {
