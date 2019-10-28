@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Xrm.Sdk.Client;
+using Microsoft.Xrm.Tooling.Connector;
 using Owin;
 using SamlOwin.ActionFilters;
 using SamlOwin.Identity;
@@ -25,26 +26,7 @@ namespace SamlOwin
     {
         private static void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext(() =>
-                {
-                    var serviceProxy = new OrganizationServiceProxy(
-                        new Uri(ConfigurationManager.AppSettings["CrmUri"]),
-                        null,
-                        new ClientCredentials()
-                        {
-                            UserName =
-                            {
-                                UserName = ConfigurationManager.AppSettings["CrmUserName"],
-                                Password = ConfigurationManager.AppSettings["CrmPassword"]
-                            }
-                        },
-                        null);
-
-                    serviceProxy.EnableProxyTypes();
-
-                    return new CrmServiceContext(serviceProxy);
-                }
-            );
+            app.CreatePerOwinContext(CrmServiceContextProvider.Create);
 
             app.CreatePerOwinContext<ApplicationUserManager>((options, context) =>
                 new ApplicationUserManager(new PortalUserStore<ApplicationUser>(context.Get<CrmServiceContext>()))
