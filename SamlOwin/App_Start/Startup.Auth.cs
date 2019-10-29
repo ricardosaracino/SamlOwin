@@ -13,6 +13,7 @@ using Owin;
 using SamlOwin.ActionFilters;
 using SamlOwin.Identity;
 using SamlOwin.Models;
+using SamlOwin.Providers;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;

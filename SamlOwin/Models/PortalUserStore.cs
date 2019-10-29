@@ -7,6 +7,7 @@ using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity;
 using SamlOwin.Identity;
+using SamlOwin.Providers;
 using Serilog;
 
 namespace SamlOwin.Models
@@ -18,7 +19,7 @@ namespace SamlOwin.Models
         
         public PortalUserStore(CrmServiceContext crmServiceContext)
         {
-            _ctx = crmServiceContext;
+           _ctx = crmServiceContext;
             _mapper = AutoMapperProvider.GetMapper();
         }
 

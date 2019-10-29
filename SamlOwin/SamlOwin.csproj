@@ -352,11 +352,9 @@
   <ItemGroup>
     <Compile Include="ActionFilters\CookieActionFilter.cs" />
     <Compile Include="ActionFilters\SessionActionFilter.cs" />
-    <Compile Include="App_Start\AutoMapperProvider.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="App_Start\ServiceClientProvider.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="CrmEarlyBound\CrmServiceContext.cs" />
@@ -377,6 +375,8 @@
     <Compile Include="Profiles\PortalUserEntityToPortalUserModel.cs" />
     <Compile Include="Profiles\VolunteerEntityToVolunteerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\AutoMapperProvider.cs" />
+    <Compile Include="Providers\CrmServiceContextProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity.Owin;
 using SamlOwin.Models;
+using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {

@@ -2,7 +2,7 @@
 using AutoMapper;
 using AutoMapper.Configuration;
 
-namespace SamlOwin
+namespace SamlOwin.Providers
 {
     public static class AutoMapperProvider
     {
