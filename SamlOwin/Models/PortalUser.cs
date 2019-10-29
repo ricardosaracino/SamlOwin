@@ -23,27 +23,27 @@ namespace SamlOwin.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
-            if (Volunteer?.Id != null)
+            if (Volunteer.Id != Guid.Empty)
             {
                 userIdentity.AddClaim(new Claim("volunteer.id", Volunteer.Id.ToString()));
             }
 
-            if (Volunteer?.CanApplyCac == true)
+            if (Volunteer.CanApplyCac == true)
             {
                 userIdentity.AddClaim(new Claim("volunteer.canApplyCac", "1"));
             }
 
-            if (Volunteer?.CanApplyCsc == true)
+            if (Volunteer.CanApplyCsc == true)
             {
                 userIdentity.AddClaim(new Claim("volunteer.canApplyCsc", "1"));
             }
 
-            if (Volunteer?.CanApplyReac == true)
+            if (Volunteer.CanApplyReac == true)
             {
                 userIdentity.AddClaim(new Claim("volunteer.canApplyReac", "1"));
             }
 
-            if (Volunteer?.EmailVerifiedOn != null)
+            if (Volunteer.EmailVerifiedOn != null)
             {
                 userIdentity.AddClaim(new Claim("volunteer.emailVerified", "1"));
             }

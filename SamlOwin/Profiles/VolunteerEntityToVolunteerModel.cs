@@ -8,12 +8,16 @@ namespace SamlOwin.Profiles
     {
         public VolunteerEntityToVolunteerModel()
         {
-            // todo vol id is not set correctly
             CreateMap<csc_Volunteer, Volunteer>()
-                .ForMember(dest => dest.CanApplyCac, opt => opt.MapFrom(s => s.csc_IsCACVolunteer))
-                .ForMember(dest => dest.CanApplyReac, opt => opt.MapFrom(s => s.csc_IsREACVolunteer))
-                .ForMember(dest => dest.CanApplyCsc, opt => opt.MapFrom(s => s.csc_IsCSCVolunteer))
+                // explicitly copy id, joins Id was empty
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s.csc_VolunteerId))
+                .ForMember(dest => dest.CanApplyCac, opt => opt.MapFrom(s => s.csc_CanApplyCAC))
+                .ForMember(dest => dest.CanApplyCsc, opt => opt.MapFrom(s => s.csc_CanApplyGeneral))
+                .ForMember(dest => dest.CanApplyReac, opt => opt.MapFrom(s => s.csc_CanApplyREAC))
                 .ForMember(dest => dest.EmailVerifiedOn, opt => opt.MapFrom(s => s.csc_EmailVerifiedOn))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(s => s.csc_FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(s => s.csc_LastName))
+                .ForMember(dest => dest.ReferenceNumber, opt => opt.MapFrom(s => s.csc_ReferenceNumber))
                 ;
         }
     }

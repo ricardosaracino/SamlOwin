@@ -25,6 +25,17 @@ namespace SamlOwin.Controllers
         private static IAuthenticationManager AuthenticationManager =>
             HttpContext.Current.GetOwinContext().Authentication;
 
+        /*[AllowAnonymous]
+        [HttpGet]
+        [ActionName("AzureSignIn")]
+        public void SignIn()
+        {
+            HttpContext.Current.GetOwinContext().Authentication.Challenge(
+                new AuthenticationProperties {RedirectUri = "/api/auth/ping"},
+                OpenIdConnectAuthenticationDefaults.AuthenticationType);
+        }*/
+
+
         [AllowAnonymous]
         [HttpGet]
         [ActionName("LoginCallback")]

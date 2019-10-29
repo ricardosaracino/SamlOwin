@@ -16,10 +16,10 @@ namespace SamlOwin.Models
     {
         private readonly CrmServiceContext _ctx;
         private readonly IMapper _mapper;
-        
+
         public PortalUserStore(CrmServiceContext crmServiceContext)
         {
-           _ctx = crmServiceContext;
+            _ctx = crmServiceContext;
             _mapper = AutoMapperProvider.GetMapper();
         }
 
@@ -29,23 +29,39 @@ namespace SamlOwin.Models
 
             var queryable = from cscPortalUser in _ctx.csc_PortalUserSet
                 join cscVolunteer in _ctx.csc_VolunteerSet on cscPortalUser.csc_Volunteer.Id equals cscVolunteer.Id
-                where cscPortalUser.csc_ProviderKey.Contains(login.ProviderKey)
+                    into gj
+                from cscVolunteer in gj.DefaultIfEmpty()
+                where cscPortalUser.csc_ProviderKey.Contains(login.ProviderKey) 
+                      && cscPortalUser.csc_LoginProvider.Contains(login.LoginProvider)
                 select new {cscPortalUser, cscVolunteer};
 
             var result = queryable.FirstOrDefault();
 
-            if (result == null) return Task.FromResult(null as TUser);
-            
-            var portalUser = _mapper.Map<PortalUser>(result.cscPortalUser);
-            portalUser.Volunteer = _mapper.Map<Volunteer>(result.cscVolunteer);
+            csc_PortalUser portalUserEntity;
+            csc_Volunteer volunteerEntity;
 
-            _ctx.Attach(result.cscPortalUser);
+            if (result != null)
+            {
+                portalUserEntity = result.cscPortalUser;
+                volunteerEntity = result.cscVolunteer;
+                _ctx.Attach(portalUserEntity);
+                portalUserEntity.csc_LastLoginDate = DateTime.Now;
+                _ctx.UpdateObject(portalUserEntity);
+                _ctx.SaveChanges();
+            }
+            else
+            {
+                portalUserEntity = new csc_PortalUser();
+                volunteerEntity = new csc_Volunteer();
+                _ctx.AddObject(portalUserEntity);
+                portalUserEntity.csc_LoginProvider = login.LoginProvider;
+                portalUserEntity.csc_ProviderKey = login.ProviderKey;
+                portalUserEntity.csc_LastLoginDate = DateTime.Now;
+                _ctx.SaveChanges();
+            }
 
-            result.cscPortalUser.csc_LastLoginDate = DateTime.Now.AddDays(3);
-
-            _ctx.UpdateObject(result.cscPortalUser);
-
-            _ctx.SaveChanges();
+            var portalUser = _mapper.Map<PortalUser>(portalUserEntity);
+            portalUser.Volunteer = _mapper.Map<Volunteer>(volunteerEntity);
 
             return Task.FromResult(portalUser as TUser);
         }
@@ -60,14 +76,16 @@ namespace SamlOwin.Models
             Log.Logger.Information("PortalUserStore.FindByIdAsync");
 
             var queryable = from cscPortalUser in _ctx.csc_PortalUserSet
-                join cscVolunteer in _ctx.csc_VolunteerSet on cscPortalUser.csc_Volunteer.Id equals cscVolunteer.Id
+                join cscVolunteer in _ctx.csc_VolunteerSet on cscPortalUser.csc_Volunteer.Id equals cscVolunteer.Id into
+                    gj
+                from cscVolunteer in gj.DefaultIfEmpty()
                 where cscPortalUser.csc_PortalUserId.Equals(userId)
                 select new {cscPortalUser, cscVolunteer};
 
             var result = queryable.FirstOrDefault();
 
             if (result == null) return Task.FromResult(null as TUser);
-            
+
             var portalUser = _mapper.Map<PortalUser>(result.cscPortalUser);
             portalUser.Volunteer = _mapper.Map<Volunteer>(result.cscVolunteer);
 

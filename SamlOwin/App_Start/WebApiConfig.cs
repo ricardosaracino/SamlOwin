@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SamlOwin.ActionFilters;
@@ -18,8 +17,6 @@ namespace SamlOwin
             RegisterFilters(config);
             
             RegisterLogger();
-
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
