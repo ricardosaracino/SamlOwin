@@ -36,10 +36,7 @@ namespace CrmEarlyBound
 			public const string CreatedBy = "createdby";
 			public const string CreatedOn = "createdon";
 			public const string CreatedOnBehalfBy = "createdonbehalfby";
-			public const string csc_AuthenticationEmail = "csc_authenticationemail";
-			public const string csc_AuthenticationID = "csc_authenticationid";
-			public const string csc_AuthenticationName = "csc_authenticationname";
-			public const string csc_LastLoginDate = "csc_lastlogindate";
+			public const string csc_LoginOn = "csc_loginon";
 			public const string csc_LoginProvider = "csc_loginprovider";
 			public const string csc_name = "csc_name";
 			public const string csc_PortalUserId = "csc_portaluserid";
@@ -153,80 +150,20 @@ namespace CrmEarlyBound
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationemail")]
-		public string csc_AuthenticationEmail
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_loginon")]
+		public System.Nullable<System.DateTime> csc_LoginOn
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_authenticationemail");
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("csc_loginon");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_AuthenticationEmail");
-				this.SetAttributeValue("csc_authenticationemail", value);
-				this.OnPropertyChanged("csc_AuthenticationEmail");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationid")]
-		public string csc_AuthenticationID
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("csc_authenticationid");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_AuthenticationID");
-				this.SetAttributeValue("csc_authenticationid", value);
-				this.OnPropertyChanged("csc_AuthenticationID");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationname")]
-		public string csc_AuthenticationName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("csc_authenticationname");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_AuthenticationName");
-				this.SetAttributeValue("csc_authenticationname", value);
-				this.OnPropertyChanged("csc_AuthenticationName");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_lastlogindate")]
-		public System.Nullable<System.DateTime> csc_LastLoginDate
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<System.DateTime>>("csc_lastlogindate");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_LastLoginDate");
-				this.SetAttributeValue("csc_lastlogindate", value);
-				this.OnPropertyChanged("csc_LastLoginDate");
+				this.OnPropertyChanging("csc_LoginOn");
+				this.SetAttributeValue("csc_loginon", value);
+				this.OnPropertyChanged("csc_LoginOn");
 			}
 		}
 		

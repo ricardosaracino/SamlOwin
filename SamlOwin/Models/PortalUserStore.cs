@@ -45,7 +45,7 @@ namespace SamlOwin.Models
                 portalUserEntity = result.cscPortalUser;
                 volunteerEntity = result.cscVolunteer;
                 _ctx.Attach(portalUserEntity);
-                portalUserEntity.csc_LastLoginDate = DateTime.Now;
+                portalUserEntity.csc_LoginOn = DateTime.Now.ToUniversalTime();
                 _ctx.UpdateObject(portalUserEntity);
                 _ctx.SaveChanges();
             }
@@ -56,7 +56,7 @@ namespace SamlOwin.Models
                 _ctx.AddObject(portalUserEntity);
                 portalUserEntity.csc_LoginProvider = login.LoginProvider;
                 portalUserEntity.csc_ProviderKey = login.ProviderKey;
-                portalUserEntity.csc_LastLoginDate = DateTime.Now;
+                portalUserEntity.csc_LoginOn = DateTime.Now.ToUniversalTime();
                 _ctx.SaveChanges();
             }
 
