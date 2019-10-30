@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace SamlOwin.Identity
+namespace SamlOwin.GuidIdentity
 {
     public abstract class ApplicationUser : IUser<Guid>
     {

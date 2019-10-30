@@ -12,7 +12,7 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
-	public enum csc_PortalUserState
+	public enum csc_VolunteerLanguageState
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -23,12 +23,12 @@ namespace CrmEarlyBound
 	}
 	
 	/// <summary>
-	/// A user who can log into Engagement Portal via an external source. Link this user to an active Volunteer or Stakeholder
+	/// 
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("csc_portaluser")]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("csc_volunteerlanguage")]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
-	public partial class csc_PortalUser : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class csc_VolunteerLanguage : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		public static class Fields
@@ -36,16 +36,16 @@ namespace CrmEarlyBound
 			public const string CreatedBy = "createdby";
 			public const string CreatedOn = "createdon";
 			public const string CreatedOnBehalfBy = "createdonbehalfby";
-			public const string csc_AuthenticationEmail = "csc_authenticationemail";
-			public const string csc_AuthenticationID = "csc_authenticationid";
-			public const string csc_AuthenticationName = "csc_authenticationname";
-			public const string csc_LastLoginDate = "csc_lastlogindate";
-			public const string csc_LoginProvider = "csc_loginprovider";
+			public const string csc_CanProvidetInterpretationServices = "csc_canprovidetinterpretationservices";
+			public const string csc_CanProvideTranslationServices = "csc_canprovidetranslationservices";
+			public const string csc_Language = "csc_language";
 			public const string csc_name = "csc_name";
-			public const string csc_PortalUserId = "csc_portaluserid";
-			public const string Id = "csc_portaluserid";
-			public const string csc_ProviderKey = "csc_providerkey";
+			public const string csc_Reads = "csc_reads";
+			public const string csc_Speaks = "csc_speaks";
 			public const string csc_Volunteer = "csc_volunteer";
+			public const string csc_VolunteerLanguageId = "csc_volunteerlanguageid";
+			public const string Id = "csc_volunteerlanguageid";
+			public const string csc_Writes = "csc_writes";
 			public const string ImportSequenceNumber = "importsequencenumber";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedOn = "modifiedon";
@@ -60,27 +60,27 @@ namespace CrmEarlyBound
 			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
 			public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
-			public const string csc_csc_volunteer_csc_portaluser_Volunteer = "csc_csc_volunteer_csc_portaluser_Volunteer";
+			public const string csc_csc_volunteer_csc_volunteerlanguage_Volunteer = "csc_csc_volunteer_csc_volunteerlanguage_Volunteer";
 		}
 		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public csc_PortalUser() : 
+		public csc_VolunteerLanguage() : 
 				base(EntityLogicalName)
 		{
 		}
 		
-		public const string EntityLogicalName = "csc_portaluser";
+		public const string EntityLogicalName = "csc_volunteerlanguage";
 		
-		public const string EntitySchemaName = "csc_PortalUser";
+		public const string EntitySchemaName = "csc_VolunteerLanguage";
 		
-		public const string PrimaryIdAttribute = "csc_portaluserid";
+		public const string PrimaryIdAttribute = "csc_volunteerlanguageid";
 		
 		public const string PrimaryNameAttribute = "csc_name";
 		
-		public const int EntityTypeCode = 10070;
+		public const int EntityTypeCode = 10087;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -153,100 +153,60 @@ namespace CrmEarlyBound
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationemail")]
-		public string csc_AuthenticationEmail
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_canprovidetinterpretationservices")]
+		public System.Nullable<bool> csc_CanProvidetInterpretationServices
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_authenticationemail");
+				return this.GetAttributeValue<System.Nullable<bool>>("csc_canprovidetinterpretationservices");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_AuthenticationEmail");
-				this.SetAttributeValue("csc_authenticationemail", value);
-				this.OnPropertyChanged("csc_AuthenticationEmail");
+				this.OnPropertyChanging("csc_CanProvidetInterpretationServices");
+				this.SetAttributeValue("csc_canprovidetinterpretationservices", value);
+				this.OnPropertyChanged("csc_CanProvidetInterpretationServices");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationid")]
-		public string csc_AuthenticationID
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_canprovidetranslationservices")]
+		public System.Nullable<bool> csc_CanProvideTranslationServices
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_authenticationid");
+				return this.GetAttributeValue<System.Nullable<bool>>("csc_canprovidetranslationservices");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_AuthenticationID");
-				this.SetAttributeValue("csc_authenticationid", value);
-				this.OnPropertyChanged("csc_AuthenticationID");
+				this.OnPropertyChanging("csc_CanProvideTranslationServices");
+				this.SetAttributeValue("csc_canprovidetranslationservices", value);
+				this.OnPropertyChanged("csc_CanProvideTranslationServices");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationname")]
-		public string csc_AuthenticationName
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_language")]
+		public Microsoft.Xrm.Sdk.EntityReference csc_Language
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_authenticationname");
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("csc_language");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_AuthenticationName");
-				this.SetAttributeValue("csc_authenticationname", value);
-				this.OnPropertyChanged("csc_AuthenticationName");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_lastlogindate")]
-		public System.Nullable<System.DateTime> csc_LastLoginDate
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<System.DateTime>>("csc_lastlogindate");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_LastLoginDate");
-				this.SetAttributeValue("csc_lastlogindate", value);
-				this.OnPropertyChanged("csc_LastLoginDate");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_loginprovider")]
-		public string csc_LoginProvider
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("csc_loginprovider");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_LoginProvider");
-				this.SetAttributeValue("csc_loginprovider", value);
-				this.OnPropertyChanged("csc_LoginProvider");
+				this.OnPropertyChanging("csc_Language");
+				this.SetAttributeValue("csc_language", value);
+				this.OnPropertyChanged("csc_Language");
 			}
 		}
 		
@@ -271,65 +231,42 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Unique identifier for entity instances
+		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_portaluserid")]
-		public System.Nullable<System.Guid> csc_PortalUserId
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_reads")]
+		public System.Nullable<bool> csc_Reads
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<System.Guid>>("csc_portaluserid");
+				return this.GetAttributeValue<System.Nullable<bool>>("csc_reads");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_PortalUserId");
-				this.SetAttributeValue("csc_portaluserid", value);
-				if (value.HasValue)
-				{
-					base.Id = value.Value;
-				}
-				else
-				{
-					base.Id = System.Guid.Empty;
-				}
-				this.OnPropertyChanged("csc_PortalUserId");
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_portaluserid")]
-		public override System.Guid Id
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return base.Id;
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.csc_PortalUserId = value;
+				this.OnPropertyChanging("csc_Reads");
+				this.SetAttributeValue("csc_reads", value);
+				this.OnPropertyChanged("csc_Reads");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_providerkey")]
-		public string csc_ProviderKey
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_speaks")]
+		public System.Nullable<bool> csc_Speaks
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_providerkey");
+				return this.GetAttributeValue<System.Nullable<bool>>("csc_speaks");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_ProviderKey");
-				this.SetAttributeValue("csc_providerkey", value);
-				this.OnPropertyChanged("csc_ProviderKey");
+				this.OnPropertyChanging("csc_Speaks");
+				this.SetAttributeValue("csc_speaks", value);
+				this.OnPropertyChanged("csc_Speaks");
 			}
 		}
 		
@@ -350,6 +287,69 @@ namespace CrmEarlyBound
 				this.OnPropertyChanging("csc_Volunteer");
 				this.SetAttributeValue("csc_volunteer", value);
 				this.OnPropertyChanged("csc_Volunteer");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_volunteerlanguageid")]
+		public System.Nullable<System.Guid> csc_VolunteerLanguageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("csc_volunteerlanguageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_VolunteerLanguageId");
+				this.SetAttributeValue("csc_volunteerlanguageid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("csc_VolunteerLanguageId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_volunteerlanguageid")]
+		public override System.Guid Id
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return base.Id;
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.csc_VolunteerLanguageId = value;
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_writes")]
+		public System.Nullable<bool> csc_Writes
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("csc_writes");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_Writes");
+				this.SetAttributeValue("csc_writes", value);
+				this.OnPropertyChanged("csc_Writes");
 			}
 		}
 		
@@ -499,10 +499,10 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Status of the Portal User
+		/// Status of the Volunteer Language
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CrmEarlyBound.csc_PortalUserState> StateCode
+		public System.Nullable<CrmEarlyBound.csc_VolunteerLanguageState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -510,7 +510,7 @@ namespace CrmEarlyBound
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CrmEarlyBound.csc_PortalUserState)(System.Enum.ToObject(typeof(CrmEarlyBound.csc_PortalUserState), optionSet.Value)));
+					return ((CrmEarlyBound.csc_VolunteerLanguageState)(System.Enum.ToObject(typeof(CrmEarlyBound.csc_VolunteerLanguageState), optionSet.Value)));
 				}
 				else
 				{
@@ -534,7 +534,7 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// If this is not Active the user will not be able to login to the portal
+		/// Reason for the status of the Volunteer Language
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
 		public Microsoft.Xrm.Sdk.OptionSetValue StatusCode
@@ -607,23 +607,23 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// N:1 csc_csc_volunteer_csc_portaluser_Volunteer
+		/// N:1 csc_csc_volunteer_csc_volunteerlanguage_Volunteer
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_volunteer")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_portaluser_Volunteer")]
-		public CrmEarlyBound.csc_Volunteer csc_csc_volunteer_csc_portaluser_Volunteer
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteerlanguage_Volunteer")]
+		public CrmEarlyBound.csc_Volunteer csc_csc_volunteer_csc_volunteerlanguage_Volunteer
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_portaluser_Volunteer", null);
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_volunteerlanguage_Volunteer", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_csc_volunteer_csc_portaluser_Volunteer");
-				this.SetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_portaluser_Volunteer", null, value);
-				this.OnPropertyChanged("csc_csc_volunteer_csc_portaluser_Volunteer");
+				this.OnPropertyChanging("csc_csc_volunteer_csc_volunteerlanguage_Volunteer");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_volunteerlanguage_Volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_volunteerlanguage_Volunteer");
 			}
 		}
 		
@@ -632,7 +632,7 @@ namespace CrmEarlyBound
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public csc_PortalUser(object anonymousType) : 
+		public csc_VolunteerLanguage(object anonymousType) : 
 				this()
 		{
             foreach (var p in anonymousType.GetType().GetProperties())
@@ -650,9 +650,9 @@ namespace CrmEarlyBound
                 {
                     case "id":
                         base.Id = (System.Guid)value;
-                        Attributes["csc_portaluserid"] = base.Id;
+                        Attributes["csc_volunteerlanguageid"] = base.Id;
                         break;
-                    case "csc_portaluserid":
+                    case "csc_volunteerlanguageid":
                         var id = (System.Nullable<System.Guid>) value;
                         if(id == null){ continue; }
                         base.Id = id.Value;
@@ -670,12 +670,12 @@ namespace CrmEarlyBound
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public virtual csc_PortalUser_StatusCode? StatusCodeEnum
+		public virtual csc_VolunteerLanguage_StatusCode? StatusCodeEnum
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((csc_PortalUser_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+				return ((csc_VolunteerLanguage_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set

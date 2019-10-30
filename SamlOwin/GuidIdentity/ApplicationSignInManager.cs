@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-namespace SamlOwin.Identity
+namespace SamlOwin.GuidIdentity
 {
     public class ApplicationSignInManager : SignInManager<ApplicationUser, Guid>
     {

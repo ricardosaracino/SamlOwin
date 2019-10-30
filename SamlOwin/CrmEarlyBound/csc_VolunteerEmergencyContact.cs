@@ -12,7 +12,7 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
-	public enum csc_PortalUserState
+	public enum csc_VolunteerEmergencyContactState
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -23,12 +23,12 @@ namespace CrmEarlyBound
 	}
 	
 	/// <summary>
-	/// A user who can log into Engagement Portal via an external source. Link this user to an active Volunteer or Stakeholder
+	/// 
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("csc_portaluser")]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("csc_volunteeremergencycontact")]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
-	public partial class csc_PortalUser : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class csc_VolunteerEmergencyContact : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		public static class Fields
@@ -36,16 +36,25 @@ namespace CrmEarlyBound
 			public const string CreatedBy = "createdby";
 			public const string CreatedOn = "createdon";
 			public const string CreatedOnBehalfBy = "createdonbehalfby";
-			public const string csc_AuthenticationEmail = "csc_authenticationemail";
-			public const string csc_AuthenticationID = "csc_authenticationid";
-			public const string csc_AuthenticationName = "csc_authenticationname";
-			public const string csc_LastLoginDate = "csc_lastlogindate";
-			public const string csc_LoginProvider = "csc_loginprovider";
+			public const string csc_AddressLine1 = "csc_addressline1";
+			public const string csc_AddressLine2 = "csc_addressline2";
+			public const string csc_City = "csc_city";
+			public const string csc_ContactEmail = "csc_contactemail";
+			public const string csc_ContactPrimaryTelephone = "csc_contactprimarytelephone";
+			public const string csc_ContactSecondaryTelephone = "csc_contactsecondarytelephone";
+			public const string csc_ContactTertiaryPhone = "csc_contacttertiaryphone";
+			public const string csc_Country = "csc_country";
 			public const string csc_name = "csc_name";
-			public const string csc_PortalUserId = "csc_portaluserid";
-			public const string Id = "csc_portaluserid";
-			public const string csc_ProviderKey = "csc_providerkey";
+			public const string csc_PostalCode = "csc_postalcode";
+			public const string csc_PrimaryContact = "csc_primarycontact";
+			public const string csc_PrimaryPhoneType = "csc_primaryphonetype";
+			public const string csc_Province = "csc_province";
+			public const string csc_Relationship = "csc_relationship";
+			public const string csc_SecondaryPhoneType = "csc_secondaryphonetype";
+			public const string csc_TertiaryPhoneType = "csc_tertiaryphonetype";
 			public const string csc_Volunteer = "csc_volunteer";
+			public const string csc_VolunteerEmergencyContactId = "csc_volunteeremergencycontactid";
+			public const string Id = "csc_volunteeremergencycontactid";
 			public const string ImportSequenceNumber = "importsequencenumber";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedOn = "modifiedon";
@@ -60,27 +69,28 @@ namespace CrmEarlyBound
 			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
 			public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
-			public const string csc_csc_volunteer_csc_portaluser_Volunteer = "csc_csc_volunteer_csc_portaluser_Volunteer";
+			public const string csc_csc_provinceorstate_csc_volunteeremergencycontact_Province = "csc_csc_provinceorstate_csc_volunteeremergencycontact_Province";
+			public const string csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer = "csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer";
 		}
 		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public csc_PortalUser() : 
+		public csc_VolunteerEmergencyContact() : 
 				base(EntityLogicalName)
 		{
 		}
 		
-		public const string EntityLogicalName = "csc_portaluser";
+		public const string EntityLogicalName = "csc_volunteeremergencycontact";
 		
-		public const string EntitySchemaName = "csc_PortalUser";
+		public const string EntitySchemaName = "csc_VolunteerEmergencyContact";
 		
-		public const string PrimaryIdAttribute = "csc_portaluserid";
+		public const string PrimaryIdAttribute = "csc_volunteeremergencycontactid";
 		
 		public const string PrimaryNameAttribute = "csc_name";
 		
-		public const int EntityTypeCode = 10070;
+		public const int EntityTypeCode = 10085;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -153,100 +163,160 @@ namespace CrmEarlyBound
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationemail")]
-		public string csc_AuthenticationEmail
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_addressline1")]
+		public string csc_AddressLine1
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_authenticationemail");
+				return this.GetAttributeValue<string>("csc_addressline1");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_AuthenticationEmail");
-				this.SetAttributeValue("csc_authenticationemail", value);
-				this.OnPropertyChanged("csc_AuthenticationEmail");
+				this.OnPropertyChanging("csc_AddressLine1");
+				this.SetAttributeValue("csc_addressline1", value);
+				this.OnPropertyChanged("csc_AddressLine1");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationid")]
-		public string csc_AuthenticationID
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_addressline2")]
+		public string csc_AddressLine2
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_authenticationid");
+				return this.GetAttributeValue<string>("csc_addressline2");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_AuthenticationID");
-				this.SetAttributeValue("csc_authenticationid", value);
-				this.OnPropertyChanged("csc_AuthenticationID");
+				this.OnPropertyChanging("csc_AddressLine2");
+				this.SetAttributeValue("csc_addressline2", value);
+				this.OnPropertyChanged("csc_AddressLine2");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_authenticationname")]
-		public string csc_AuthenticationName
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_city")]
+		public string csc_City
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_authenticationname");
+				return this.GetAttributeValue<string>("csc_city");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_AuthenticationName");
-				this.SetAttributeValue("csc_authenticationname", value);
-				this.OnPropertyChanged("csc_AuthenticationName");
+				this.OnPropertyChanging("csc_City");
+				this.SetAttributeValue("csc_city", value);
+				this.OnPropertyChanged("csc_City");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_lastlogindate")]
-		public System.Nullable<System.DateTime> csc_LastLoginDate
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_contactemail")]
+		public string csc_ContactEmail
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<System.DateTime>>("csc_lastlogindate");
+				return this.GetAttributeValue<string>("csc_contactemail");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_LastLoginDate");
-				this.SetAttributeValue("csc_lastlogindate", value);
-				this.OnPropertyChanged("csc_LastLoginDate");
+				this.OnPropertyChanging("csc_ContactEmail");
+				this.SetAttributeValue("csc_contactemail", value);
+				this.OnPropertyChanged("csc_ContactEmail");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_loginprovider")]
-		public string csc_LoginProvider
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_contactprimarytelephone")]
+		public string csc_ContactPrimaryTelephone
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_loginprovider");
+				return this.GetAttributeValue<string>("csc_contactprimarytelephone");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_LoginProvider");
-				this.SetAttributeValue("csc_loginprovider", value);
-				this.OnPropertyChanged("csc_LoginProvider");
+				this.OnPropertyChanging("csc_ContactPrimaryTelephone");
+				this.SetAttributeValue("csc_contactprimarytelephone", value);
+				this.OnPropertyChanged("csc_ContactPrimaryTelephone");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_contactsecondarytelephone")]
+		public string csc_ContactSecondaryTelephone
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("csc_contactsecondarytelephone");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_ContactSecondaryTelephone");
+				this.SetAttributeValue("csc_contactsecondarytelephone", value);
+				this.OnPropertyChanged("csc_ContactSecondaryTelephone");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_contacttertiaryphone")]
+		public string csc_ContactTertiaryPhone
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("csc_contacttertiaryphone");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_ContactTertiaryPhone");
+				this.SetAttributeValue("csc_contacttertiaryphone", value);
+				this.OnPropertyChanged("csc_ContactTertiaryPhone");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_country")]
+		public Microsoft.Xrm.Sdk.EntityReference csc_Country
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("csc_country");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_Country");
+				this.SetAttributeValue("csc_country", value);
+				this.OnPropertyChanged("csc_Country");
 			}
 		}
 		
@@ -271,65 +341,142 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Unique identifier for entity instances
+		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_portaluserid")]
-		public System.Nullable<System.Guid> csc_PortalUserId
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_postalcode")]
+		public string csc_PostalCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<System.Guid>>("csc_portaluserid");
+				return this.GetAttributeValue<string>("csc_postalcode");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_PortalUserId");
-				this.SetAttributeValue("csc_portaluserid", value);
-				if (value.HasValue)
-				{
-					base.Id = value.Value;
-				}
-				else
-				{
-					base.Id = System.Guid.Empty;
-				}
-				this.OnPropertyChanged("csc_PortalUserId");
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_portaluserid")]
-		public override System.Guid Id
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return base.Id;
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.csc_PortalUserId = value;
+				this.OnPropertyChanging("csc_PostalCode");
+				this.SetAttributeValue("csc_postalcode", value);
+				this.OnPropertyChanged("csc_PostalCode");
 			}
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_providerkey")]
-		public string csc_ProviderKey
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_primarycontact")]
+		public System.Nullable<bool> csc_PrimaryContact
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_providerkey");
+				return this.GetAttributeValue<System.Nullable<bool>>("csc_primarycontact");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_ProviderKey");
-				this.SetAttributeValue("csc_providerkey", value);
-				this.OnPropertyChanged("csc_ProviderKey");
+				this.OnPropertyChanging("csc_PrimaryContact");
+				this.SetAttributeValue("csc_primarycontact", value);
+				this.OnPropertyChanged("csc_PrimaryContact");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_primaryphonetype")]
+		public Microsoft.Xrm.Sdk.OptionSetValue csc_PrimaryPhoneType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("csc_primaryphonetype");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_PrimaryPhoneType");
+				this.SetAttributeValue("csc_primaryphonetype", value);
+				this.OnPropertyChanged("csc_PrimaryPhoneType");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_province")]
+		public Microsoft.Xrm.Sdk.EntityReference csc_Province
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("csc_province");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_Province");
+				this.SetAttributeValue("csc_province", value);
+				this.OnPropertyChanged("csc_Province");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_relationship")]
+		public Microsoft.Xrm.Sdk.OptionSetValue csc_Relationship
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("csc_relationship");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_Relationship");
+				this.SetAttributeValue("csc_relationship", value);
+				this.OnPropertyChanged("csc_Relationship");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_secondaryphonetype")]
+		public Microsoft.Xrm.Sdk.OptionSetValue csc_SecondaryPhoneType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("csc_secondaryphonetype");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_SecondaryPhoneType");
+				this.SetAttributeValue("csc_secondaryphonetype", value);
+				this.OnPropertyChanged("csc_SecondaryPhoneType");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_tertiaryphonetype")]
+		public Microsoft.Xrm.Sdk.OptionSetValue csc_TertiaryPhoneType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("csc_tertiaryphonetype");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_TertiaryPhoneType");
+				this.SetAttributeValue("csc_tertiaryphonetype", value);
+				this.OnPropertyChanged("csc_TertiaryPhoneType");
 			}
 		}
 		
@@ -350,6 +497,49 @@ namespace CrmEarlyBound
 				this.OnPropertyChanging("csc_Volunteer");
 				this.SetAttributeValue("csc_volunteer", value);
 				this.OnPropertyChanged("csc_Volunteer");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_volunteeremergencycontactid")]
+		public System.Nullable<System.Guid> csc_VolunteerEmergencyContactId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("csc_volunteeremergencycontactid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_VolunteerEmergencyContactId");
+				this.SetAttributeValue("csc_volunteeremergencycontactid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("csc_VolunteerEmergencyContactId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_volunteeremergencycontactid")]
+		public override System.Guid Id
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return base.Id;
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.csc_VolunteerEmergencyContactId = value;
 			}
 		}
 		
@@ -499,10 +689,10 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Status of the Portal User
+		/// Status of the Volunteer Emergency Contact
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CrmEarlyBound.csc_PortalUserState> StateCode
+		public System.Nullable<CrmEarlyBound.csc_VolunteerEmergencyContactState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -510,7 +700,7 @@ namespace CrmEarlyBound
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CrmEarlyBound.csc_PortalUserState)(System.Enum.ToObject(typeof(CrmEarlyBound.csc_PortalUserState), optionSet.Value)));
+					return ((CrmEarlyBound.csc_VolunteerEmergencyContactState)(System.Enum.ToObject(typeof(CrmEarlyBound.csc_VolunteerEmergencyContactState), optionSet.Value)));
 				}
 				else
 				{
@@ -534,7 +724,7 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// If this is not Active the user will not be able to login to the portal
+		/// Reason for the status of the Volunteer Emergency Contact
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
 		public Microsoft.Xrm.Sdk.OptionSetValue StatusCode
@@ -607,23 +797,44 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// N:1 csc_csc_volunteer_csc_portaluser_Volunteer
+		/// N:1 csc_csc_provinceorstate_csc_volunteeremergencycontact_Province
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_volunteer")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_portaluser_Volunteer")]
-		public CrmEarlyBound.csc_Volunteer csc_csc_volunteer_csc_portaluser_Volunteer
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_province")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province")]
+		public CrmEarlyBound.csc_ProvinceOrState csc_csc_provinceorstate_csc_volunteeremergencycontact_Province
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_portaluser_Volunteer", null);
+				return this.GetRelatedEntity<CrmEarlyBound.csc_ProvinceOrState>("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_csc_volunteer_csc_portaluser_Volunteer");
-				this.SetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_portaluser_Volunteer", null, value);
-				this.OnPropertyChanged("csc_csc_volunteer_csc_portaluser_Volunteer");
+				this.OnPropertyChanging("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province");
+				this.SetRelatedEntity<CrmEarlyBound.csc_ProvinceOrState>("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province", null, value);
+				this.OnPropertyChanged("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_volunteer")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer")]
+		public CrmEarlyBound.csc_Volunteer csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Volunteer>("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer");
 			}
 		}
 		
@@ -632,7 +843,7 @@ namespace CrmEarlyBound
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public csc_PortalUser(object anonymousType) : 
+		public csc_VolunteerEmergencyContact(object anonymousType) : 
 				this()
 		{
             foreach (var p in anonymousType.GetType().GetProperties())
@@ -650,9 +861,9 @@ namespace CrmEarlyBound
                 {
                     case "id":
                         base.Id = (System.Guid)value;
-                        Attributes["csc_portaluserid"] = base.Id;
+                        Attributes["csc_volunteeremergencycontactid"] = base.Id;
                         break;
-                    case "csc_portaluserid":
+                    case "csc_volunteeremergencycontactid":
                         var id = (System.Nullable<System.Guid>) value;
                         if(id == null){ continue; }
                         base.Id = id.Value;
@@ -669,13 +880,73 @@ namespace CrmEarlyBound
             }
 		}
 		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public virtual csc_PortalUser_StatusCode? StatusCodeEnum
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_primaryphonetype")]
+		public virtual csc_PhoneType? csc_PrimaryPhoneTypeEnum
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((csc_PortalUser_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+				return ((csc_PhoneType?)(EntityOptionSetEnum.GetEnum(this, "csc_primaryphonetype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				csc_PrimaryPhoneType = value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null;
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_relationship")]
+		public virtual csc_EmergencyContactRelationship? csc_RelationshipEnum
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((csc_EmergencyContactRelationship?)(EntityOptionSetEnum.GetEnum(this, "csc_relationship")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				csc_Relationship = value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null;
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_secondaryphonetype")]
+		public virtual csc_PhoneType? csc_SecondaryPhoneTypeEnum
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((csc_PhoneType?)(EntityOptionSetEnum.GetEnum(this, "csc_secondaryphonetype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				csc_SecondaryPhoneType = value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null;
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_tertiaryphonetype")]
+		public virtual csc_PhoneType? csc_TertiaryPhoneTypeEnum
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((csc_PhoneType?)(EntityOptionSetEnum.GetEnum(this, "csc_tertiaryphonetype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				csc_TertiaryPhoneType = value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null;
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
+		public virtual csc_VolunteerEmergencyContact_StatusCode? StatusCodeEnum
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((csc_VolunteerEmergencyContact_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set

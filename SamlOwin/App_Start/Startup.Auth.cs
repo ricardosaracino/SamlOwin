@@ -7,7 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using SamlOwin.ActionFilters;
+using SamlOwin.Handlers;
+using SamlOwin.GuidIdentity;
 using SamlOwin.Identity;
 using SamlOwin.Models;
 using SamlOwin.Providers;
@@ -43,65 +44,14 @@ namespace SamlOwin
                 CookieName = ConfigurationManager.AppSettings["ApplicationCookieName"],
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnValidateIdentity = ApplicationCookieValidateIdentityContext.ApplicationValidateIdentity
+                    OnValidateIdentity = CustomValidateIdentityContext.ApplicationValidateIdentity
                 }
             });
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             app.UseSaml2Authentication(CreateSaml2Options());
-
-            //app.UseOpenIdConnectAuthentication(CreateAzureAuthenticationOptions());
         }
-
-
-        /*private static OpenIdConnectAuthenticationOptions CreateAzureAuthenticationOptions()
-        {
-            
-            // The Client ID is used by the application to uniquely identify itself to Azure AD.
-            var clientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
-
-            // RedirectUri is the URL where the user will be redirected to after they sign in.
-            var redirectUri = System.Configuration.ConfigurationManager.AppSettings["RedirectUri"];
-
-            // Tenant is the tenant ID (e.g. contoso.onmicrosoft.com, or 'common' for multi-tenant)
-            var tenant = System.Configuration.ConfigurationManager.AppSettings["Tenant"];
-
-            // Authority is the URL for authority, composed by Azure Active Directory v2.0 endpoint and the tenant name (e.g. https://login.microsoftonline.com/contoso.onmicrosoft.com/v2.0)
-            var authority = string.Format(System.Globalization.CultureInfo.InvariantCulture, ConfigurationManager.AppSettings["Authority"], tenant);
-
-            
-            return new OpenIdConnectAuthenticationOptions
-            {
-                // Sets the ClientId, authority, RedirectUri as obtained from web.config
-                ClientId = clientId,
-                Authority = authority,
-                RedirectUri = redirectUri,
-                // PostLogoutRedirectUri is the page that users will be redirected to after sign-out. In this case, it is using the home page
-                PostLogoutRedirectUri = redirectUri,
-                Scope = OpenIdConnectScope.OpenIdProfile,
-                // ResponseType is set to request the id_token - which contains basic information about the signed-in user
-                ResponseType = OpenIdConnectResponseType.IdToken,
-                // ValidateIssuer set to false to allow personal and work accounts from any organization to sign in to your application
-                // To only allow users from a single organizations, set ValidateIssuer to true and 'tenant' setting in web.config to the tenant name
-                // To allow users from only a list of specific organizations, set ValidateIssuer to true and use ValidIssuers parameter
-                TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = false // This is a simplification
-                },
-                // OpenIdConnectAuthenticationNotifications configures OWIN to send notification of failed authentications to OnAuthenticationFailed method
-                Notifications = new OpenIdConnectAuthenticationNotifications
-                {
-                    AuthenticationFailed = context =>
-                    {
-                        context.HandleResponse();
-                        context.Response.Redirect("/?errormessage=" + context.Exception.Message);
-                        return Task.FromResult(0);
-                    }
-                }
-            };
-        }*/
-
 
         private static Saml2AuthenticationOptions CreateSaml2Options()
         {
@@ -140,7 +90,7 @@ namespace SamlOwin
 
             saml2Options.Notifications = new Saml2Notifications
             {
-                GetBinding = SessionActionFilter.GetSaml2Binding()
+                GetBinding = GccfSessionFilter.GetSaml2Binding()
             };
 
             saml2Options.IdentityProviders.Add(idp5);

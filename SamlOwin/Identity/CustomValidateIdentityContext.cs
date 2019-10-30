@@ -4,7 +4,7 @@ using Microsoft.Owin.Security.Cookies;
 
 namespace SamlOwin.Identity
 {
-    public static class ApplicationCookieValidateIdentityContext
+    public static class CustomValidateIdentityContext
     {
         /// <summary>
         /// Not Called on Login

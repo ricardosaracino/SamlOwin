@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity;
-using SamlOwin.Identity;
+using SamlOwin.GuidIdentity;
 using SamlOwin.Providers;
 using Serilog;
 

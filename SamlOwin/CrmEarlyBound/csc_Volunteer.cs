@@ -31,6 +31,129 @@ namespace CrmEarlyBound
 	public partial class csc_Volunteer : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
+		public static class Fields
+		{
+			public const string CreatedBy = "createdby";
+			public const string CreatedOn = "createdon";
+			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string csc_10YearserviceMilestone = "csc_10yearservicemilestone";
+			public const string csc_20YearserviceMilestone = "csc_20yearservicemilestone";
+			public const string csc_5YearserviceMilestone = "csc_5yearservicemilestone";
+			public const string csc_AboriginalPerson = "csc_aboriginalperson";
+			public const string csc_AdminLocation = "csc_adminlocation";
+			public const string csc_AgreeAgeOfMajority = "csc_agreeageofmajority";
+			public const string csc_AgreeCanadianCitizen = "csc_agreecanadiancitizen";
+			public const string csc_AgreeContactedWork = "csc_agreecontactedwork";
+			public const string csc_AllowUpdate = "csc_allowupdate";
+			public const string csc_ApplicationId = "csc_applicationid";
+			public const string csc_Availability = "csc_availability";
+			public const string csc_Birthday = "csc_birthday";
+			public const string csc_BusinessTelephone = "csc_businesstelephone";
+			public const string csc_BusinessTelephoneExt = "csc_businesstelephoneext";
+			public const string csc_CACMembershipApprovalDate = "csc_cacmembershipapprovaldate";
+			public const string csc_CACMembershipComment = "csc_cacmembershipcomment";
+			public const string csc_CACMembershipExpiryDate = "csc_cacmembershipexpirydate";
+			public const string csc_CACMembershipStatus = "csc_cacmembershipstatus";
+			public const string csc_CanApplyCAC = "csc_canapplycac";
+			public const string csc_CanApplyGeneral = "csc_canapplygeneral";
+			public const string csc_CanApplyREAC = "csc_canapplyreac";
+			public const string csc_Citizenship = "csc_citizenship";
+			public const string csc_CSCVolunteerMembershipComment = "csc_cscvolunteermembershipcomment";
+			public const string csc_CultureGroups = "csc_culturegroups";
+			public const string csc_CultureOther = "csc_cultureother";
+			public const string csc_Disabilities = "csc_disabilities";
+			public const string csc_DisabilitiesOther = "csc_disabilitiesother";
+			public const string csc_DisabilityComments = "csc_disabilitycomments";
+			public const string csc_EmailVerifiedOn = "csc_emailverifiedon";
+			public const string csc_FirstName = "csc_firstname";
+			public const string csc_Gender = "csc_gender";
+			public const string csc_GenderOther = "csc_genderother";
+			public const string csc_GeneralMembershipApprovalDate = "csc_generalmembershipapprovaldate";
+			public const string csc_GeneralMembershipStatus = "csc_generalmembershipstatus";
+			public const string csc_hiidden_todays_date_Volunteerform = "csc_hiidden_todays_date_volunteerform";
+			public const string csc_HomeAddressCity = "csc_homeaddresscity";
+			public const string csc_HomeAddressCountry = "csc_homeaddresscountry";
+			public const string csc_HomeAddressLine1 = "csc_homeaddressline1";
+			public const string csc_HomeAddressLine2 = "csc_homeaddressline2";
+			public const string csc_HomeAddressPostalCode = "csc_homeaddresspostalcode";
+			public const string csc_HomeAddressProvinceOrState = "csc_homeaddressprovinceorstate";
+			public const string csc_HomeTelephone = "csc_hometelephone";
+			public const string csc_HRMSEmployeeID = "csc_hrmsemployeeid";
+			public const string csc_IDBadgeExpiryDate = "csc_idbadgeexpirydate";
+			public const string csc_IDBadgeNumber = "csc_idbadgenumber";
+			public const string csc_IsCACVolunteer = "csc_iscacvolunteer";
+			public const string csc_IsCSCEmployee = "csc_iscscemployee";
+			public const string csc_IsCSCVolunteer = "csc_iscscvolunteer";
+			public const string csc_IsREACVolunteer = "csc_isreacvolunteer";
+			public const string csc_LastName = "csc_lastname";
+			public const string csc_MaidenName = "csc_maidenname";
+			public const string csc_MailingAddressCity = "csc_mailingaddresscity";
+			public const string csc_MailingAddressCountry = "csc_mailingaddresscountry";
+			public const string csc_MailingAddressLine1 = "csc_mailingaddressline1";
+			public const string csc_MailingAddressLine2 = "csc_mailingaddressline2";
+			public const string csc_MailingAddressPostalCode = "csc_mailingaddresspostalcode";
+			public const string csc_MailingAddressProvinceOrState = "csc_mailingaddressprovinceorstate";
+			public const string csc_MailingAddressSameAsHomeAddress = "csc_mailingaddresssameashomeaddress";
+			public const string csc_MiddleName = "csc_middlename";
+			public const string csc_MinorityGroups = "csc_minoritygroups";
+			public const string csc_MinorityGroupsOther = "csc_minoritygroupsother";
+			public const string csc_name = "csc_name";
+			public const string csc_NationalVolunteersOrientationCompleted = "csc_nationalvolunteersorientationcompleted";
+			public const string csc_OtherTelephone = "csc_othertelephone";
+			public const string csc_OtherTelephoneExt = "csc_othertelephoneext";
+			public const string csc_PermissiontouseSelfIdentification = "csc_permissiontouseselfidentification";
+			public const string csc_PreferredLanguageofCommunication = "csc_preferredlanguageofcommunication";
+			public const string csc_PreviousYearsOfService = "csc_previousyearsofservice";
+			public const string csc_REACMembershipApprovalDate = "csc_reacmembershipapprovaldate";
+			public const string csc_REACMembershipComment = "csc_reacmembershipcomment";
+			public const string csc_REACMembershipExpiryDate = "csc_reacmembershipexpirydate";
+			public const string csc_REACMembershipStatus = "csc_reacmembershipstatus";
+			public const string csc_Received10YearPin = "csc_received10yearpin";
+			public const string csc_Received20YearPin = "csc_received20yearpin";
+			public const string csc_Received5YearPin = "csc_received5yearpin";
+			public const string csc_ReferenceNumber = "csc_referencenumber";
+			public const string csc_Region = "csc_region";
+			public const string csc_SecondaryEmail = "csc_secondaryemail";
+			public const string csc_SpeakEnglish = "csc_speakenglish";
+			public const string csc_SpeakFrench = "csc_speakfrench";
+			public const string csc_SumofAllInactiveDays = "csc_sumofallinactivedays";
+			public const string csc_SumofAllInactiveDays_Date = "csc_sumofallinactivedays_date";
+			public const string csc_SumofAllInactiveDays_State = "csc_sumofallinactivedays_state";
+			public const string csc_TotalYearsofService = "csc_totalyearsofservice";
+			public const string csc_VisibleMinorityComments = "csc_visibleminoritycomments";
+			public const string csc_VolunteerActivationDate = "csc_volunteeractivationdate";
+			public const string csc_VolunteerId = "csc_volunteerid";
+			public const string Id = "csc_volunteerid";
+			public const string csc_VolunteerStatusChangeDate = "csc_volunteerstatuschangedate";
+			public const string csc_VolunteerStatusComment = "csc_volunteerstatuscomment";
+			public const string csc_VolunteerSupervisor = "csc_volunteersupervisor";
+			public const string EmailAddress = "emailaddress";
+			public const string EntityImage = "entityimage";
+			public const string EntityImage_Timestamp = "entityimage_timestamp";
+			public const string EntityImage_URL = "entityimage_url";
+			public const string EntityImageId = "entityimageid";
+			public const string ImportSequenceNumber = "importsequencenumber";
+			public const string ModifiedBy = "modifiedby";
+			public const string ModifiedOn = "modifiedon";
+			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
+			public const string OverriddenCreatedOn = "overriddencreatedon";
+			public const string OwnerId = "ownerid";
+			public const string OwningBusinessUnit = "owningbusinessunit";
+			public const string OwningTeam = "owningteam";
+			public const string OwningUser = "owninguser";
+			public const string processid = "processid";
+			public const string stageid = "stageid";
+			public const string StateCode = "statecode";
+			public const string StatusCode = "statuscode";
+			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string traversedpath = "traversedpath";
+			public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
+			public const string VersionNumber = "versionnumber";
+			public const string csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState = "csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState";
+			public const string csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState = "csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState";
+			public const string csc_csc_volunteerapplication_csc_volunteer = "csc_csc_volunteerapplication_csc_volunteer";
+		}
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
@@ -2284,6 +2407,169 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// 1:N csc_csc_volunteer_csc_volunteerapplication_CancelledBy
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteerapplication_CancelledBy")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_VolunteerApplication> csc_csc_volunteer_csc_volunteerapplication_CancelledBy
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_volunteer_csc_volunteerapplication_CancelledBy", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteer_csc_volunteerapplication_CancelledBy");
+				this.SetRelatedEntities<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_volunteer_csc_volunteerapplication_CancelledBy", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_volunteerapplication_CancelledBy");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N csc_csc_volunteer_csc_volunteerapplication_Volunteer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteerapplication_Volunteer")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_VolunteerApplication> csc_csc_volunteer_csc_volunteerapplication_Volunteer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_volunteer_csc_volunteerapplication_Volunteer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteer_csc_volunteerapplication_Volunteer");
+				this.SetRelatedEntities<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_volunteer_csc_volunteerapplication_Volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_volunteerapplication_Volunteer");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_VolunteerEmergencyContact> csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_VolunteerEmergencyContact>("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer");
+				this.SetRelatedEntities<CrmEarlyBound.csc_VolunteerEmergencyContact>("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N csc_csc_volunteer_csc_volunteerlanguage_Volunteer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteerlanguage_Volunteer")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_VolunteerLanguage> csc_csc_volunteer_csc_volunteerlanguage_Volunteer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_VolunteerLanguage>("csc_csc_volunteer_csc_volunteerlanguage_Volunteer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteer_csc_volunteerlanguage_Volunteer");
+				this.SetRelatedEntities<CrmEarlyBound.csc_VolunteerLanguage>("csc_csc_volunteer_csc_volunteerlanguage_Volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_volunteerlanguage_Volunteer");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N csc_csc_volunteer_csc_volunteerreference_Volunteer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteerreference_Volunteer")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_VolunteerReference> csc_csc_volunteer_csc_volunteerreference_Volunteer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_VolunteerReference>("csc_csc_volunteer_csc_volunteerreference_Volunteer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteer_csc_volunteerreference_Volunteer");
+				this.SetRelatedEntities<CrmEarlyBound.csc_VolunteerReference>("csc_csc_volunteer_csc_volunteerreference_Volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_volunteerreference_Volunteer");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_homeaddressprovinceorstate")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState")]
+		public CrmEarlyBound.csc_ProvinceOrState csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_ProvinceOrState>("csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState");
+				this.SetRelatedEntity<CrmEarlyBound.csc_ProvinceOrState>("csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState", null, value);
+				this.OnPropertyChanged("csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_mailingaddressprovinceorstate")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState")]
+		public CrmEarlyBound.csc_ProvinceOrState csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_ProvinceOrState>("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState");
+				this.SetRelatedEntity<CrmEarlyBound.csc_ProvinceOrState>("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState", null, value);
+				this.OnPropertyChanged("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_volunteerapplication_csc_volunteer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_applicationid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteerapplication_csc_volunteer")]
+		public CrmEarlyBound.csc_VolunteerApplication csc_csc_volunteerapplication_csc_volunteer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_volunteerapplication_csc_volunteer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteerapplication_csc_volunteer");
+				this.SetRelatedEntity<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_volunteerapplication_csc_volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteerapplication_csc_volunteer");
+			}
+		}
+		
+		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
@@ -2325,7 +2611,7 @@ namespace CrmEarlyBound
             }
 		}
 		
-		/*[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_aboriginalperson")]
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_aboriginalperson")]
 		public virtual System.Collections.Generic.IEnumerable<csc_AboriginalPerson> csc_AboriginalPersonEnum
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -2473,6 +2759,6 @@ namespace CrmEarlyBound
 			{
 				StatusCode = value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null;
 			}
-		}*/
+		}
 	}
 }

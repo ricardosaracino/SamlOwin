@@ -11,9 +11,10 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Microsoft.AspNet.Identity;
+using SamlOwin.Identity;
 using Serilog;
 
-namespace SamlOwin.ActionFilters
+namespace SamlOwin.Handlers
 {
     internal class ExpiredCookeHeaderValue : CookieHeaderValue
     {
@@ -37,11 +38,11 @@ namespace SamlOwin.ActionFilters
         }
     }
 
-    public class CookieActionFilter : AuthorizationFilterAttribute, IAuthorizationFilter
+    public class CookieFilter : AuthorizationFilterAttribute, IAuthorizationFilter
     {
         private const string LogoutAbsolutePath = "/api/auth/logout";
 
-        public static readonly string[] ClaimTypes =
+        public static readonly string[] CookieNames =
         {
             "session.expiresAt", "session.authenticated", "volunteer.id", "volunteer.canApplyCac",
             "volunteer.canApplyCsc", "volunteer.canApplyReac", "volunteer.emailVerified"
@@ -67,13 +68,16 @@ namespace SamlOwin.ActionFilters
                 actionContext.Request.RequestUri.AbsolutePath != LogoutAbsolutePath)
             {
                 // make sure its defaulted because the claim is not set on the login callback
-                var expires = DateTimeOffset.Now.AddMinutes(
-                    Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"]));
+                DateTimeOffset expires;
 
-
-                if (identity.HasClaim(c => c.Type == "expires"))
+                if (identity.HasClaim(c => c.Type == CustomClaimTypes.Expires))
                 {
-                    expires = DateTimeOffset.Parse(identity.FindFirstValue("expires"));
+                    expires = DateTimeOffset.Parse(identity.FindFirstValue(CustomClaimTypes.Expires));
+                }
+                else
+                {
+                    expires = DateTimeOffset.Now.AddMinutes(
+                        Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"]));
                 }
 
                 cookieHeaderValues.Add(new SessionCookeHeaderValue("session.expiresAt", expires.ToString("O"),
@@ -82,13 +86,13 @@ namespace SamlOwin.ActionFilters
                 cookieHeaderValues.Add(new SessionCookeHeaderValue("session.authenticated", "1", expires));
 
                 cookieHeaderValues.AddRange(
-                    (from claimType in ClaimTypes
+                    (from claimType in CookieNames
                         where identity.HasClaim(c => c.Type == claimType)
                         select new SessionCookeHeaderValue(claimType, identity.FindFirstValue(claimType), expires)));
             }
             else
             {
-                cookieHeaderValues.AddRange(ClaimTypes.Select(claimType => new ExpiredCookeHeaderValue(claimType)));
+                cookieHeaderValues.AddRange(CookieNames.Select(claimType => new ExpiredCookeHeaderValue(claimType)));
             }
 
             response.Headers.AddCookies(cookieHeaderValues);

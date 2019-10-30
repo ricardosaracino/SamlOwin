@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using SamlOwin.GuidIdentity;
 using SamlOwin.Identity;
 
 namespace SamlOwin.Models
@@ -25,27 +26,28 @@ namespace SamlOwin.Models
 
             if (Volunteer.Id != Guid.Empty)
             {
-                userIdentity.AddClaim(new Claim("volunteer.id", Volunteer.Id.ToString()));
+                userIdentity.AddClaim(new Claim(CustomClaimTypes.VolunteerId, Volunteer.Id.ToString(),
+                    ClaimValueTypes.String));
             }
 
             if (Volunteer.CanApplyCac == true)
             {
-                userIdentity.AddClaim(new Claim("volunteer.canApplyCac", "1"));
+                userIdentity.AddClaim(new Claim(CustomClaimTypes.VolunteerCanApplyCac, "1", ClaimValueTypes.Integer));
             }
 
             if (Volunteer.CanApplyCsc == true)
             {
-                userIdentity.AddClaim(new Claim("volunteer.canApplyCsc", "1"));
+                userIdentity.AddClaim(new Claim(CustomClaimTypes.VolunteerCanApplyCsc, "1", ClaimValueTypes.Integer));
             }
 
             if (Volunteer.CanApplyReac == true)
             {
-                userIdentity.AddClaim(new Claim("volunteer.canApplyReac", "1"));
+                userIdentity.AddClaim(new Claim(CustomClaimTypes.VolunteerCanApplyReac, "1", ClaimValueTypes.Integer));
             }
 
             if (Volunteer.EmailVerifiedOn != null)
             {
-                userIdentity.AddClaim(new Claim("volunteer.emailVerified", "1"));
+                userIdentity.AddClaim(new Claim(CustomClaimTypes.VolunteerEmailVerified, "1", ClaimValueTypes.Integer));
             }
 
             return userIdentity;

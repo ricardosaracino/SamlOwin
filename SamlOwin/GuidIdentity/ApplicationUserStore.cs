@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace SamlOwin.Identity
+namespace SamlOwin.GuidIdentity
 {
     public abstract class ApplicationUserStore<TUser> : IUserLoginStore<TUser, Guid>, IUserRoleStore<TUser, Guid>,
         IUserClaimStore<TUser, Guid>, IUserLockoutStore<TUser, Guid>,

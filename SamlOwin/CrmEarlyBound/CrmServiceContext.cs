@@ -29,7 +29,6 @@ namespace CrmEarlyBound
 		{
 		}
 		
-		
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_PortalUser"/> entities.
 		/// </summary>
@@ -43,6 +42,18 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_ProvinceOrState"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_ProvinceOrState> csc_ProvinceOrStateSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_ProvinceOrState>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Volunteer"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<CrmEarlyBound.csc_Volunteer> csc_VolunteerSet
@@ -51,6 +62,54 @@ namespace CrmEarlyBound
 			get
 			{
 				return this.CreateQuery<CrmEarlyBound.csc_Volunteer>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_VolunteerApplication"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_VolunteerApplication> csc_VolunteerApplicationSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_VolunteerApplication>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_VolunteerEmergencyContact"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_VolunteerEmergencyContact> csc_VolunteerEmergencyContactSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_VolunteerEmergencyContact>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_VolunteerLanguage"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_VolunteerLanguage> csc_VolunteerLanguageSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_VolunteerLanguage>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_VolunteerReference"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_VolunteerReference> csc_VolunteerReferenceSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_VolunteerReference>();
 			}
 		}
 	}

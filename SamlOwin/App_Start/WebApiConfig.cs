@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SamlOwin.ActionFilters;
+using SamlOwin.Handlers;
 using Serilog;
 using Serilog.Events;
 
@@ -30,8 +30,8 @@ namespace SamlOwin
 
         private static void RegisterFilters(HttpConfiguration config)
         {
-            config.Filters.Add(new SessionActionFilter());
-            config.Filters.Add(new CookieActionFilter());
+            config.Filters.Add(new GccfSessionFilter());
+            config.Filters.Add(new CookieFilter());
         }   
         
         private static void RegisterFormatters(HttpConfiguration config)

@@ -8,8 +8,8 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SamlOwin.ActionFilters;
-using SamlOwin.Identity;
+using SamlOwin.Handlers;
+using SamlOwin.GuidIdentity;
 
 namespace SamlOwin.Controllers
 {
@@ -24,18 +24,7 @@ namespace SamlOwin.Controllers
 
         private static IAuthenticationManager AuthenticationManager =>
             HttpContext.Current.GetOwinContext().Authentication;
-
-        /*[AllowAnonymous]
-        [HttpGet]
-        [ActionName("AzureSignIn")]
-        public void SignIn()
-        {
-            HttpContext.Current.GetOwinContext().Authentication.Challenge(
-                new AuthenticationProperties {RedirectUri = "/api/auth/ping"},
-                OpenIdConnectAuthenticationDefaults.AuthenticationType);
-        }*/
-
-
+        
         [AllowAnonymous]
         [HttpGet]
         [ActionName("LoginCallback")]
@@ -65,7 +54,7 @@ namespace SamlOwin.Controllers
             // required for saml2 single sign out
             AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
 
-            SessionActionFilter.RegisterSession(loginInfo.ExternalIdentity);
+            GccfSessionFilter.RegisterSession(loginInfo.ExternalIdentity);
 
             switch (signInStatus)
             {
@@ -101,7 +90,7 @@ namespace SamlOwin.Controllers
             AuthenticationManager.SignOut();
 
             // Dont clear Current.User needed for sign out
-            SessionActionFilter.DeregisterSession();
+            GccfSessionFilter.DeregisterSession();
 
             var response = Request.CreateResponse(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(returnUrl);

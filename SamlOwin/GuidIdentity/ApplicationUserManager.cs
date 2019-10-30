@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 /**
  * https://stackoverflow.com/questions/22652543/does-new-asp-net-mvc-identity-framework-work-without-entity-framework-and-sql-se
  */
-namespace SamlOwin.Identity
+namespace SamlOwin.GuidIdentity
 {
     public class ApplicationUserManager : UserManager<ApplicationUser, Guid>
     {

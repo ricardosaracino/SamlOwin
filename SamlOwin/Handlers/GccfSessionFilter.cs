@@ -16,13 +16,13 @@ using System.Web.Http.Filters;
 using Serilog;
 using Sustainsys.Saml2.WebSso;
 
-namespace SamlOwin.ActionFilters
+namespace SamlOwin.Handlers
 {
     /// <summary>
     /// This mess is to accomodate the GCCF Global logout.
     /// Long story short there is a session id in MemoryCache that is unset by a SOAP call back.
     /// </summary>
-    public class SessionActionFilter : AuthorizationFilterAttribute, IAuthorizationFilter
+    public class GccfSessionFilter : AuthorizationFilterAttribute, IAuthorizationFilter
     {
         // Saml2Namespaces.Saml2P
         private const string ClaimTypeSessionIndex = "http://Sustainsys.se/Saml2/SessionIndex";
@@ -81,7 +81,7 @@ namespace SamlOwin.ActionFilters
                 };
 
                 // remove these too to be safe, i set the cache expiration low and these got out of sync
-                cookieHeaderValues.AddRange(CookieActionFilter.ClaimTypes
+                cookieHeaderValues.AddRange(CookieFilter.CookieNames
                     .Select(claimType => new ExpiredCookeHeaderValue(claimType)));
                     
                 actionContext.Response.Headers.AddCookies(cookieHeaderValues);

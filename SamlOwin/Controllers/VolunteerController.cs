@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity.Owin;
+using SamlOwin.Handlers;
+using SamlOwin.Identity;
 using SamlOwin.Models;
 using SamlOwin.Providers;
 
@@ -19,19 +22,24 @@ namespace SamlOwin.Controllers
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
             _mapper = AutoMapperProvider.GetMapper();
         }
-        
-        [AllowAnonymous]
-        [HttpGet]
-        [ActionName("FindFirst")]
-        public object FindFirst()
-        {
-            var queryable = from v in _ctx.csc_VolunteerSet
-                orderby v.CreatedOn descending
-                select v;
 
-            var cscVolunteer = queryable.Take(1).FirstOrDefault();
-            
-            return _mapper.Map<Volunteer>(cscVolunteer);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Volunteer Id</param>
+        /// <returns></returns>
+        [VolunteerAuthorization]
+        [HttpGet]
+        [ActionName("find-volunteer-references")]
+        public List<VolunteerReferenceResponse> FindVolunteerReferences()
+        {
+            var queryable = from cscVolunteerReference in _ctx.csc_VolunteerReferenceSet
+                orderby cscVolunteerReference.CreatedOn descending
+                where cscVolunteerReference.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
+                select cscVolunteerReference;
+
+            return queryable.ToList().ConvertAll(volunteerReferenceEntity =>
+                _mapper.Map<VolunteerReferenceResponse>(volunteerReferenceEntity));
         }
     }
 }
