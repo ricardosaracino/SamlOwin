@@ -2,7 +2,7 @@
 
 namespace SamlOwin.Models
 {
-    public class ObjectResponse
+    public class Reference
     {
         public Guid Id { get; set; }
         

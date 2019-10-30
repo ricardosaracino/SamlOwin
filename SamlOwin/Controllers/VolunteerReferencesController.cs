@@ -12,34 +12,28 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
-    public class VolunteerController : ApiController
+    public class VolunteerReferencesController : ApiController
     {
         private readonly CrmServiceContext _ctx;
         private readonly Mapper _mapper;
 
-        public VolunteerController()
+        public VolunteerReferencesController()
         {
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
             _mapper = AutoMapperProvider.GetMapper();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">Volunteer Id</param>
-        /// <returns></returns>
         [VolunteerAuthorization]
         [HttpGet]
-        [ActionName("find-volunteer-references")]
-        public List<VolunteerReferenceResponse> FindVolunteerReferences()
+        [ActionName("find-all")]
+        public List<VolunteerReferenceResponse> FindAll()
         {
             var queryable = from cscVolunteerReference in _ctx.csc_VolunteerReferenceSet
                 orderby cscVolunteerReference.CreatedOn descending
                 where cscVolunteerReference.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteerReference;
 
-            return queryable.ToList().ConvertAll(volunteerReferenceEntity =>
-                _mapper.Map<VolunteerReferenceResponse>(volunteerReferenceEntity));
+            return queryable.ToList().ConvertAll(entity =>_mapper.Map<VolunteerReferenceResponse>(entity));
         }
     }
 }

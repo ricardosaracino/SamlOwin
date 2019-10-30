@@ -36,7 +36,7 @@ namespace SamlOwin.Handlers
             Log.Logger.Information("SessionActionFilter.ExecuteAuthorizationFilterAsync");
 
             var doSignOut = false;
-            
+
             if (HttpContext.Current.User.Identity is ClaimsIdentity identity)
             {
                 // NOT on LOGIN
@@ -50,12 +50,12 @@ namespace SamlOwin.Handlers
                     {
                         Log.Logger.Information(
                             "SessionActionFilter.OnActionExecuting Unauthorized User {sessionIndex}", sessionIndex);
-                        
+
                         HttpContext.Current.User =
                             new GenericPrincipal(new GenericIdentity(string.Empty), null);
-                        
+
                         actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
-                        
+
                         // Getting message Authorization has been denied for this request.
                         actionContext.Response.Content = new StringContent("{\"message\":\"Unauthorized\"}");
 
@@ -66,14 +66,14 @@ namespace SamlOwin.Handlers
                     }
                 }
             }
-            
+
             var response = await continuation();
 
             if (doSignOut)
-            {           
+            {
                 Log.Logger.Information(
                     "SessionActionFilter.OnActionExecuting Remove Application Cookie");
-                
+
                 var cookieHeaderValues = new List<CookieHeaderValue>()
                 {
                     // manually remove the OWIN ApplicationCookie cookie
@@ -83,14 +83,14 @@ namespace SamlOwin.Handlers
                 // remove these too to be safe, i set the cache expiration low and these got out of sync
                 cookieHeaderValues.AddRange(CookieFilter.CookieNames
                     .Select(claimType => new ExpiredCookeHeaderValue(claimType)));
-                    
+
                 actionContext.Response.Headers.AddCookies(cookieHeaderValues);
             }
             else
             {
                 ExtendSession(HttpContext.Current.User.Identity as ClaimsIdentity);
             }
-            
+
             return response;
         }
 
@@ -98,11 +98,8 @@ namespace SamlOwin.Handlers
         {
             Log.Logger.Information("SessionActionFilter.ExtendSession");
 
-            // actionContext.RequestContext.Principal.Identity.IsAuthenticated is true on logout
-            // so we need to call DeregisterSession
-
-            // claimsIdentity is null on AbsolutePath == LoginCallbackAbsolutePath
-            // // So we need to call RegisterSession
+            // actionContext.RequestContext.Principal.Identity.IsAuthenticated is true on logout  so we need to call DeregisterSession
+            // claimsIdentity is null on AbsolutePath == LoginCallbackAbsolutePath, so we need to call RegisterSession
 
             var sessionIndex = claimsIdentity?.Claims
                 .Where(c => c.Type == ClaimTypeSessionIndex)
@@ -150,6 +147,7 @@ namespace SamlOwin.Handlers
                     request.HttpMethod);
 
                 // SOAP Logout
+                // ReSharper disable once InvertIf
                 if (request.Url.AbsolutePath == LogoutCallbackAbsolutePath && request.HttpMethod == "POST")
                 {
                     var sessionIndex = request.User.Claims
@@ -161,10 +159,11 @@ namespace SamlOwin.Handlers
                         MemoryCache.Default.Remove(sessionIndex);
                     }
 
-                    Log.Logger.Information("SessionActionFilter.GetSaml2Binding SOAP Logout {sessionIndex}", sessionIndex);
+                    Log.Logger.Information("SessionActionFilter.GetSaml2Binding SOAP Logout {sessionIndex}",
+                        sessionIndex);
 
                     // We got a saml logout... just let it do its thing
-                    return null;
+                    return Saml2Binding.Get(request);
                 }
 
                 //  Post Assertion (/api/saml/Acs)

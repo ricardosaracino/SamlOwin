@@ -4,11 +4,11 @@ using SamlOwin.Models;
 
 namespace SamlOwin.Profiles
 {
-    public class EntityReferenceToObjectResponse: Profile
+    public class EntityReferenceToReference: Profile
     {
-        public EntityReferenceToObjectResponse()
+        public EntityReferenceToReference()
         {
-            CreateMap<EntityReference, ObjectResponse>()
+            CreateMap<EntityReference, Reference>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(s => s.Name))
                 ;

@@ -22,6 +22,6 @@ namespace SamlOwin.Models
         
         public string Title { get; set; }
 
-        public ObjectResponse Volunteer { get; set; }
+        public Reference Volunteer { get; set; }
     }
 }

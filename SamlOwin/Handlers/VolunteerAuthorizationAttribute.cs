@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
@@ -25,7 +27,7 @@ namespace SamlOwin.Handlers
                 return identity.GetVolunteerId() !=  Guid.Empty;
             }
 
-            return false;
+            return true;
         }
     }
 }
