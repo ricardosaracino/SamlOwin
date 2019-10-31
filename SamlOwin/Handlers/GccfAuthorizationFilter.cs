@@ -22,7 +22,7 @@ namespace SamlOwin.Handlers
     /// This mess is to accomodate the GCCF Global logout.
     /// Long story short there is a session id in MemoryCache that is unset by a SOAP call back.
     /// </summary>
-    public class GccfSessionFilter : AuthorizationFilterAttribute, IAuthorizationFilter
+    public class GccfAuthorizationFilter : AuthorizationFilterAttribute, IAuthorizationFilter
     {
         // Saml2Namespaces.Saml2P
         private const string ClaimTypeSessionIndex = "http://Sustainsys.se/Saml2/SessionIndex";
@@ -81,7 +81,7 @@ namespace SamlOwin.Handlers
                 };
 
                 // remove these too to be safe, i set the cache expiration low and these got out of sync
-                cookieHeaderValues.AddRange(CookieFilter.CookieNames
+                cookieHeaderValues.AddRange(CookieHandler.CookieNames
                     .Select(claimType => new ExpiredCookeHeaderValue(claimType)));
 
                 actionContext.Response.Headers.AddCookies(cookieHeaderValues);

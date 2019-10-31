@@ -26,14 +26,21 @@ namespace SamlOwin.Controllers
         [VolunteerAuthorization]
         [HttpGet]
         [ActionName("find-all")]
-        public List<VolunteerReferenceResponse> FindAll()
+        public ApiResponse<VolunteerReferencesControllerFindAllResponse> FindAll()
         {
             var queryable = from cscVolunteerReference in _ctx.csc_VolunteerReferenceSet
                 orderby cscVolunteerReference.CreatedOn descending
                 where cscVolunteerReference.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteerReference;
 
-            return queryable.ToList().ConvertAll(entity =>_mapper.Map<VolunteerReferenceResponse>(entity));
+            return new ApiSuccessResponse<VolunteerReferencesControllerFindAllResponse>
+            {
+                Data = new VolunteerReferencesControllerFindAllResponse
+                {
+                    VolunteerReferences = queryable.ToList()
+                        .ConvertAll(entity => _mapper.Map<VolunteerReferenceResponse>(entity))
+                }
+            };
         }
     }
 }

@@ -361,8 +361,11 @@
   <ItemGroup>
     <Compile Include="Controllers\VolunteerLanguagesController.cs" />
     <Compile Include="Controllers\VolunteerReferencesController.cs" />
-    <Compile Include="Handlers\CookieFilter.cs" />
-    <Compile Include="Handlers\GccfSessionFilter.cs" />
+    <Compile Include="Handlers\ApiControllerSelector.cs" />
+    <Compile Include="Handlers\ApiExceptionHandler.cs" />
+    <Compile Include="Handlers\ApiExceptionLogger.cs" />
+    <Compile Include="Handlers\CookieHandler.cs" />
+    <Compile Include="Handlers\GccfAuthorizationFilter.cs" />
     <Compile Include="Handlers\VolunteerAuthorizationAttribute.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -388,14 +391,18 @@
     <Compile Include="Identity\CustomValidateIdentityContext.cs" />
     <Compile Include="Identity\CustomClaimTypes.cs" />
     <Compile Include="Identity\IdentityExtensions.cs" />
+    <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="Models\ApiSuccessResponse.cs" />
     <Compile Include="Models\Reference.cs" />
     <Compile Include="Models\PortalUser.cs" />
     <Compile Include="Models\PortalUserStore.cs" />
     <Compile Include="Models\ProvinceOrStateResponse.cs" />
     <Compile Include="Models\Volunteer.cs" />
     <Compile Include="Models\VolunteerLanguageResponse.cs" />
+    <Compile Include="Models\VolunteerLanguagesControllerFindAllResponse.cs" />
     <Compile Include="Models\VolunteerReferenceResponse.cs" />
-    <Compile Include="Models\VolunteerRequest.cs" />
+    <Compile Include="Models\VolunteerReferencesControllerFindAllResponse.cs" />
+    <Compile Include="Models\VolunteersControllerFindOneResponse.cs" />
     <Compile Include="Profiles\EntityReferenceToReference.cs" />
     <Compile Include="Profiles\PortalUserEntityToPortalUserModel.cs" />
     <Compile Include="Profiles\ProvinceOrStateEntityToProvinceOrStateResponse.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using System.Web.Http.ExceptionHandling;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SamlOwin.Handlers;
@@ -9,28 +10,13 @@ using Serilog.Events;
 
 namespace SamlOwin
 {
-    public class ApiControllerSelector : DefaultHttpControllerSelector
-    {
-        public ApiControllerSelector(HttpConfiguration configuration) : base(configuration)
-        {
-        }
-
-        public override string GetControllerName(HttpRequestMessage request)
-        {
-            // add logic to remove hyphen from controller name lookup of the controller
-            return base.GetControllerName(request).Replace("-", string.Empty);
-        }
-    }
-
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
             RegisterFormatters(config);
-
-            RegisterFilters(config);
-
+            
             RegisterLogger();
             
             // Web API routes
@@ -42,15 +28,18 @@ namespace SamlOwin
                 new {id = RouteParameter.Optional}
             );
             
-            config.Services.Replace(typeof(IHttpControllerSelector),
-                new ApiControllerSelector(config));
+            config.Services.Replace(typeof(IHttpControllerSelector), new ApiControllerSelector(config));
+            
+            config.Services.Replace(typeof(IExceptionHandler), new ApiExceptionHandler());
+            
+            config.Services.Replace(typeof(IExceptionLogger), new ApiExceptionLogger());
+            
+            config.MessageHandlers.Add(new CookieHandler());
+            
+            config.Filters.Add(new GccfAuthorizationFilter());
         }
 
-        private static void RegisterFilters(HttpConfiguration config)
-        {
-            config.Filters.Add(new GccfSessionFilter());
-            config.Filters.Add(new CookieFilter());
-        }
+     
 
         private static void RegisterFormatters(HttpConfiguration config)
         {

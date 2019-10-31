@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -22,22 +23,23 @@ namespace SamlOwin.Controllers
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
             _mapper = AutoMapperProvider.GetMapper();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">Volunteer Id</param>
-        /// <returns></returns>
+        
         [VolunteerAuthorization]
         [HttpGet]
         [ActionName("find-one")]
-        public Volunteer FindOne()
+        public ApiResponse<VolunteersControllerFindOneResponse> FindOne()
         {
             var queryable = from cscVolunteer in _ctx.csc_VolunteerSet
                 where cscVolunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteer;
-
-            return _mapper.Map<Volunteer>(queryable.First());
+            
+            return new ApiSuccessResponse<VolunteersControllerFindOneResponse>
+            {
+                Data = new VolunteersControllerFindOneResponse
+                {
+                    Volunteer = _mapper.Map<Volunteer>(queryable.First())
+                }
+            };
         }
     }
 }

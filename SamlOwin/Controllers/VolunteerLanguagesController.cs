@@ -26,14 +26,21 @@ namespace SamlOwin.Controllers
         [VolunteerAuthorization]
         [HttpGet]
         [ActionName("find-all")]
-        public List<VolunteerLanguageResponse> FindAll()
+        public ApiResponse<VolunteerLanguagesControllerFindAllResponse> FindAll()
         {
             var queryable = from cscVolunteerLanguage in _ctx.csc_VolunteerLanguageSet
                 orderby cscVolunteerLanguage.CreatedOn descending
                 where cscVolunteerLanguage.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteerLanguage;
-
-            return queryable.ToList().ConvertAll(entity => _mapper.Map<VolunteerLanguageResponse>(entity));
+            
+            return new ApiSuccessResponse<VolunteerLanguagesControllerFindAllResponse>
+            {
+                Data = new VolunteerLanguagesControllerFindAllResponse
+                {
+                    VolunteerLanguages = queryable.ToList()
+                        .ConvertAll(entity => _mapper.Map<VolunteerLanguageResponse>(entity))
+                }
+            };
         }
     }
 }

@@ -54,7 +54,7 @@ namespace SamlOwin.Controllers
             // required for saml2 single sign out
             AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
 
-            GccfSessionFilter.RegisterSession(loginInfo.ExternalIdentity);
+            GccfAuthorizationFilter.RegisterSession(loginInfo.ExternalIdentity);
 
             switch (signInStatus)
             {
@@ -90,7 +90,7 @@ namespace SamlOwin.Controllers
             AuthenticationManager.SignOut();
 
             // Dont clear Current.User needed for sign out
-            GccfSessionFilter.DeregisterSession();
+            GccfAuthorizationFilter.DeregisterSession();
 
             var response = Request.CreateResponse(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(returnUrl);

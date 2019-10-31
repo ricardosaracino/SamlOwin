@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.ServiceModel.Channels;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
 using Microsoft.AspNet.Identity;
 using SamlOwin.Identity;
 using Serilog;
@@ -37,8 +37,8 @@ namespace SamlOwin.Handlers
             Path = "/";
         }
     }
-
-    public class CookieFilter : AuthorizationFilterAttribute, IAuthorizationFilter
+    
+    public class CookieHandler : DelegatingHandler
     {
         private const string LogoutAbsolutePath = "/api/auth/logout";
 
@@ -48,24 +48,24 @@ namespace SamlOwin.Handlers
             "volunteer.canApplyCsc", "volunteer.canApplyReac", "volunteer.emailVerified"
         };
 
-        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
-            CancellationToken cancellationToken,
-            Func<Task<HttpResponseMessage>> continuation)
-        {
-            Log.Logger.Information("CookieActionFilter.ExecuteAuthorizationFilterAsync");
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
 
-            var response = await continuation();
+        {
+            Log.Logger.Information("CookieHandler.ExecuteAuthorizationFilterAsync");
+
+            var response = await base.SendAsync(request, cancellationToken);
 
             var identity =
                 HttpContext.Current.GetOwinContext()?.Authentication.AuthenticationResponseGrant != null
                     ? HttpContext.Current.GetOwinContext().Authentication.AuthenticationResponseGrant.Identity
-                    : actionContext.RequestContext.Principal.Identity as ClaimsIdentity;
+                    : request.GetRequestContext()?.Principal.Identity as ClaimsIdentity;
 
             var cookieHeaderValues = new List<CookieHeaderValue>();
 
             if (identity != null && identity.IsAuthenticated &&
                 // if logout clear cookies the identity is still set until Owin clears it
-                actionContext.Request.RequestUri.AbsolutePath != LogoutAbsolutePath)
+                request.RequestUri.AbsolutePath != LogoutAbsolutePath)
             {
                 // make sure its defaulted because the claim is not set on the login callback
                 DateTimeOffset expires;
@@ -94,6 +94,8 @@ namespace SamlOwin.Handlers
             {
                 cookieHeaderValues.AddRange(CookieNames.Select(claimType => new ExpiredCookeHeaderValue(claimType)));
             }
+
+            Log.Logger.Information("CookieHandler.ExecuteAuthorizationFilterAsync Headers added");
 
             response.Headers.AddCookies(cookieHeaderValues);
 

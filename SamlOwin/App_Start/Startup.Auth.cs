@@ -90,7 +90,7 @@ namespace SamlOwin
 
             saml2Options.Notifications = new Saml2Notifications
             {
-                GetBinding = GccfSessionFilter.GetSaml2Binding()
+                GetBinding = GccfAuthorizationFilter.GetSaml2Binding()
             };
 
             saml2Options.IdentityProviders.Add(idp5);
