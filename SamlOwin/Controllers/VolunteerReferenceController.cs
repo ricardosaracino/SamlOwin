@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -12,12 +11,13 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
-    public class VolunteerReferencesController : ApiController
+    [RoutePrefix("api/volunteer-references")]
+    public class VolunteerReferenceController : ApiController
     {
         private readonly CrmServiceContext _ctx;
         private readonly Mapper _mapper;
 
-        public VolunteerReferencesController()
+        public VolunteerReferenceController()
         {
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
             _mapper = AutoMapperProvider.GetMapper();

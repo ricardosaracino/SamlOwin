@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SamlOwin.Handlers;
 using SamlOwin.GuidIdentity;
+using SamlOwin.Handlers;
 
 namespace SamlOwin.Controllers
 {
+    [RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {
         private readonly ApplicationSignInManager _signInManager;
@@ -27,7 +28,7 @@ namespace SamlOwin.Controllers
         
         [AllowAnonymous]
         [HttpGet]
-        [ActionName("LoginCallback")]
+        [ActionName("saml2-callback")]
         public async Task<HttpResponseMessage> LoginCallback(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")
         {
             /**
@@ -83,7 +84,7 @@ namespace SamlOwin.Controllers
 
         [Authorize]
         [HttpGet]
-        [ActionName("Logout")]
+        [ActionName("logout")]
         public HttpResponseMessage Logout(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")
         {
             // triggers the saml2 sign out
@@ -100,7 +101,7 @@ namespace SamlOwin.Controllers
 
         [Authorize]
         [HttpGet]
-        [ActionName("Ping")]
+        [ActionName("ping")]
         public Dictionary<string, string> Ping()
         {
             return AuthenticationManager.User.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
@@ -108,7 +109,7 @@ namespace SamlOwin.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [ActionName("Error")]
+        [ActionName("error")]
         public string Error()
         {
             return ":(";

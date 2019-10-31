@@ -359,8 +359,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\VolunteerLanguagesController.cs" />
-    <Compile Include="Controllers\VolunteerReferencesController.cs" />
+    <Compile Include="Controllers\VolunteerController.cs" />
+    <Compile Include="Controllers\VolunteerLanguageController.cs" />
+    <Compile Include="Controllers\VolunteerReferenceController.cs" />
     <Compile Include="Handlers\ApiControllerSelector.cs" />
     <Compile Include="Handlers\ApiExceptionHandler.cs" />
     <Compile Include="Handlers\ApiExceptionLogger.cs" />
@@ -370,7 +371,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\VolunteersController.cs" />
     <Compile Include="CrmEarlyBound\CrmServiceContext.cs" />
     <Compile Include="CrmEarlyBound\csc_PortalUser.cs" />
     <Compile Include="CrmEarlyBound\csc_ProvinceOrState.cs" />

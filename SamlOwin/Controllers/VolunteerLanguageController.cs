@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -12,12 +11,13 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
-    public class VolunteerLanguagesController : ApiController
+    [RoutePrefix("api/volunteer-languages")]
+    public class VolunteerLanguageController : ApiController
     {
         private readonly CrmServiceContext _ctx;
         private readonly Mapper _mapper;
 
-        public VolunteerLanguagesController()
+        public VolunteerLanguageController()
         {
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
             _mapper = AutoMapperProvider.GetMapper();

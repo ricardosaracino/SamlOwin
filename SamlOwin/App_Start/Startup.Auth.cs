@@ -7,8 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using SamlOwin.Handlers;
 using SamlOwin.GuidIdentity;
+using SamlOwin.Handlers;
 using SamlOwin.Identity;
 using SamlOwin.Models;
 using SamlOwin.Providers;
@@ -114,7 +114,7 @@ namespace SamlOwin
                 ModulePath = "api/saml",
 
                 // 
-                ReturnUrl = new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/loginCallback"),
+                ReturnUrl = new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/saml2-callback"),
 
                 // add to metadata: <X509SubjectName>CN=dev-ep-pe,OU=csc-scc,O=GC,C=CA</X509SubjectName>
                 WantAssertionsSigned = true,
