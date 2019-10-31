@@ -24,8 +24,7 @@ namespace SamlOwin.Controllers
         }
 
         [VolunteerAuthorization]
-        [HttpGet]
-        [ActionName("find-all")]
+        [HttpGet, Route("find-all")]
         public ApiResponse<VolunteerLanguagesControllerFindAllResponse> FindAll()
         {
             var queryable = from cscVolunteerLanguage in _ctx.csc_VolunteerLanguageSet

@@ -27,8 +27,7 @@ namespace SamlOwin.Controllers
             HttpContext.Current.GetOwinContext().Authentication;
         
         [AllowAnonymous]
-        [HttpGet]
-        [ActionName("saml2-callback")]
+        [HttpGet, Route("saml2/callback")]
         public async Task<HttpResponseMessage> LoginCallback(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")
         {
             /**
@@ -83,8 +82,7 @@ namespace SamlOwin.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        [ActionName("logout")]
+        [HttpGet, Route("logout")]
         public HttpResponseMessage Logout(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")
         {
             // triggers the saml2 sign out
@@ -100,16 +98,14 @@ namespace SamlOwin.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        [ActionName("ping")]
+        [HttpGet, Route("ping")]
         public Dictionary<string, string> Ping()
         {
             return AuthenticationManager.User.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
         }
 
         [AllowAnonymous]
-        [HttpGet]
-        [ActionName("error")]
+        [HttpGet, Route("error")]
         public string Error()
         {
             return ":(";

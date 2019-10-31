@@ -24,8 +24,7 @@ namespace SamlOwin.Controllers
         }
 
         [VolunteerAuthorization]
-        [HttpGet]
-        [ActionName("find-all")]
+        [HttpGet, Route("find-all")]
         public ApiResponse<VolunteerReferencesControllerFindAllResponse> FindAll()
         {
             var queryable = from cscVolunteerReference in _ctx.csc_VolunteerReferenceSet

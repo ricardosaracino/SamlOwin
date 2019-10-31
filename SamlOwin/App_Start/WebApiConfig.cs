@@ -22,12 +22,6 @@ namespace SamlOwin
             // Web API routes
             config.MapHttpAttributeRoutes();
             
-            config.Routes.MapHttpRoute(
-                "ActionApi",
-                "api/{controller}/{action}/{id}",
-                new {id = RouteParameter.Optional}
-            );
-            
             config.Services.Replace(typeof(IHttpControllerSelector), new ApiControllerSelector(config));
             
             config.Services.Replace(typeof(IExceptionHandler), new ApiExceptionHandler());

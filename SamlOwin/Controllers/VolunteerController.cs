@@ -24,8 +24,7 @@ namespace SamlOwin.Controllers
         }
         
         [VolunteerAuthorization]
-        [HttpGet]
-        [ActionName("find-one")]
+        [HttpGet, Route("find-one")]
         public ApiResponse<VolunteersControllerFindOneResponse> FindOne()
         {
             var queryable = from cscVolunteer in _ctx.csc_VolunteerSet

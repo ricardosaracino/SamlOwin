@@ -114,7 +114,7 @@ namespace SamlOwin
                 ModulePath = "api/saml",
 
                 // 
-                ReturnUrl = new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/saml2-callback"),
+                ReturnUrl = new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/saml2/callback"),
 
                 // add to metadata: <X509SubjectName>CN=dev-ep-pe,OU=csc-scc,O=GC,C=CA</X509SubjectName>
                 WantAssertionsSigned = true,
