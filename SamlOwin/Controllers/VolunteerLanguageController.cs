@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel;
+using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -23,6 +27,10 @@ namespace SamlOwin.Controllers
             _mapper = AutoMapperProvider.GetMapper();
         }
 
+        /// <summary>
+        /// Finds all Volunteer Languages assigned to Current User
+        /// </summary>
+        /// <seealso cref="VolunteerReferenceResponse"/>
         [VolunteerAuthorization]
         [HttpGet, Route("find-all")]
         public ApiResponse<VolunteerLanguagesControllerFindAllResponse> FindAll()
@@ -31,7 +39,7 @@ namespace SamlOwin.Controllers
                 orderby cscVolunteerLanguage.CreatedOn descending
                 where cscVolunteerLanguage.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteerLanguage;
-            
+
             return new ApiSuccessResponse<VolunteerLanguagesControllerFindAllResponse>
             {
                 Data = new VolunteerLanguagesControllerFindAllResponse
@@ -39,6 +47,21 @@ namespace SamlOwin.Controllers
                     VolunteerLanguages = queryable.ToList()
                         .ConvertAll(entity => _mapper.Map<VolunteerLanguageResponse>(entity))
                 }
+            };
+        }
+
+
+        /// <summary>
+        /// Updates or Creates all Volunteer Languages and assigns them to the current user
+        /// </summary>
+        /// <seealso cref="VolunteerLanguageRequest"/>
+        [VolunteerAuthorization]
+        [HttpPost, Route("save")]
+        public ApiResponse<object> Save([FromBody] IEnumerable<VolunteerLanguageRequest> volunteerLanguageRequest)
+        {
+            return new ApiSuccessResponse<object>
+            {
+                Data = null
             };
         }
     }

@@ -2,7 +2,7 @@
 
 namespace SamlOwin.Handlers
 {
-    public class ApiExceptionLogger : ExceptionLogger
+    public class WebApiExceptionLogger : ExceptionLogger
     {
         public override void Log(ExceptionLoggerContext context)
         {

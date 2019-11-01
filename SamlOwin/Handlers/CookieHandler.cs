@@ -37,7 +37,7 @@ namespace SamlOwin.Handlers
             Path = "/";
         }
     }
-    
+
     public class CookieHandler : DelegatingHandler
     {
         private const string LogoutAbsolutePath = "/api/auth/logout";

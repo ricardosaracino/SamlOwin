@@ -29,7 +29,7 @@ namespace SamlOwin.Handlers
         private const string LoginCallbackAbsolutePath = "/api/auth/loginCallback";
         private const string LogoutCallbackAbsolutePath = "/api/saml/Logout";
 
-        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
+        public async Task<HttpResponseMessage> OFFFExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {

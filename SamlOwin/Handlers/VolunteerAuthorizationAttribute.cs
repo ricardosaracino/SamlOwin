@@ -1,28 +1,25 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SamlOwin.Identity;
+using SamlOwin.Models;
 
 namespace SamlOwin.Handlers
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class VolunteerAuthorizationAttribute : AuthorizeAttribute 
+    public class VolunteerAuthorizationAttribute : AuthorizeAttribute
     {
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
-            var identity = Thread.CurrentPrincipal.Identity;
-
-            if (identity == null && HttpContext.Current != null)
+            if (actionContext.RequestContext?.Principal.Identity.IsAuthenticated == true)
             {
-                identity = HttpContext.Current.User.Identity;
-            }
-
-            if (identity != null && identity.IsAuthenticated)
-            {
-
-                return identity.GetVolunteerId() !=  Guid.Empty;
+                return actionContext.RequestContext.Principal.Identity.GetVolunteerId() != Guid.Empty;
             }
 
             return false;

@@ -8,7 +8,7 @@ namespace SamlOwin.Profiles
     {
         public EntityReferenceToReference()
         {
-            CreateMap<EntityReference, Reference>()
+            CreateMap<EntityReference, ReferenceResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(s => s.Name))
                 ;

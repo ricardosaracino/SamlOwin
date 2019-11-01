@@ -23,6 +23,10 @@ namespace SamlOwin.Controllers
             _mapper = AutoMapperProvider.GetMapper();
         }
         
+        /// <summary>
+        /// Finds the Volunteer assigned to Current User
+        /// </summary>
+        /// <returns></returns>
         [VolunteerAuthorization]
         [HttpGet, Route("find-one")]
         public ApiResponse<VolunteersControllerFindOneResponse> FindOne()

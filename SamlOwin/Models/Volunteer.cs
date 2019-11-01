@@ -16,7 +16,7 @@ namespace SamlOwin.Models
 
         public string HomeAddressCity { get; set; }
         
-        public Reference HomeAddressCountry { get; set; }
+        public ReferenceResponse HomeAddressCountry { get; set; }
         
         public string HomeAddressLine1 { get; set; }
         
@@ -24,7 +24,7 @@ namespace SamlOwin.Models
         
         public string HomeAddressPostalCode { get; set; }
         
-        public Reference HomeAddressProvinceOrState { get; set; }
+        public ReferenceResponse HomeAddressProvinceOrState { get; set; }
         
         public string HomeTelephone { get; set; }
 
@@ -32,7 +32,7 @@ namespace SamlOwin.Models
         
         public string MailingAddressCity { get; set; }
         
-        public Reference MailingAddressCountry { get; set; }
+        public ReferenceResponse MailingAddressCountry { get; set; }
         
         public string MailingAddressLine1 { get; set; }
         
@@ -40,7 +40,7 @@ namespace SamlOwin.Models
         
         public string MailingAddressPostalCode { get; set; }
         
-        public Reference MailingAddressProvinceOrState { get; set; }
+        public ReferenceResponse MailingAddressProvinceOrState { get; set; }
         
         public string MiddleName { get; set; }
 

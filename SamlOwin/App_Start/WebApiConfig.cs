@@ -22,15 +22,20 @@ namespace SamlOwin
             // Web API routes
             config.MapHttpAttributeRoutes();
             
-            config.Services.Replace(typeof(IHttpControllerSelector), new ApiControllerSelector(config));
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.LocalOnly;
             
-            config.Services.Replace(typeof(IExceptionHandler), new ApiExceptionHandler());
+            config.Services.Replace(typeof(IExceptionHandler), new WebApiExceptionHandler());
             
-            config.Services.Replace(typeof(IExceptionLogger), new ApiExceptionLogger());
+            config.Services.Replace(typeof(IExceptionLogger), new WebApiExceptionLogger());
             
             config.MessageHandlers.Add(new CookieHandler());
             
             config.Filters.Add(new GccfAuthorizationFilter());
+            
+            config.Filters.Add(new ValidationFilterAttribute());
+            
+            config.Filters.Add(new WebApiAuthorizationAttribute());
+
         }
 
      

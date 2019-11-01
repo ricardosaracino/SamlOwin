@@ -26,6 +26,11 @@ namespace SamlOwin.Controllers
         private static IAuthenticationManager AuthenticationManager =>
             HttpContext.Current.GetOwinContext().Authentication;
         
+        /// <summary>
+        /// Creates Application Cookie
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpGet, Route("saml2/callback")]
         public async Task<HttpResponseMessage> LoginCallback(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")
@@ -81,6 +86,11 @@ namespace SamlOwin.Controllers
             return response;
         }
 
+        /// <summary>
+        /// Removes Application Cookie
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet, Route("logout")]
         public HttpResponseMessage Logout(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")

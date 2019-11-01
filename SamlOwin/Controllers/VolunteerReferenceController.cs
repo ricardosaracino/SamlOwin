@@ -23,6 +23,10 @@ namespace SamlOwin.Controllers
             _mapper = AutoMapperProvider.GetMapper();
         }
 
+        /// <summary>
+        /// Finds all <c>VolunteerReferenceResponse</c> assigned to Current User
+        /// </summary>
+        /// <seealso cref="VolunteerReferenceResponse"/>
         [VolunteerAuthorization]
         [HttpGet, Route("find-all")]
         public ApiResponse<VolunteerReferencesControllerFindAllResponse> FindAll()
@@ -32,7 +36,7 @@ namespace SamlOwin.Controllers
                 where cscVolunteerReference.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteerReference;
 
-            return new ApiSuccessResponse<VolunteerReferencesControllerFindAllResponse>
+            return new ApiResponse<VolunteerReferencesControllerFindAllResponse>
             {
                 Data = new VolunteerReferencesControllerFindAllResponse
                 {

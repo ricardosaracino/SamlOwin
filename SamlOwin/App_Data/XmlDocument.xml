@@ -1,0 +1,2716 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SamlOwin</name>
+    </assembly>
+    <members>
+        <member name="M:SamlOwin.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,SamlOwin.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:SamlOwin.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:SamlOwin.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,SamlOwin.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,SamlOwin.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(SamlOwin.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:SamlOwin.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},SamlOwin.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:SamlOwin.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:SamlOwin.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleKey.#ctor(SamlOwin.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:SamlOwin.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,SamlOwin.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:SamlOwin.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:SamlOwin.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SamlOwin.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SamlOwin.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerController.FindOne">
+            <summary>
+            Finds the Volunteer assigned to Current User
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerLanguageController.FindAll">
+            <summary>
+            Finds all Volunteer Languages assigned to Current User
+            </summary>
+            <seealso cref="T:SamlOwin.Models.VolunteerReferenceResponse"/>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerLanguageController.Save(SamlOwin.Models.VolunteerLanguageRequest)">
+            <summary>
+            Updates or Creates all Volunteer Languages and assigns them to the current user
+            </summary>
+            <seealso cref="T:SamlOwin.Models.VolunteerLanguageRequest"/>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerReferenceController.FindAll">
+            <summary>
+            Finds all <c>VolunteerReferenceResponse</c> assigned to Current User
+            </summary>
+            <seealso cref="T:SamlOwin.Models.VolunteerReferenceResponse"/>
+        </member>
+        <member name="M:SamlOwin.Controllers.AuthController.LoginCallback(System.String)">
+            <summary>
+            Creates Application Cookie
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamlOwin.Controllers.AuthController.Logout(System.String)">
+            <summary>
+            Removes Application Cookie
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SamlOwin.Handlers.GccfAuthorizationFilter">
+            <summary>
+            This mess is to accomodate the GCCF Global logout.
+            Long story short there is a session id in MemoryCache that is unset by a SOAP call back.
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Identity.CustomValidateIdentityContext.ApplicationValidateIdentity(Microsoft.Owin.Security.Cookies.CookieValidateIdentityContext)">
+            <summary>
+            Not Called on Login
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SamlOwin.Models.ApiResponse`1">
+            <summary>
+            JSend https://github.com/omniti-labs/jsend
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Models.ApiResponse`1.Status">
+            <summary>
+            JSend Status can be success, fail, error
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Models.ApiResponse`1.Data">
+            <summary>
+            JSend Data, can be null
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Models.ApiSuccessResponse`1">
+            <inheritdoc/>
+        </member>
+        <member name="T:SamlOwin.Models.ReferenceResponse">
+            <summary>
+            Maps a Microsoft.Xrm.Sdk.EntityReference
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Models.ReferenceResponse.Id">
+            <summary>
+            Entity Primary Id Attribute
+            </summary>
+        </member>
+        <member name="P:SamlOwin.Models.ReferenceResponse.Name">
+            <summary>
+            Entity Primary Name Attribute
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.CrmServiceContext">
+            <summary>
+            Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.CrmServiceContext.#ctor(Microsoft.Xrm.Sdk.IOrganizationService)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_PortalUserSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_PortalUser"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_ProvinceOrStateSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_ProvinceOrState"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_VolunteerSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_Volunteer"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_VolunteerApplicationSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_VolunteerApplication"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_VolunteerEmergencyContactSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_VolunteerEmergencyContact"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_VolunteerLanguageSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_VolunteerLanguage"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_VolunteerReferenceSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_VolunteerReference"/> entities.
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_PortalUser">
+            <summary>
+            A user who can log into Engagement Portal via an external source. Link this user to an active Volunteer or Stakeholder
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_PortalUser.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.csc_LoginOn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.csc_LoginProvider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.csc_PortalUserId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.csc_ProviderKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.csc_Volunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.StateCode">
+            <summary>
+            Status of the Portal User
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.StatusCode">
+            <summary>
+            If this is not Active the user will not be able to login to the portal
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_PortalUser.csc_csc_volunteer_csc_portaluser_Volunteer">
+            <summary>
+            N:1 csc_csc_volunteer_csc_portaluser_Volunteer
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_PortalUser.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_ProvinceOrState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_ProvinceOrState.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_Country">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_ProvinceOrStateEnglish">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_ProvinceOrStateFrench">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_ProvinceOrStateId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.StateCode">
+            <summary>
+            Status of the Province or State
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.StatusCode">
+            <summary>
+            Reason for the status of the Province or State
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState">
+            <summary>
+            1:N csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState">
+            <summary>
+            1:N csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_ProvinceOrState.csc_csc_provinceorstate_csc_volunteeremergencycontact_Province">
+            <summary>
+            1:N csc_csc_provinceorstate_csc_volunteeremergencycontact_Province
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_ProvinceOrState.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_Volunteer">
+            <summary>
+            Stores Volunteer specific data after Volunteer Applications are approved
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Volunteer.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_10YearserviceMilestone">
+            <summary>
+            Has the volunteer reached his 10 year service milestone
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_20YearserviceMilestone">
+            <summary>
+            Has the Volunteer reached his 20 years of service milestone
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_5YearserviceMilestone">
+            <summary>
+            Has the volunteer reached his 5 year service milestone
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_AboriginalPerson">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_AdminLocation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_AgreeAgeOfMajority">
+            <summary>
+            Does the Volunteer Agree that they are at the age of Majority?
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_AgreeCanadianCitizen">
+            <summary>
+            Is the Volunteer a Canadian Citizen?
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_AgreeContactedWork">
+            <summary>
+            Does the volunteer agree to be contacted at his place of work?
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_AllowUpdate">
+            <summary>
+            This field is for allowing the User to update the his/her volunteer information from the Portal.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_ApplicationId">
+            <summary>
+            Unique identifier for Volunteer Application associated with Volunteer.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Availability">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Birthday">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_BusinessTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_BusinessTelephoneExt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CACMembershipApprovalDate">
+            <summary>
+            The date this individual was approved as a CAC.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CACMembershipComment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CACMembershipExpiryDate">
+            <summary>
+            The calculated date when the term as a CAC member expires. Three years after appointment.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CACMembershipStatus">
+            <summary>
+            A status field that identifies the "Status" of the Volunteers membership as a CAC Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CanApplyCAC">
+            <summary>
+            A flag indicating that a User from the Portal, or even in CRM can apply for a CAC application. This false if they are currently as CAC member, or they have an application being processed for this type
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CanApplyGeneral">
+            <summary>
+            A flag indicating that a User from the Portal, or even in CRM can apply for a GEN application. This false if they are currently as GEN member, or they have an application being processed for this type
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CanApplyREAC">
+            <summary>
+            A flag indicating that a User from the Portal, or even in CRM can apply for a REA application. This false if they are currently as REA member, or they have an application being processed for this type
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Citizenship">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CSCVolunteerMembershipComment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CultureGroups">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_CultureOther">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Disabilities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_DisabilitiesOther">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_DisabilityComments">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_EmailVerifiedOn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_FirstName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Gender">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_GenderOther">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_GeneralMembershipApprovalDate">
+            <summary>
+            The date this individual was approved as a CSC volunteer.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_GeneralMembershipStatus">
+            <summary>
+            A status field that identifies the "Status" of the Volunteers membership as a General Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_hiidden_todays_date_Volunteerform">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HomeAddressCity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HomeAddressCountry">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HomeAddressLine1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HomeAddressLine2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HomeAddressPostalCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HomeAddressProvinceOrState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HomeTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_HRMSEmployeeID">
+            <summary>
+            Employee Identifier brought over in the HRMS Conversion
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_IDBadgeExpiryDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_IDBadgeNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_IsCACVolunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_IsCSCEmployee">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_IsCSCVolunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_IsREACVolunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_LastName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MaidenName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MailingAddressCity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MailingAddressCountry">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MailingAddressLine1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MailingAddressLine2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MailingAddressPostalCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MailingAddressProvinceOrState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MailingAddressSameAsHomeAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MiddleName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MinorityGroups">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_MinorityGroupsOther">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_NationalVolunteersOrientationCompleted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_OtherTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_OtherTelephoneExt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_PermissiontouseSelfIdentification">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_PreferredLanguageofCommunication">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_PreviousYearsOfService">
+            <summary>
+            Represents the number of years this member has been active prior to moving from HRMS to the Engagement Portal
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_REACMembershipApprovalDate">
+            <summary>
+            The date this individual was approved as a REAC.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_REACMembershipComment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_REACMembershipExpiryDate">
+            <summary>
+            The calculated date when the term as a REAC member expires.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_REACMembershipStatus">
+            <summary>
+            A status field that identifies the "Status" of the Volunteers membership as a REAC Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Received10YearPin">
+            <summary>
+            True if the user received the 10 year Recognition Pin. This value is updated automatically if an Awards or Recognition is created of type "10 Year service Recognition Pin"
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Received20YearPin">
+            <summary>
+            True if the user received the 20 year Recognition Pin. This value is updated automatically if an Awards or Recognition is created of type "20 Year service Recognition Pin"
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Received5YearPin">
+            <summary>
+            True if the user received the 5 year Recognition Pin. This value is updated automatically if an Awards or Recognition is created of type "5 Year service Recognition Pin"
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_ReferenceNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_Region">
+            <summary>
+            The Region that manages this volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_SecondaryEmail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_SpeakEnglish">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_SpeakFrench">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_SumofAllInactiveDays">
+            <summary>
+            This is a Rollup field, the sum is generated by finding all the records in the Volunteer History Status table that have the status of Inactive/Suspended/Partially Suspended/ Temporary Leave.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_SumofAllInactiveDays_Date">
+            <summary>
+            Last Updated time of rollup field Sum of All Inactive Days.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_SumofAllInactiveDays_State">
+            <summary>
+            State of rollup field Sum of All Inactive Days.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_TotalYearsofService">
+            <summary>
+            Defines a Calculation for determining a volunteers total number of years of service.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_VisibleMinorityComments">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_VolunteerActivationDate">
+            <summary>
+            The date in which the Applicant became a registered Volunteer. Either the approval date of the General, CAC or REAC application. Which ever came first.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_VolunteerId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_VolunteerStatusChangeDate">
+            <summary>
+            The date for which the Volunteer Status Changed. Must be updated every time the status is changed. The initial date should be the date the Applicant became a volunteer.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_VolunteerStatusComment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_VolunteerSupervisor">
+            <summary>
+            A list of supervisors for this volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.EmailAddress">
+            <summary>
+            The primary email address for the entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.EntityImage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.EntityImage_Timestamp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.EntityImage_URL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.EntityImageId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.processid">
+            <summary>
+            Contains the id of the process associated with the entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.stageid">
+            <summary>
+            Contains the id of the stage where the entity is located.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.StateCode">
+            <summary>
+            Status of the Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.StatusCode">
+            <summary>
+            Reason for the status of the Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.traversedpath">
+            <summary>
+            A comma separated list of string values representing the unique identifiers of stages in a Business Process Flow Instance in the order that they occur.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_volunteer_csc_portaluser_Volunteer">
+            <summary>
+            1:N csc_csc_volunteer_csc_portaluser_Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_volunteer_csc_volunteerapplication_CancelledBy">
+            <summary>
+            1:N csc_csc_volunteer_csc_volunteerapplication_CancelledBy
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_volunteer_csc_volunteerapplication_Volunteer">
+            <summary>
+            1:N csc_csc_volunteer_csc_volunteerapplication_Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer">
+            <summary>
+            1:N csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_volunteer_csc_volunteerlanguage_Volunteer">
+            <summary>
+            1:N csc_csc_volunteer_csc_volunteerlanguage_Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_volunteer_csc_volunteerreference_Volunteer">
+            <summary>
+            1:N csc_csc_volunteer_csc_volunteerreference_Volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState">
+            <summary>
+            N:1 csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState">
+            <summary>
+            N:1 csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Volunteer.csc_csc_volunteerapplication_csc_volunteer">
+            <summary>
+            N:1 csc_csc_volunteerapplication_csc_volunteer
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Volunteer.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_VolunteerApplication">
+            <summary>
+            Used to store volunteer application form data submitted from the portal or manually created in CRM
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerApplication.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ActivityApplyingFor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ActivityChoiceReason">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ActivityOther">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_AdditionalInformation">
+            <summary>
+            Does the Applicant have any additional information that might be helpful in his/her application to be a volunteer at CSC?
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_AdminLocation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_AgreeAcknowledge">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_AgreeAgeOfMajority">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_AgreeCanadianCitizen">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_AgreeTerms">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ApplicantNotifiedofDecision">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ApplicationCompleted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ApplicationPackageAssembled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_BeginProcessing">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_BeginProcessingEmailSent">
+            <summary>
+            Just a flag to indicate if we have already sent an email informing the applicant that their application has started to be processed.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_BeginProcessStartDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_CancelledBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_CancelledComment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_CancelledDate">
+            <summary>
+            Date in which the Application was Cancelled
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_CheckedForDuplicates">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_CommitteeVolunteerDecisionDenialReason">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ConflictofInterestFormCompleted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ConflictofInterestFormCompletionDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ConvictedNotPardoned">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_CurrentlyVolunteeringOrApplyingWith">
+            <summary>
+            List any other Federal Institutions or Parole Offices that this applicant is volunteering or applying to be a volunteer at.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_Decision">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_DecisionDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_DecisionMakerName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_DecisionMakerTitle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_DenialReason">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_DescribeAffiliationsWithGroups">
+            <summary>
+            Describe if the applicant currently volunteer or work with any community groups (faith groups or other volunteer orgs)
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ExistingVolunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstEmergencyContactAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstEmergencyContactEmail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstEmergencyContactName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstEmergencyContactPrimaryTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstEmergencyContactSecondaryTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstReferenceContactedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstReferenceEmail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstReferenceName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstReferenceRelationship">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstReferenceTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_FirstReferenceTitle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_GeneralActivityTypes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_HasPreviousCommitteeExperience">
+            <summary>
+            Does the applicant have previous committee experience? If so please explain.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_HastheApplicantAttended2CACMeetings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_HearAboutDetails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_Hidden_Today_date_Ref">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_InfoForwardedtoRDCwithMemo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_InformationVerified">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_InstitutionalRecommendation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_InstitutionalRecommendationDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_InstitutionalRecommendationRecommender">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_LocationId">
+            <summary>
+            Unique identifier for Location associated with Volunteer Application.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_MemberOfUnderRepresentedGroup">
+            <summary>
+            Does the Applicant identify as a member of an underrepresented group? If so, please explain.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_NECRecommendation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_NECRecommendationDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_NECRecommendationRecommender">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_OnInmateVisitingList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_OnInmateVisitingListDetails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_OnlineNVOCompletedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_OnlineNVOLinkSentDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_OtherCommitteeInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_OutstandingCharges">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PaperApplicationSignedandDatedbyApplicant">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PersonallyKnowOffenders">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PersonallyKnowOffendersDetails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PhysicalFileCreated">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PreliminaryInterviewConducted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PreliminaryInterviewDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PreliminaryInterviewDetails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_PreviousWorkVolunteerExperience">
+            <summary>
+            Does the Applicant have any previous Volunteer Experience? If so, please explain.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ProvidedwithCopyofCD023andCACResourceManu">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_RDCDecision">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_RDCDecisionDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_RDCDecisionDecisionMaker">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ReasonForVolunteering">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ReferenceNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ReferencesComment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_ReferencesContacted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_RegionId">
+            <summary>
+            Unique identifier for Region associated with Volunteer Application.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondEmergencyContactAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondEmergencyContactAvailable">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondEmergencyContactEmail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondEmergencyContactName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondEmergencyContactPrimaryTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondEmergencyContactSecondaryTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondReferenceContactedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondReferenceEmail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondReferenceName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondReferenceRelationship">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondReferenceTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecondReferenceTitle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecurityClearanceVerified">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecurityScreenFormSentDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecurityScreeningAnticipatedExpiryDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecurityScreeningComments">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SecurityScreeningCompletionDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_SkillOrExpertise">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_StatusFormerCACMember">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_StatusFormerCACMemberDetails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_StatusFormerStaffMember">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_StatusFormerStaffMemberDetails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_Volunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_VolunteerApplicationId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.EmailAddress">
+            <summary>
+            The primary email address for the entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.processid">
+            <summary>
+            Contains the id of the process associated with the entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.stageid">
+            <summary>
+            Contains the id of the stage where the entity is located.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.StateCode">
+            <summary>
+            Status of the Volunteer Application
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.StatusCode">
+            <summary>
+            Reason for the status of the Volunteer Application
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.traversedpath">
+            <summary>
+            A comma separated list of string values representing the unique identifiers of stages in a Business Process Flow Instance in the order that they occur.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_csc_volunteerapplication_csc_volunteer">
+            <summary>
+            1:N csc_csc_volunteerapplication_csc_volunteer
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_csc_volunteer_csc_volunteerapplication_CancelledBy">
+            <summary>
+            N:1 csc_csc_volunteer_csc_volunteerapplication_CancelledBy
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerApplication.csc_csc_volunteer_csc_volunteerapplication_Volunteer">
+            <summary>
+            N:1 csc_csc_volunteer_csc_volunteerapplication_Volunteer
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerApplication.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_VolunteerEmergencyContact">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerEmergencyContact.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_AddressLine1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_AddressLine2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_City">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_ContactEmail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_ContactPrimaryTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_ContactSecondaryTelephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_ContactTertiaryPhone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_Country">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_PostalCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_PrimaryContact">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_PrimaryPhoneType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_Province">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_Relationship">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_SecondaryPhoneType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_TertiaryPhoneType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_Volunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_VolunteerEmergencyContactId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.StateCode">
+            <summary>
+            Status of the Volunteer Emergency Contact
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.StatusCode">
+            <summary>
+            Reason for the status of the Volunteer Emergency Contact
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_csc_provinceorstate_csc_volunteeremergencycontact_Province">
+            <summary>
+            N:1 csc_csc_provinceorstate_csc_volunteeremergencycontact_Province
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerEmergencyContact.csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer">
+            <summary>
+            N:1 csc_csc_volunteer_csc_volunteeremergencycontact_Volunteer
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerEmergencyContact.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_VolunteerLanguage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerLanguage.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_CanProvidetInterpretationServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_CanProvideTranslationServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_Language">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_Reads">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_Speaks">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_Volunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_VolunteerLanguageId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_Writes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.StateCode">
+            <summary>
+            Status of the Volunteer Language
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.StatusCode">
+            <summary>
+            Reason for the status of the Volunteer Language
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerLanguage.csc_csc_volunteer_csc_volunteerlanguage_Volunteer">
+            <summary>
+            N:1 csc_csc_volunteer_csc_volunteerlanguage_Volunteer
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerLanguage.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_VolunteerReference">
+            <summary>
+            Stores Volunteer Reference contact information
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerReference.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_Comment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_DateContacted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_Employer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_FirstContactMethodType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_FirstContactValue">
+            <summary>
+            Contains either an email address or phone number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_hidden_today_is_date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_ReferenceType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_SecondContactMethodType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_SecondContactValue">
+            <summary>
+            Contains either an email address or phone number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_Title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_Volunteer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_VolunteerReferenceId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.EmailAddress">
+            <summary>
+            The primary email address for the entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.StateCode">
+            <summary>
+            Status of the Volunteer Reference
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.StatusCode">
+            <summary>
+            Reason for the status of the Volunteer Reference
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_VolunteerReference.csc_csc_volunteer_csc_volunteerreference_Volunteer">
+            <summary>
+            N:1 csc_csc_volunteer_csc_volunteerreference_Volunteer
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_VolunteerReference.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+    </members>
+</doc>
