@@ -25,9 +25,8 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Finds all <c>VolunteerReferenceResponse</c> assigned to Current User
+        /// Finds all Volunteer References assigned to Current User
         /// </summary>
-        /// <seealso cref="VolunteerReferenceResponse"/>
         [VolunteerAuthorization]
         [HttpGet, Route("")]
         public WebApiSuccessResponse<IEnumerable<VolunteerReferenceResponse>> FindAll()

@@ -24,9 +24,8 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Finds all <c>LanguageResponse</c> 
+        /// Finds all Languages
         /// </summary>
-        /// <seealso cref="LanguageResponse"/>
         [Authorize]
         [HttpGet, Route("")]
         public WebApiSuccessResponse<IEnumerable<LanguageResponse>> FindAll()

@@ -26,7 +26,6 @@ namespace SamlOwin.Controllers
         /// <summary>
         /// Finds the Volunteer assigned to Current User
         /// </summary>
-        /// <returns></returns>
         [VolunteerAuthorization]
         [HttpGet, Route("")]
         public WebApiSuccessResponse<Volunteer> Find()
