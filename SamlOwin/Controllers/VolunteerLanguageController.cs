@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Xrm.Sdk;
 using SamlOwin.Handlers;
 using SamlOwin.Identity;
 using SamlOwin.Models;
@@ -30,39 +29,64 @@ namespace SamlOwin.Controllers
         /// <summary>
         /// Finds all Volunteer Languages assigned to Current User
         /// </summary>
-        /// <seealso cref="VolunteerReferenceResponse"/>
         [VolunteerAuthorization]
-        [HttpGet, Route("find-all")]
-        public ApiResponse<VolunteerLanguagesControllerFindAllResponse> FindAll()
+        [HttpGet, Route("")]
+        public  WebApiSuccessResponse<List<VolunteerLanguageResponse>> FindAll()
         {
-            var queryable = from cscVolunteerLanguage in _ctx.csc_VolunteerLanguageSet
-                orderby cscVolunteerLanguage.CreatedOn descending
-                where cscVolunteerLanguage.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
-                select cscVolunteerLanguage;
-
-            return new ApiSuccessResponse<VolunteerLanguagesControllerFindAllResponse>
+            var queryable = from volunteerLanguageEntity in _ctx.csc_VolunteerLanguageSet
+                orderby volunteerLanguageEntity.CreatedOn descending
+                where volunteerLanguageEntity.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
+                select volunteerLanguageEntity;
+            
+            return new WebApiSuccessResponse<List<VolunteerLanguageResponse>>
             {
-                Data = new VolunteerLanguagesControllerFindAllResponse
-                {
-                    VolunteerLanguages = queryable.ToList()
-                        .ConvertAll(entity => _mapper.Map<VolunteerLanguageResponse>(entity))
-                }
+                Data = queryable.ToList().ConvertAll(entity => _mapper.Map<VolunteerLanguageResponse>(entity))
             };
         }
-
 
         /// <summary>
         /// Updates or Creates all Volunteer Languages and assigns them to the current user
         /// </summary>
-        /// <seealso cref="VolunteerLanguageRequest"/>
         [VolunteerAuthorization]
-        [HttpPost, Route("save")]
-        public ApiResponse<object> Save([FromBody] IEnumerable<VolunteerLanguageRequest> volunteerLanguageRequest)
+        [HttpPost, Route("")]
+        public WebApiSuccessResponse Save(List<VolunteerLanguageRequest> volunteerLanguages)
         {
-            return new ApiSuccessResponse<object>
+            foreach (var volunteerLanguage in volunteerLanguages)
             {
-                Data = null
-            };
+                if (volunteerLanguage.Id != null && volunteerLanguage.Id != Guid.Empty) continue;
+
+                var volunteerEntity = _mapper.Map<csc_VolunteerLanguage>(volunteerLanguage);
+
+                volunteerEntity.csc_Volunteer = new EntityReference(csc_Volunteer.EntityLogicalName,
+                    User.Identity.GetVolunteerId());
+
+                _ctx.AddObject(volunteerEntity);
+            }
+
+            var queryable = from volunteerLanguageEntity in _ctx.csc_VolunteerLanguageSet
+                where volunteerLanguageEntity.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
+                select volunteerLanguageEntity;
+
+            var volunteerLanguageEntities = queryable.ToList();
+
+            foreach (var volunteerLanguageEntity in volunteerLanguageEntities)
+            {
+                var foundVolunteerLanguage =
+                    volunteerLanguages.SingleOrDefault(req => req.Id == volunteerLanguageEntity.Id);
+
+                if (foundVolunteerLanguage != null)
+                {
+                    _ctx.UpdateObject(_mapper.Map(foundVolunteerLanguage, volunteerLanguageEntity));
+                }
+                else
+                {
+                    _ctx.DeleteObject(volunteerLanguageEntity);
+                }
+            }
+
+            _ctx.SaveChanges();
+
+            return new WebApiSuccessResponse();
         }
     }
 }

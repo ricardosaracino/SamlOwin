@@ -8,6 +8,6 @@
         public const string VolunteerCanApplyCac = "volunteer.canApplyCac";
         public const string VolunteerCanApplyCsc = "volunteer.canApplyCsc";
         public const string VolunteerCanApplyReac = "volunteer.canApplyReac";
-        public const string VolunteerEmailVerified = "volunteer.canApplyReac";
+        public const string VolunteerEmailVerified = "volunteer.emailVerified";
     }
 }

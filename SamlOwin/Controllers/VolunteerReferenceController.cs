@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -28,21 +29,17 @@ namespace SamlOwin.Controllers
         /// </summary>
         /// <seealso cref="VolunteerReferenceResponse"/>
         [VolunteerAuthorization]
-        [HttpGet, Route("find-all")]
-        public ApiResponse<VolunteerReferencesControllerFindAllResponse> FindAll()
+        [HttpGet, Route("")]
+        public WebApiSuccessResponse<IEnumerable<VolunteerReferenceResponse>> FindAll()
         {
-            var queryable = from cscVolunteerReference in _ctx.csc_VolunteerReferenceSet
-                orderby cscVolunteerReference.CreatedOn descending
-                where cscVolunteerReference.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
-                select cscVolunteerReference;
+            var queryable = from cscVolunteerReferenceEntity in _ctx.csc_VolunteerReferenceSet
+                orderby cscVolunteerReferenceEntity.CreatedOn descending
+                where cscVolunteerReferenceEntity.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
+                select cscVolunteerReferenceEntity;
 
-            return new ApiResponse<VolunteerReferencesControllerFindAllResponse>
+            return new WebApiSuccessResponse<IEnumerable<VolunteerReferenceResponse>>
             {
-                Data = new VolunteerReferencesControllerFindAllResponse
-                {
-                    VolunteerReferences = queryable.ToList()
-                        .ConvertAll(entity => _mapper.Map<VolunteerReferenceResponse>(entity))
-                }
+                Data = queryable.ToList().ConvertAll(entity => _mapper.Map<VolunteerReferenceResponse>(entity))
             };
         }
     }

@@ -33,7 +33,7 @@ namespace SamlOwin.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet, Route("saml2/callback")]
-        public async Task<HttpResponseMessage> LoginCallback(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")
+        public async Task<HttpResponseMessage> SigninCallback(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/en/")
         {
             /**
              * Could create a session in SamlOwin.Identity.ApplicationSignInManager.CreateUserIdentityAsync
@@ -93,7 +93,7 @@ namespace SamlOwin.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet, Route("logout")]
-        public HttpResponseMessage Logout(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/site/")
+        public HttpResponseMessage Logout(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/en/")
         {
             // triggers the saml2 sign out
             AuthenticationManager.SignOut();

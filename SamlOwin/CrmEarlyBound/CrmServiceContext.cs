@@ -30,6 +30,18 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Language"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_Language> csc_LanguageSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_Language>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_PortalUser"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<CrmEarlyBound.csc_PortalUser> csc_PortalUserSet

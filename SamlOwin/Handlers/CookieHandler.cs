@@ -5,11 +5,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.ServiceModel.Channels;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Http.Controllers;
 using Microsoft.AspNet.Identity;
 using SamlOwin.Identity;
 using Serilog;
@@ -84,6 +82,7 @@ namespace SamlOwin.Handlers
                     expires));
 
                 cookieHeaderValues.Add(new SessionCookeHeaderValue("session.authenticated", "1", expires));
+                cookieHeaderValues.Add(new SessionCookeHeaderValue("volunteer.ready", "1", expires));
 
                 cookieHeaderValues.AddRange(
                     (from claimType in CookieNames

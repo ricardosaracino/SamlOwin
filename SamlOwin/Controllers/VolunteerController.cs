@@ -28,19 +28,16 @@ namespace SamlOwin.Controllers
         /// </summary>
         /// <returns></returns>
         [VolunteerAuthorization]
-        [HttpGet, Route("find-one")]
-        public ApiResponse<VolunteersControllerFindOneResponse> FindOne()
+        [HttpGet, Route("")]
+        public WebApiSuccessResponse<Volunteer> Find()
         {
             var queryable = from cscVolunteer in _ctx.csc_VolunteerSet
                 where cscVolunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteer;
             
-            return new ApiSuccessResponse<VolunteersControllerFindOneResponse>
+            return new WebApiSuccessResponse<Volunteer>
             {
-                Data = new VolunteersControllerFindOneResponse
-                {
-                    Volunteer = _mapper.Map<Volunteer>(queryable.First())
-                }
+                Data =  _mapper.Map<Volunteer>(queryable.First())
             };
         }
     }
