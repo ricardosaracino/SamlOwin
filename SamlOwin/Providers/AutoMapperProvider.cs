@@ -21,9 +21,9 @@ namespace SamlOwin.Providers
         private static MapperConfiguration CreateConfiguration()
         {
             var cfg = new MapperConfigurationExpression();
-            
+
             cfg.AddMaps(Assembly.GetExecutingAssembly());
-            
+
             return new MapperConfiguration(cfg);
         }
     }

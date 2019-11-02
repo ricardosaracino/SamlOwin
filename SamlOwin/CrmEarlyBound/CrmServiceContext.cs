@@ -30,6 +30,18 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Country"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_Country> csc_CountrySet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_Country>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Language"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<CrmEarlyBound.csc_Language> csc_LanguageSet
@@ -38,6 +50,30 @@ namespace CrmEarlyBound
 			get
 			{
 				return this.CreateQuery<CrmEarlyBound.csc_Language>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Location"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_Location> csc_LocationSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_Location>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Nationality"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_Nationality> csc_NationalitySet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_Nationality>();
 			}
 		}
 		
@@ -62,6 +98,18 @@ namespace CrmEarlyBound
 			get
 			{
 				return this.CreateQuery<CrmEarlyBound.csc_ProvinceOrState>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Region"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_Region> csc_RegionSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_Region>();
 			}
 		}
 		

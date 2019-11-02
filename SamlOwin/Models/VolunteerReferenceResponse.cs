@@ -11,7 +11,7 @@ namespace SamlOwin.Models
         public string FirstContactValue { get; set; }
 
         public string FullName { get; set; }
-        
+
         public string Occupation { get; set; }
 
         public int? ReferenceType { get; set; }
@@ -19,7 +19,7 @@ namespace SamlOwin.Models
         public int? SecondContactMethod { get; set; }
 
         public string SecondContactValue { get; set; }
-        
+
         public string Title { get; set; }
 
         public ReferenceResponse Volunteer { get; set; }

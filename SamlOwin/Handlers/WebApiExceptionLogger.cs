@@ -7,7 +7,7 @@ namespace SamlOwin.Handlers
         public override void Log(ExceptionLoggerContext context)
         {
             Serilog.Log.Logger.Error(context.Exception, "");
-            
+
             base.Log(context);
         }
     }

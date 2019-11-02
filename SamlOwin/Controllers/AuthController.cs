@@ -25,7 +25,7 @@ namespace SamlOwin.Controllers
 
         private static IAuthenticationManager AuthenticationManager =>
             HttpContext.Current.GetOwinContext().Authentication;
-        
+
         /// <summary>
         /// Creates Application Cookie
         /// </summary>

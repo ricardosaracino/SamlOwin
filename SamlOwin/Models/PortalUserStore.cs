@@ -31,7 +31,7 @@ namespace SamlOwin.Models
                 join cscVolunteer in _ctx.csc_VolunteerSet on cscPortalUser.csc_Volunteer.Id equals cscVolunteer.Id
                     into gj
                 from cscVolunteer in gj.DefaultIfEmpty()
-                where cscPortalUser.csc_ProviderKey.Contains(login.ProviderKey) 
+                where cscPortalUser.csc_ProviderKey.Contains(login.ProviderKey)
                       && cscPortalUser.csc_LoginProvider.Contains(login.LoginProvider)
                 select new {cscPortalUser, cscVolunteer};
 

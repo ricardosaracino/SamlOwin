@@ -21,9 +21,9 @@ namespace SamlOwin.Providers
                 {
                     ConnectionString = ConfigurationManager.AppSettings["CrmConnectionString"]
                 };
-                
+
                 var serviceUrl = $"{dbConnectionStringBuilder["Url"]}/XRMServices/2011/Organization.svc";
-                
+
                 _serviceManagement = (IServiceManagement<IOrganizationService>) ServiceConfigurationFactory
                     .CreateConfiguration<IOrganizationService>(new Uri(serviceUrl));
 

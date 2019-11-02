@@ -11,7 +11,7 @@ namespace SamlOwin.Models
         /// Entity Primary Id Attribute
         /// </summary>
         public Guid Id { get; set; }
-        
+
         /// <summary>
         /// Entity Primary Name Attribute
         /// </summary>

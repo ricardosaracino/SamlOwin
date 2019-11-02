@@ -3,7 +3,7 @@
     public static class CustomClaimTypes
     {
         public const string Expires = "expires";
-     
+
         public const string VolunteerId = "volunteer.id";
         public const string VolunteerCanApplyCac = "volunteer.canApplyCac";
         public const string VolunteerCanApplyCsc = "volunteer.canApplyCsc";

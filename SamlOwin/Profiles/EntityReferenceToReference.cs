@@ -4,7 +4,7 @@ using SamlOwin.Models;
 
 namespace SamlOwin.Profiles
 {
-    public class EntityReferenceToReference: Profile
+    public class EntityReferenceToReference : Profile
     {
         public EntityReferenceToReference()
         {

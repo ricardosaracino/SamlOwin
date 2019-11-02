@@ -14,6 +14,7 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
+    [VolunteerAuthorization]
     [RoutePrefix("api/volunteer-languages")]
     public class VolunteerLanguageController : ApiController
     {
@@ -29,15 +30,14 @@ namespace SamlOwin.Controllers
         /// <summary>
         /// Finds all Volunteer Languages assigned to Current User
         /// </summary>
-        [VolunteerAuthorization]
         [HttpGet, Route("")]
-        public  WebApiSuccessResponse<List<VolunteerLanguageResponse>> FindAll()
+        public WebApiSuccessResponse<List<VolunteerLanguageResponse>> FindAll()
         {
             var queryable = from volunteerLanguageEntity in _ctx.csc_VolunteerLanguageSet
                 orderby volunteerLanguageEntity.CreatedOn descending
                 where volunteerLanguageEntity.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select volunteerLanguageEntity;
-            
+
             return new WebApiSuccessResponse<List<VolunteerLanguageResponse>>
             {
                 Data = queryable.ToList().ConvertAll(entity => _mapper.Map<VolunteerLanguageResponse>(entity))
@@ -47,7 +47,6 @@ namespace SamlOwin.Controllers
         /// <summary>
         /// Updates or Creates all Volunteer Languages and assigns them to the current user
         /// </summary>
-        [VolunteerAuthorization]
         [HttpPost, Route("")]
         public WebApiSuccessResponse Save(List<VolunteerLanguageRequest> volunteerLanguages)
         {

@@ -2,7 +2,7 @@
 
 namespace SamlOwin.Models
 {
-    public class ProvinceOrStateResponse
+    public class NationalityResponse
     {
         public Guid Id { get; set; }
 

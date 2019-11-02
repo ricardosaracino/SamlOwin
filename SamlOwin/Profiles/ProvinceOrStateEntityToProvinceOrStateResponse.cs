@@ -4,7 +4,7 @@ using SamlOwin.Models;
 
 namespace SamlOwin.Profiles
 {
-    public class ProvinceOrStateEntityToProvinceOrStateResponse: Profile
+    public class ProvinceOrStateEntityToProvinceOrStateResponse : Profile
     {
         public ProvinceOrStateEntityToProvinceOrStateResponse()
         {

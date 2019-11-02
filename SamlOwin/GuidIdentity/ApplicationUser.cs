@@ -11,7 +11,7 @@ namespace SamlOwin.GuidIdentity
         public abstract Guid Id { get; set; }
 
         public abstract string UserName { get; set; }
-        
+
         public List<string> Roles { get; set; }
 
         public abstract Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager);

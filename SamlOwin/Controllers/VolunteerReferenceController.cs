@@ -12,6 +12,7 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
+    [VolunteerAuthorization]
     [RoutePrefix("api/volunteer-references")]
     public class VolunteerReferenceController : ApiController
     {
@@ -27,16 +28,15 @@ namespace SamlOwin.Controllers
         /// <summary>
         /// Finds all Volunteer References assigned to Current User
         /// </summary>
-        [VolunteerAuthorization]
         [HttpGet, Route("")]
-        public WebApiSuccessResponse<IEnumerable<VolunteerReferenceResponse>> FindAll()
+        public WebApiSuccessResponse<List<VolunteerReferenceResponse>> FindAll()
         {
             var queryable = from cscVolunteerReferenceEntity in _ctx.csc_VolunteerReferenceSet
                 orderby cscVolunteerReferenceEntity.CreatedOn descending
                 where cscVolunteerReferenceEntity.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
                 select cscVolunteerReferenceEntity;
 
-            return new WebApiSuccessResponse<IEnumerable<VolunteerReferenceResponse>>
+            return new WebApiSuccessResponse<List<VolunteerReferenceResponse>>
             {
                 Data = queryable.ToList().ConvertAll(entity => _mapper.Map<VolunteerReferenceResponse>(entity))
             };

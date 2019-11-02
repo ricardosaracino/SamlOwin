@@ -15,10 +15,9 @@
         /// JSend Data, can be null
         /// </summary>
         public T Data { get; set; }
-
     }
-    
-  
+
+
     /// <summary>
     /// JSend 
     /// </summary>
@@ -33,6 +32,6 @@
         /// <summary>
         /// JSend Data 
         /// </summary>
-        public object Data { get; set; } = new {};
+        public object Data { get; set; } = new { };
     }
 }

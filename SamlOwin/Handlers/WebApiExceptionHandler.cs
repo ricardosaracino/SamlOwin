@@ -25,7 +25,7 @@ namespace SamlOwin.Handlers
         private class JsonErrorResult : IHttpActionResult
         {
             public string Message { get; set; }
-            
+
             public HttpRequestMessage Request { get; set; }
 
             public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)

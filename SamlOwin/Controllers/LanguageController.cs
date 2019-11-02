@@ -11,6 +11,7 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/languages")]
     public class LanguageController : ApiController
     {
@@ -26,17 +27,15 @@ namespace SamlOwin.Controllers
         /// <summary>
         /// Finds all Languages
         /// </summary>
-        [Authorize]
         [HttpGet, Route("")]
-        public WebApiSuccessResponse<IEnumerable<LanguageResponse>> FindAll()
+        public WebApiSuccessResponse<List<LanguageResponse>> FindAll()
         {
             var languageResponses =
-                (IEnumerable<LanguageResponse>) MemoryCache.Default.Get("LanguageController.LanguageResponse");
+                (List<LanguageResponse>) MemoryCache.Default.Get("LanguageController.LanguageResponse");
 
             if (languageResponses == null)
             {
                 var queryable = from cscLanguageEntity in _ctx.csc_LanguageSet
-                    orderby cscLanguageEntity.csc_name descending
                     select cscLanguageEntity;
 
                 languageResponses = queryable.ToList().ConvertAll(entity => _mapper.Map<LanguageResponse>(entity));
@@ -45,7 +44,7 @@ namespace SamlOwin.Controllers
                     new CacheItemPolicy());
             }
 
-            return new WebApiSuccessResponse<IEnumerable<LanguageResponse>>
+            return new WebApiSuccessResponse<List<LanguageResponse>>
             {
                 Data = languageResponses
             };

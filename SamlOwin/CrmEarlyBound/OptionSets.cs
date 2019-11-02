@@ -56,6 +56,18 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Country_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum csc_CultureGroups
 	{
 		
@@ -284,6 +296,30 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Location_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Nationality_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum csc_PhoneType
 	{
 		
@@ -338,6 +374,54 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Province
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Alberta = 862430000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		BritishColumbia = 862430001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Manitoba = 862430002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		NewBrunswick = 862430003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		NewfoundlandandLabrador = 862430004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		NorthwestTerritories = 862430005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		NovaScotia = 862430006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Nunavut = 862430007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Ontario = 862430008,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		OutsideofCanada = 862430009,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PrinceEdwardIsland = 862430010,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Quebec = 862430011,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Saskatchewan = 862430012,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Yukon = 862430013,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum csc_ProvinceOrState_StatusCode
 	{
 		
@@ -361,6 +445,18 @@ namespace CrmEarlyBound
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Professional = 862430001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Region_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 2,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]

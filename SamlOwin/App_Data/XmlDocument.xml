@@ -481,17 +481,30 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:SamlOwin.Controllers.CountryController.FindAll">
+            <summary>
+            Finds all countries
+            </summary>
+        </member>
         <member name="M:SamlOwin.Controllers.LanguageController.FindAll">
             <summary>
-            Finds all <c>LanguageResponse</c> 
+            Finds all Languages
             </summary>
-            <seealso cref="T:SamlOwin.Models.LanguageResponse"/>
         </member>
-        <member name="M:SamlOwin.Controllers.VolunteerController.FindOne">
+        <member name="M:SamlOwin.Controllers.NationalityController.FindAll">
+            <summary>
+            Finds all Nationalitys
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerController.Find">
             <summary>
             Finds the Volunteer assigned to Current User
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerController.Save(SamlOwin.Models.VolunteerRequest)">
+            <summary>
+            Saves the Volunteer assigned to the Current User
+            </summary>
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerLanguageController.FindAll">
             <summary>
@@ -505,9 +518,8 @@
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerReferenceController.FindAll">
             <summary>
-            Finds all <c>VolunteerReferenceResponse</c> assigned to Current User
+            Finds all Volunteer References assigned to Current User
             </summary>
-            <seealso cref="T:SamlOwin.Models.VolunteerReferenceResponse"/>
         </member>
         <member name="M:SamlOwin.Controllers.AuthController.SigninCallback(System.String)">
             <summary>
@@ -606,6 +618,152 @@
         <member name="P:SamlOwin.Models.ReferenceResponse.Name">
             <summary>
             Entity Primary Name Attribute
+            </summary>
+        </member>
+        <member name="T:SamlOwin.Models.Volunteer">
+            <summary>
+            Used For PortalUser
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_Country">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Country.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_CountryCode">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_CountryEnglish">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_CountryFrench">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_CountryId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.StateCode">
+            <summary>
+            Status of the Country
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.StatusCode">
+            <summary>
+            Reason for the status of the Country
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_csc_country_csc_provinceorstate_Country">
+            <summary>
+            1:N csc_csc_country_csc_provinceorstate_Country
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_csc_country_csc_volunteer_HomeAddressCountry">
+            <summary>
+            1:N csc_csc_country_csc_volunteer_HomeAddressCountry
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_csc_country_csc_volunteer_MailingAddressCountry">
+            <summary>
+            1:N csc_csc_country_csc_volunteer_MailingAddressCountry
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Country.csc_csc_country_csc_volunteeremergencycontact_Country">
+            <summary>
+            1:N csc_csc_country_csc_volunteeremergencycontact_Country
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Country.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
             </summary>
         </member>
         <member name="T:CrmEarlyBound.csc_Language">
@@ -734,6 +892,484 @@
             <param name="anonymousType">LINQ anonymous type.</param>
             </summary>
         </member>
+        <member name="T:CrmEarlyBound.csc_Location">
+            <summary>
+            Lookup table used to store all CSC sites (Institutions, Parole Offices and Facilities)
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Location.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_AddressLine1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_AddressLine2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_AddressLine3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_City">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_IsRHQ">
+            <summary>
+            Is this field the RHQ for the Region?
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_LocationCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_LocationEnglish">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_LocationEnglishAbbreviation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_LocationFrench">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_LocationFrenchAbbreviation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_LocationId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_LocationType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_OMSSiteDescription">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_ParentLocation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_PostalZipCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_ProvinceTerritory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_Region">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.StateCode">
+            <summary>
+            Status of the Location
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.StatusCode">
+            <summary>
+            Reason for the status of the Location
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.Referencedcsc_csc_location_csc_location_ParentLocation">
+            <summary>
+            1:N csc_csc_location_csc_location_ParentLocation
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_csc_location_csc_volunteer_AdminLocation">
+            <summary>
+            1:N csc_csc_location_csc_volunteer_AdminLocation
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_csc_location_csc_volunteerapplication">
+            <summary>
+            1:N csc_csc_location_csc_volunteerapplication
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_csc_location_csc_volunteerapplication_AdminLocation">
+            <summary>
+            1:N csc_csc_location_csc_volunteerapplication_AdminLocation
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.Referencingcsc_csc_location_csc_location_ParentLocation">
+            <summary>
+            N:1 csc_csc_location_csc_location_ParentLocation
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Location.csc_csc_region_csc_location_Region">
+            <summary>
+            N:1 csc_csc_region_csc_location_Region
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Location.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_Nationality">
+            <summary>
+            A list of Nationalities (Citizenship)
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Nationality.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.csc_NationalityEnglish">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.csc_NationalityFrench">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.csc_NationalityId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.StateCode">
+            <summary>
+            Status of the Nationality
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.StatusCode">
+            <summary>
+            Reason for the status of the Nationality
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Nationality.csc_csc_nationality_csc_volunteer_Citizenship">
+            <summary>
+            1:N csc_csc_nationality_csc_volunteer_Citizenship
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Nationality.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
+        <member name="T:CrmEarlyBound.csc_Region">
+            <summary>
+            Lookup table to store the CSC Regions
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Region.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.CreatedBy">
+            <summary>
+            Unique identifier of the user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.CreatedOn">
+            <summary>
+            Date and time when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.CreatedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who created the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.csc_Description">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.csc_name">
+            <summary>
+            The name of the custom entity.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.csc_RegionId">
+            <summary>
+            Unique identifier for entity instances
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.ImportSequenceNumber">
+            <summary>
+            Sequence number of the import that created this record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.ModifiedBy">
+            <summary>
+            Unique identifier of the user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.ModifiedOn">
+            <summary>
+            Date and time when the record was modified.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.ModifiedOnBehalfBy">
+            <summary>
+            Unique identifier of the delegate user who modified the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.OverriddenCreatedOn">
+            <summary>
+            Date and time that the record was migrated.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.OwnerId">
+            <summary>
+            Owner Id
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.OwningBusinessUnit">
+            <summary>
+            Unique identifier for the business unit that owns the record
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.OwningTeam">
+            <summary>
+            Unique identifier for the team that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.OwningUser">
+            <summary>
+            Unique identifier for the user that owns the record.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.StateCode">
+            <summary>
+            Status of the Region
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.StatusCode">
+            <summary>
+            Reason for the status of the Region
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.TimeZoneRuleVersionNumber">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.UTCConversionTimeZoneCode">
+            <summary>
+            Time zone code that was in use when the record was created.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.VersionNumber">
+            <summary>
+            Version Number
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.csc_csc_region_csc_location_Region">
+            <summary>
+            1:N csc_csc_region_csc_location_Region
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.csc_csc_region_csc_volunteer_Region">
+            <summary>
+            1:N csc_csc_region_csc_volunteer_Region
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.csc_Region.csc_csc_region_csc_volunteerapplication">
+            <summary>
+            1:N csc_csc_region_csc_volunteerapplication
+            </summary>
+        </member>
+        <member name="M:CrmEarlyBound.csc_Region.#ctor(System.Object)">
+            <summary>
+            Constructor for populating via LINQ queries given a LINQ anonymous type
+            <param name="anonymousType">LINQ anonymous type.</param>
+            </summary>
+        </member>
         <member name="T:CrmEarlyBound.CrmServiceContext">
             <summary>
             Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
@@ -744,9 +1380,24 @@
             Constructor.
             </summary>
         </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_CountrySet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_Country"/> entities.
+            </summary>
+        </member>
         <member name="P:CrmEarlyBound.CrmServiceContext.csc_LanguageSet">
             <summary>
             Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_Language"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_LocationSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_Location"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_NationalitySet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_Nationality"/> entities.
             </summary>
         </member>
         <member name="P:CrmEarlyBound.CrmServiceContext.csc_PortalUserSet">
@@ -757,6 +1408,11 @@
         <member name="P:CrmEarlyBound.CrmServiceContext.csc_ProvinceOrStateSet">
             <summary>
             Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_ProvinceOrState"/> entities.
+            </summary>
+        </member>
+        <member name="P:CrmEarlyBound.CrmServiceContext.csc_RegionSet">
+            <summary>
+            Gets a binding to the set of all <see cref="T:CrmEarlyBound.csc_Region"/> entities.
             </summary>
         </member>
         <member name="P:CrmEarlyBound.CrmServiceContext.csc_VolunteerSet">
