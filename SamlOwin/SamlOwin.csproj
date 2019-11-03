@@ -432,6 +432,7 @@
     <Compile Include="Models\CountryResponse.cs" />
     <Compile Include="Models\LanguageResponse.cs" />
     <Compile Include="Models\NationalityResponse.cs" />
+    <Compile Include="Models\VolunteerReferenceRequest.cs" />
     <Compile Include="Models\VolunteerRequest.cs" />
     <Compile Include="Models\VolunteerResponse.cs" />
     <Compile Include="Models\WebApiErrorResponse.cs" />
@@ -456,6 +457,7 @@
     <Compile Include="Profiles\VolunteerLanguageEntityToVolunteerLanguageResponse.cs" />
     <Compile Include="Profiles\VolunteerLanguageRequestToVolunteerLanguageEntity.cs" />
     <Compile Include="Profiles\VolunteerReferenceEntityToVolunteerReferenceResponse.cs" />
+    <Compile Include="Profiles\VolunteerReferenceRequestToVolunteerReferenceEntity.cs" />
     <Compile Include="Profiles\VolunteerRequestToVolunteerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AutoMapperProvider.cs" />

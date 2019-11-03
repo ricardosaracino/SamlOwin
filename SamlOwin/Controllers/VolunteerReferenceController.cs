@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Xrm.Sdk;
 using SamlOwin.Handlers;
 using SamlOwin.Identity;
 using SamlOwin.Models;
@@ -40,6 +42,49 @@ namespace SamlOwin.Controllers
             {
                 Data = queryable.ToList().ConvertAll(entity => _mapper.Map<VolunteerReferenceResponse>(entity))
             };
+        }
+        /// <summary>
+        /// Updates or Creates all Volunteer References and assigns them to the Current User
+        /// </summary>
+        [HttpPost, Route("")]
+        public WebApiSuccessResponse Save(List<VolunteerReferenceRequest> volunteerReferences)
+        {
+            foreach (var volunteerReference in volunteerReferences)
+            {
+                if (volunteerReference.Id != null && volunteerReference.Id != Guid.Empty) continue;
+
+                var volunteerEntity = _mapper.Map<csc_VolunteerReference>(volunteerReference);
+
+                volunteerEntity.csc_Volunteer = new EntityReference(csc_Volunteer.EntityLogicalName,
+                    User.Identity.GetVolunteerId());
+
+                _ctx.AddObject(volunteerEntity);
+            }
+
+            var queryable = from volunteerReferenceEntity in _ctx.csc_VolunteerReferenceSet
+                where volunteerReferenceEntity.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
+                select volunteerReferenceEntity;
+
+            var volunteerReferenceEntities = queryable.ToList();
+
+            foreach (var volunteerReferenceEntity in volunteerReferenceEntities)
+            {
+                var foundVolunteerReference =
+                    volunteerReferences.SingleOrDefault(req => req.Id == volunteerReferenceEntity.Id);
+
+                if (foundVolunteerReference != null)
+                {
+                    _ctx.UpdateObject(_mapper.Map(foundVolunteerReference, volunteerReferenceEntity));
+                }
+                else
+                {
+                    _ctx.DeleteObject(volunteerReferenceEntity);
+                }
+            }
+
+            _ctx.SaveChanges();
+
+            return new WebApiSuccessResponse();
         }
     }
 }
