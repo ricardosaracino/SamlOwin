@@ -503,7 +503,7 @@
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerController.Save(SamlOwin.Models.VolunteerRequest)">
             <summary>
-            Saves the Volunteer assigned to the Current User
+            Updates or Creates the Volunteer assigned to the Current User
             </summary>
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerLanguageController.FindAll">
@@ -513,7 +513,7 @@
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerLanguageController.Save(System.Collections.Generic.List{SamlOwin.Models.VolunteerLanguageRequest})">
             <summary>
-            Updates or Creates all Volunteer Languages and assigns them to the current user
+            Updates or Creates all Volunteer Languages and assigns them to the Current User
             </summary>
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerReferenceController.FindAll">

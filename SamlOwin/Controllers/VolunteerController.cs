@@ -47,7 +47,7 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Saves the Volunteer assigned to the Current User
+        /// Updates or Creates the Volunteer assigned to the Current User
         /// </summary>
         [HttpPost, Route("")]
         public WebApiSuccessResponse Save(VolunteerRequest volunteerRequest)

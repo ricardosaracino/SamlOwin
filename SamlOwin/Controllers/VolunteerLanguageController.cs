@@ -45,7 +45,7 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Updates or Creates all Volunteer Languages and assigns them to the current user
+        /// Updates or Creates all Volunteer Languages and assigns them to the Current User
         /// </summary>
         [HttpPost, Route("")]
         public WebApiSuccessResponse Save(List<VolunteerLanguageRequest> volunteerLanguages)

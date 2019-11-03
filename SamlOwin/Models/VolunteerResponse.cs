@@ -6,7 +6,28 @@ namespace SamlOwin.Models
     {
         public Guid Id { get; set; }
 
+        public string ReferenceNumber { get; set; }
+
+
         public string FirstName { get; set; }
+
+        public string MiddleName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string MaidenName { get; set; }
+        
+        public string Email { get; set; }
+
+        public string SecondaryEmail { get; set; }
+
+        public ReferenceResponse Citizenship { get; set; }
+
+        public int PreferredLanguage { get; set; }
+        
+        public int? Gender { get; set; }
+
+        public string GenderOther { get; set; }
 
         public string HomeAddressCity { get; set; }
 
@@ -19,10 +40,8 @@ namespace SamlOwin.Models
         public string HomeAddressPostalCode { get; set; }
 
         public ReferenceResponse HomeAddressProvinceOrState { get; set; }
-
-        public string HomeTelephone { get; set; }
-
-        public string LastName { get; set; }
+        
+        public bool MailingAddressSameAsHomeAddress { get; set; }
 
         public string MailingAddressCity { get; set; }
 
@@ -36,8 +55,18 @@ namespace SamlOwin.Models
 
         public ReferenceResponse MailingAddressProvinceOrState { get; set; }
 
-        public string MiddleName { get; set; }
+        public string HomeTelephone { get; set; }
 
-        public string ReferenceNumber { get; set; }
+        public string BusinessTelephone { get; set; }
+
+        public string BusinessTelephoneExt { get; set; }
+
+        public string OtherTelephone { get; set; }
+
+        public string OtherTelephoneExt { get; set; }
+        
+        public bool AgreeContactedWork { get; set; }
+
+        public string Availability { get; set; }
     }
 }
