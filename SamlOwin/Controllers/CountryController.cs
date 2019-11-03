@@ -25,7 +25,7 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Finds all countries
+        /// Finds all Countries with Provinces or States attached
         /// </summary>
         [HttpGet, Route("")]
         public WebApiSuccessResponse<List<CountryResponse>> FindAll()

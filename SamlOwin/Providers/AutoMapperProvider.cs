@@ -13,6 +13,7 @@ namespace SamlOwin.Providers
             if (_mapperConfiguration == null)
             {
                 _mapperConfiguration = CreateConfiguration();
+                
             }
 
             return new Mapper(_mapperConfiguration);

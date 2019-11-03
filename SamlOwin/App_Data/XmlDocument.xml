@@ -483,7 +483,7 @@
         </member>
         <member name="M:SamlOwin.Controllers.CountryController.FindAll">
             <summary>
-            Finds all countries
+            Finds all Countries with Provinces or States attached
             </summary>
         </member>
         <member name="M:SamlOwin.Controllers.LanguageController.FindAll">
@@ -493,7 +493,7 @@
         </member>
         <member name="M:SamlOwin.Controllers.NationalityController.FindAll">
             <summary>
-            Finds all Nationalitys
+            Finds all Nationalities
             </summary>
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerController.Find">
@@ -504,6 +504,16 @@
         <member name="M:SamlOwin.Controllers.VolunteerController.Save(SamlOwin.Models.VolunteerRequest)">
             <summary>
             Updates or Creates the Volunteer assigned to the Current User
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerEmergencyContactController.FindAll">
+            <summary>
+            Finds all Volunteer Emergency Contacts assigned to Current User
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerEmergencyContactController.Save(System.Collections.Generic.List{SamlOwin.Models.VolunteerEmergencyContactRequest})">
+            <summary>
+            Updates or Creates all Volunteer Emergency Contacts and assigns them to the Current User
             </summary>
         </member>
         <member name="M:SamlOwin.Controllers.VolunteerLanguageController.FindAll">
@@ -519,6 +529,11 @@
         <member name="M:SamlOwin.Controllers.VolunteerReferenceController.FindAll">
             <summary>
             Finds all Volunteer References assigned to Current User
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerReferenceController.Save(System.Collections.Generic.List{SamlOwin.Models.VolunteerReferenceRequest})">
+            <summary>
+            Updates or Creates all Volunteer References and assigns them to the Current User
             </summary>
         </member>
         <member name="M:SamlOwin.Controllers.AuthController.SigninCallback(System.String)">

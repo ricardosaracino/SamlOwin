@@ -37,7 +37,7 @@ namespace SamlOwin
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                CookieSecure = CookieSecureOption.SameAsRequest,
+                CookieSecure = CookieSecureOption.Always,
                 ExpireTimeSpan =
                     TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"])),
                 SlidingExpiration = true,

@@ -28,7 +28,7 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Finds all Volunteer EmergencyContacts assigned to Current User
+        /// Finds all Volunteer Emergency Contacts assigned to Current User
         /// </summary>
         [HttpGet, Route("")]
         public WebApiSuccessResponse<List<VolunteerEmergencyContactResponse>> FindAll()
@@ -45,7 +45,7 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Updates or Creates all Volunteer EmergencyContacts and assigns them to the Current User
+        /// Updates or Creates all Volunteer Emergency Contacts and assigns them to the Current User
         /// </summary>
         [HttpPost, Route("")]
         public WebApiSuccessResponse Save(List<VolunteerEmergencyContactRequest> volunteerEmergencyContacts)

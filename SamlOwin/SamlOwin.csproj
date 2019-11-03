@@ -395,6 +395,7 @@
     <Compile Include="Controllers\VolunteerEmergencyContactController.cs" />
     <Compile Include="Controllers\VolunteerLanguageController.cs" />
     <Compile Include="Controllers\VolunteerReferenceController.cs" />
+    <Compile Include="Controllers\VolunteerSelfIdentificationController.cs" />
     <Compile Include="CrmEarlyBound\csc_Country.cs" />
     <Compile Include="CrmEarlyBound\csc_Language.cs" />
     <Compile Include="CrmEarlyBound\csc_Location.cs" />
@@ -438,6 +439,8 @@
     <Compile Include="Models\VolunteerReferenceRequest.cs" />
     <Compile Include="Models\VolunteerRequest.cs" />
     <Compile Include="Models\VolunteerResponse.cs" />
+    <Compile Include="Models\VolunteerSelfIdentificationRequest.cs" />
+    <Compile Include="Models\VolunteerSelfIdentificationResponse.cs" />
     <Compile Include="Models\WebApiErrorResponse.cs" />
     <Compile Include="Models\WebApiSuccessResponse.cs" />
     <Compile Include="Models\ReferenceRequest.cs" />
@@ -459,11 +462,13 @@
     <Compile Include="Profiles\VolunteerEmergencyContactRequestToVolunteerEmergencyContactEntity.cs" />
     <Compile Include="Profiles\VolunteerEntityToVolunteer.cs" />
     <Compile Include="Profiles\VolunteerEntityToVolunteerResponse.cs" />
+    <Compile Include="Profiles\VolunteerEntityToVolunteerSelfIdentificationResponse.cs" />
     <Compile Include="Profiles\VolunteerLanguageEntityToVolunteerLanguageResponse.cs" />
     <Compile Include="Profiles\VolunteerLanguageRequestToVolunteerLanguageEntity.cs" />
     <Compile Include="Profiles\VolunteerReferenceEntityToVolunteerReferenceResponse.cs" />
     <Compile Include="Profiles\VolunteerReferenceRequestToVolunteerReferenceEntity.cs" />
     <Compile Include="Profiles\VolunteerRequestToVolunteerEntity.cs" />
+    <Compile Include="Profiles\VolunteerSelfIdentificationRequestToVolunteerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AutoMapperProvider.cs" />
     <Compile Include="Providers\CrmServiceContextProvider.cs" />

@@ -13,8 +13,8 @@
         /// <summary>
         /// JSend Message
         /// </summary>
-        public string Message;
+        public string Message { get; set; }
 
-        public object Data;
+        public object Data { get; set; }
     }
 }

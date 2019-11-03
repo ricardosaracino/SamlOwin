@@ -25,7 +25,7 @@ namespace SamlOwin.Controllers
         }
 
         /// <summary>
-        /// Finds all Nationalitys
+        /// Finds all Nationalities
         /// </summary>
         [HttpGet, Route("")]
         public WebApiSuccessResponse<List<NationalityResponse>> FindAll()
