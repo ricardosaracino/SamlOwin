@@ -392,6 +392,7 @@
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\NationalityController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
+    <Compile Include="Controllers\VolunteerEmergencyContactController.cs" />
     <Compile Include="Controllers\VolunteerLanguageController.cs" />
     <Compile Include="Controllers\VolunteerReferenceController.cs" />
     <Compile Include="CrmEarlyBound\csc_Country.cs" />
@@ -432,6 +433,8 @@
     <Compile Include="Models\CountryResponse.cs" />
     <Compile Include="Models\LanguageResponse.cs" />
     <Compile Include="Models\NationalityResponse.cs" />
+    <Compile Include="Models\VolunteerEmergencyContactRequest.cs" />
+    <Compile Include="Models\VolunteerEmergencyContactResponse.cs" />
     <Compile Include="Models\VolunteerReferenceRequest.cs" />
     <Compile Include="Models\VolunteerRequest.cs" />
     <Compile Include="Models\VolunteerResponse.cs" />
@@ -452,6 +455,8 @@
     <Compile Include="Profiles\NationalityEntityToNationalityResponse.cs" />
     <Compile Include="Profiles\PortalUserEntityToPortalUserModel.cs" />
     <Compile Include="Profiles\ProvinceOrStateEntityToProvinceOrStateResponse.cs" />
+    <Compile Include="Profiles\VolunteerEmergencyContactEntityToVolunteerEmergencyContactResponse.cs" />
+    <Compile Include="Profiles\VolunteerEmergencyContactRequestToVolunteerEmergencyContactEntity.cs" />
     <Compile Include="Profiles\VolunteerEntityToVolunteer.cs" />
     <Compile Include="Profiles\VolunteerEntityToVolunteerResponse.cs" />
     <Compile Include="Profiles\VolunteerLanguageEntityToVolunteerLanguageResponse.cs" />

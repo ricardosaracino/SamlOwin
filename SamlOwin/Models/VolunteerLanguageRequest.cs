@@ -14,5 +14,7 @@ namespace SamlOwin.Models
         public bool? WillTranslate { get; set; }
 
         [Required] public ReferenceRequest Language { get; set; }
+        
+        public ReferenceRequest Volunteer { get; set; }
     }
 }
