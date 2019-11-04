@@ -1,10 +1,10 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using Sustainsys.Saml2.Internal;
 using System;
 using System.Security.Claims;
- using ClaimProperties = Microsoft.IdentityModel.Tokens.Saml2.ClaimProperties;
+using ClaimProperties = Microsoft.IdentityModel.Tokens.Saml2.ClaimProperties;
 
- namespace Sustainsys.Saml2
+namespace Sustainsys.Saml2
 {
     /// <summary>
     /// Extension methods for claims.
@@ -17,7 +17,8 @@ using System.Security.Claims;
         /// <param name="claim">Name identifier or Saml2 logout info claim.</param>
         /// <returns>Saml2NameIdentifier</returns>
         /// <remarks>The field order is:NameQualifier,SPNameQualifier,Format,SPProvidedID,Value</remarks>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "logout")]
         public static Saml2NameIdentifier ToSaml2NameIdentifier(this Claim claim)
         {
             if (claim == null)
@@ -30,12 +31,13 @@ using System.Security.Claims;
                 return ProcessLogoutNameIdentifier(claim);
             }
 
-            if(claim.Type == ClaimTypes.NameIdentifier)
+            if (claim.Type == ClaimTypes.NameIdentifier)
             {
                 return ProcessNameIdentifier(claim);
             }
 
-            throw new ArgumentException("ToSaml2NameIdentifier can only process an Saml2 logout name identifier claim.", nameof(claim));
+            throw new ArgumentException("ToSaml2NameIdentifier can only process an Saml2 logout name identifier claim.",
+                nameof(claim));
         }
 
         private static Saml2NameIdentifier ProcessLogoutNameIdentifier(Claim claim)
@@ -48,14 +50,17 @@ using System.Security.Claims;
             {
                 saml2NameIdentifier.NameQualifier = fields[0];
             }
+
             if (!string.IsNullOrEmpty(fields[1]))
             {
                 saml2NameIdentifier.SPNameQualifier = fields[1];
             }
+
             if (!string.IsNullOrEmpty(fields[2]))
             {
                 saml2NameIdentifier.Format = new Uri(fields[2]);
             }
+
             if (!string.IsNullOrEmpty(fields[3]))
             {
                 saml2NameIdentifier.SPProvidedId = fields[3];
@@ -65,7 +70,7 @@ using System.Security.Claims;
         }
 
         private static Saml2NameIdentifier ProcessNameIdentifier(Claim claim)
-        { 
+        {
             var saml2NameIdentifier = new Saml2NameIdentifier(claim.Value);
 
             claim.ExtractProperty(ClaimProperties.SamlNameIdentifierFormat,

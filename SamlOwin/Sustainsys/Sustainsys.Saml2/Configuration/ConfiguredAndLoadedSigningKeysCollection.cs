@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Sustainsys.Saml2.Configuration
     /// The dynamically loaded can reset while the configured are kept.
     /// metadata.
     /// </summary>
-    public  class ConfiguredAndLoadedSigningKeysCollection: IEnumerable<SecurityKeyIdentifierClause>
+    public class ConfiguredAndLoadedSigningKeysCollection : IEnumerable<SecurityKeyIdentifierClause>
     {
         private IList<SecurityKeyIdentifierClause> configuredItems = new List<SecurityKeyIdentifierClause>();
         private IList<SecurityKeyIdentifierClause> loadedItems = new List<SecurityKeyIdentifierClause>();
@@ -51,10 +51,7 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public IEnumerable<SecurityKeyIdentifierClause> LoadedItems
         {
-            get
-            {
-                return loadedItems;
-            }
+            get { return loadedItems; }
         }
 
         /// <summary>

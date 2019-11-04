@@ -33,7 +33,7 @@ namespace Sustainsys.Saml2
             }
 
             var authnStatement = statement as Saml2AuthenticationStatement;
-            if(authnStatement != null)
+            if (authnStatement != null)
             {
                 return ToXElement(authnStatement);
             }
@@ -49,7 +49,7 @@ namespace Sustainsys.Saml2
                     new XElement(Saml2Namespaces.Saml2 + "AuthnContextClassRef",
                         authnStatement.AuthenticationContext.ClassReference.OriginalString)));
 
-            if(authnStatement.SessionIndex != null)
+            if (authnStatement.SessionIndex != null)
             {
                 result.Add(new XAttribute("SessionIndex", authnStatement.SessionIndex));
             }
@@ -63,7 +63,8 @@ namespace Sustainsys.Saml2
 
             foreach (var attribute in attributeStatement.Attributes)
             {
-                var attributeElement = new XElement(Saml2Namespaces.Saml2 + "Attribute", new XAttribute("Name", attribute.Name));
+                var attributeElement = new XElement(Saml2Namespaces.Saml2 + "Attribute",
+                    new XAttribute("Name", attribute.Name));
 
                 attributeElement.AddAttributeIfNotNullOrEmpty("FriendlyName", attribute.FriendlyName);
                 attributeElement.AddAttributeIfNotNullOrEmpty("NameFormat", attribute.NameFormat);

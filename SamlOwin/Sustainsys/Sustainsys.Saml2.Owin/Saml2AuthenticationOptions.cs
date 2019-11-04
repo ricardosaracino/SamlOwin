@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 
@@ -19,8 +19,11 @@ namespace Sustainsys.Saml2.Owin
         /// Constructor
         /// <param name="loadConfiguration">Should the options be inited by loading app/web.config?</param>
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SustainsysSaml2")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.Owin.Security.AuthenticationDescription.set_Caption(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SustainsysSaml2")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
+            "CA1303:Do not pass literals as localized parameters", MessageId =
+                "Microsoft.Owin.Security.AuthenticationDescription.set_Caption(System.String)")]
         public Saml2AuthenticationOptions(bool loadConfiguration)
             : base(Constants.DefaultAuthenticationType)
         {
@@ -55,10 +58,7 @@ namespace Sustainsys.Saml2.Owin
         /// </summary>
         public IdentityProviderDictionary IdentityProviders
         {
-            get
-            {
-                return identityProviders;
-            }
+            get { return identityProviders; }
         }
 
         /// <summary>
@@ -66,14 +66,8 @@ namespace Sustainsys.Saml2.Owin
         /// </summary>
         public string Caption
         {
-            get
-            {
-                return Description.Caption;
-            }
-            set
-            {
-                Description.Caption = value;
-            }
+            get { return Description.Caption; }
+            set { Description.Caption = value; }
         }
 
         /// <summary>

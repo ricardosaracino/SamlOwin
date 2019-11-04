@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +11,11 @@ namespace Sustainsys.Saml2.Internal
         public static string GetValueOrEmpty<T>(this IDictionary<T, string> dictionary, T key)
         {
             string value;
-            if(dictionary.TryGetValue(key, out value))
+            if (dictionary.TryGetValue(key, out value))
             {
                 return value;
             }
+
             return "";
         }
     }

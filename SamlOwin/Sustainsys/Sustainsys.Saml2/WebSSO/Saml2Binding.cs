@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Saml2P;
 using System;
 using System.Collections.Generic;
@@ -71,7 +71,8 @@ namespace Sustainsys.Saml2.WebSso
         /// <summary>
         /// Uri identifier of the Discovery Response SAML extension.
         /// </summary>
-        public static readonly Uri DiscoveryResponseUri = new Uri("urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol");
+        public static readonly Uri DiscoveryResponseUri =
+            new Uri("urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol");
 
         /// <summary>
         /// Uri identifier of the SOAP binding.
@@ -88,6 +89,7 @@ namespace Sustainsys.Saml2.WebSso
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// Binds a message to a http response.
         /// </summary>
@@ -122,9 +124,9 @@ namespace Sustainsys.Saml2.WebSso
         private static readonly IDictionary<Saml2BindingType, Saml2Binding> bindings =
             new Dictionary<Saml2BindingType, Saml2Binding>()
             {
-                { Saml2BindingType.HttpRedirect, new Saml2RedirectBinding() },
-                { Saml2BindingType.HttpPost, new Saml2PostBinding() },
-                { Saml2BindingType.Artifact, new Saml2ArtifactBinding() }
+                {Saml2BindingType.HttpRedirect, new Saml2RedirectBinding()},
+                {Saml2BindingType.HttpPost, new Saml2PostBinding()},
+                {Saml2BindingType.Artifact, new Saml2ArtifactBinding()}
             };
 
         /// <summary>
@@ -138,7 +140,7 @@ namespace Sustainsys.Saml2.WebSso
             {
                 return bindings[binding];
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
                     "{0} is not a valid value for the Saml2BindingType enum. Have you forgotten to configure a binding for your identity provider?",
@@ -157,17 +159,19 @@ namespace Sustainsys.Saml2.WebSso
             return bindings.FirstOrDefault(b => b.Value.CanUnbind(request)).Value;
         }
 
-        private readonly static IDictionary<Uri, Saml2BindingType> bindingTypeMap = new Dictionary<Uri, Saml2BindingType>()
-        {
-            { HttpRedirectUri, Saml2BindingType.HttpRedirect },
-            { HttpPostUri, Saml2BindingType.HttpPost }
-        };
+        private readonly static IDictionary<Uri, Saml2BindingType> bindingTypeMap =
+            new Dictionary<Uri, Saml2BindingType>()
+            {
+                {HttpRedirectUri, Saml2BindingType.HttpRedirect},
+                {HttpPostUri, Saml2BindingType.HttpPost}
+            };
 
-        private readonly static IDictionary<Saml2BindingType, Uri> bindingUriMap = new Dictionary<Saml2BindingType, Uri>()
-        {
-            { Saml2BindingType.HttpPost, HttpPostUri },
-            { Saml2BindingType.Artifact, HttpArtifactUri }
-        };
+        private readonly static IDictionary<Saml2BindingType, Uri> bindingUriMap =
+            new Dictionary<Saml2BindingType, Uri>()
+            {
+                {Saml2BindingType.HttpPost, HttpPostUri},
+                {Saml2BindingType.Artifact, HttpArtifactUri}
+            };
 
         /// <summary>
         /// Gets the Saml2BindingType enum value for a Saml2Binding type uri, where the
@@ -178,13 +182,13 @@ namespace Sustainsys.Saml2.WebSso
         /// <exception cref="ArgumentException">If the uri doesn't correspond to a known binding.</exception>
         public static Saml2BindingType UriToSaml2BindingType(Uri uri)
         {
-            if(uri == null)
+            if (uri == null)
             {
                 throw new ArgumentNullException(nameof(uri));
             }
 
             Saml2BindingType bindingType;
-            if(bindingTypeMap.TryGetValue(uri, out bindingType))
+            if (bindingTypeMap.TryGetValue(uri, out bindingType))
             {
                 return bindingType;
             }

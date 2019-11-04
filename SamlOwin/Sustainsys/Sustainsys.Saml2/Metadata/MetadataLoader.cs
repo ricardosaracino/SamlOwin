@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Exceptions;
+﻿using Sustainsys.Saml2.Exceptions;
 using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
@@ -31,9 +31,12 @@ namespace Sustainsys.Saml2.Metadata
         {
             return LoadIdp(metadataLocation, false);
         }
-        
-        internal const string LoadIdpFoundEntitiesDescriptor = "Tried to load metadata for an IdentityProvider, which should be an <EntityDescriptor>, but found an <EntitiesDescriptor>. To load that metadata you should use the Federation configuration and not an IdentityProvider. You can also set the SPOptions.Compatibility.UnpackEntitiesDescriptorInIdentityProviderMetadata option to true.";
-        internal const string LoadIdpUnpackingFoundMultipleEntityDescriptors = "Unpacked an EntitiesDescriptor when loading idp metadata, but found multiple EntityDescriptors.Unpacking is only supported if the metadata contains a single EntityDescriptor. Maybe you should use a Federation instead of configuring a single IdentityProvider";
+
+        internal const string LoadIdpFoundEntitiesDescriptor =
+            "Tried to load metadata for an IdentityProvider, which should be an <EntityDescriptor>, but found an <EntitiesDescriptor>. To load that metadata you should use the Federation configuration and not an IdentityProvider. You can also set the SPOptions.Compatibility.UnpackEntitiesDescriptorInIdentityProviderMetadata option to true.";
+
+        internal const string LoadIdpUnpackingFoundMultipleEntityDescriptors =
+            "Unpacked an EntitiesDescriptor when loading idp metadata, but found multiple EntityDescriptors.Unpacking is only supported if the metadata contains a single EntityDescriptor. Maybe you should use a Federation instead of configuring a single IdentityProvider";
 
         /// <summary>
         /// Load and parse metadata.
@@ -44,12 +47,19 @@ namespace Sustainsys.Saml2.Metadata
         /// an EntitiesDescriptor, try to unpack it and return a single
         /// EntityDescriptor inside if there is one.</param>
         /// <returns>EntityDescriptor containing metadata</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "EntityDescriptors")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SPOptions")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "UnpackEntitiesDescriptorInIdentityProviderMetadata")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "EntitiesDescriptor")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "EntityDescriptor")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IdentityProvider")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "EntityDescriptors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SPOptions")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId =
+                "UnpackEntitiesDescriptorInIdentityProviderMetadata")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "EntitiesDescriptor")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "EntityDescriptor")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "IdentityProvider")]
         public static EntityDescriptor LoadIdp(string metadataLocation, bool unpackEntitiesDescriptor)
         {
             if (metadataLocation == null)
@@ -60,22 +70,22 @@ namespace Sustainsys.Saml2.Metadata
             var result = Load(metadataLocation, null, false, null);
 
             var entitiesDescriptor = result as EntitiesDescriptor;
-            if(entitiesDescriptor != null)
+            if (entitiesDescriptor != null)
             {
-                if(unpackEntitiesDescriptor)
+                if (unpackEntitiesDescriptor)
                 {
-                    if(entitiesDescriptor.ChildEntities.Count > 1)
+                    if (entitiesDescriptor.ChildEntities.Count > 1)
                     {
                         throw new InvalidOperationException(LoadIdpUnpackingFoundMultipleEntityDescriptors);
                     }
 
-                    return (EntityDescriptor)entitiesDescriptor.ChildEntities.Single();
+                    return (EntityDescriptor) entitiesDescriptor.ChildEntities.Single();
                 }
 
                 throw new InvalidOperationException(LoadIdpFoundEntitiesDescriptor);
             }
 
-            return (EntityDescriptor)result;
+            return (EntityDescriptor) result;
         }
 
         private static MetadataBase Load(
@@ -84,30 +94,31 @@ namespace Sustainsys.Saml2.Metadata
             bool validateCertificate,
             string minIncomingSigningAlgorithm)
         {
-            if(PathHelper.IsWebRootRelative(metadataLocation))
+            if (PathHelper.IsWebRootRelative(metadataLocation))
             {
                 metadataLocation = PathHelper.MapPath(metadataLocation);
             }
 
             using (var client = new WebClient())
             using (var stream = client.OpenRead(metadataLocation))
-			using (var ms = new MemoryStream())
-			{
-				byte[] buf = new byte[65536];
-				for (; ;)
-				{
-					int read = stream.Read(buf, 0, buf.Length);
-					if (read == 0)
-						break;
-					ms.Write(buf, 0, read);
-				}
-				// System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(ms.ToArray()));
-				ms.Position = 0;
+            using (var ms = new MemoryStream())
+            {
+                byte[] buf = new byte[65536];
+                for (;;)
+                {
+                    int read = stream.Read(buf, 0, buf.Length);
+                    if (read == 0)
+                        break;
+                    ms.Write(buf, 0, read);
+                }
+
+                // System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(ms.ToArray()));
+                ms.Position = 0;
                 var reader = XmlDictionaryReader.CreateTextReader(
                     ms,
                     XmlDictionaryReaderQuotas.Max);
 
-                if(signingKeys != null)
+                if (signingKeys != null)
                 {
                     reader = ValidateSignature(
                         reader,
@@ -120,7 +131,9 @@ namespace Sustainsys.Saml2.Metadata
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "No unmanaged resources involved, safe to ignore")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability",
+            "CA2000:Dispose objects before losing scope", Justification =
+                "No unmanaged resources involved, safe to ignore")]
         private static XmlDictionaryReader ValidateSignature(
             XmlDictionaryReader reader,
             IEnumerable<SecurityKeyIdentifierClause> signingKeys,
@@ -130,7 +143,7 @@ namespace Sustainsys.Saml2.Metadata
             var xmlDoc = XmlHelpers.CreateSafeXmlDocument();
             xmlDoc.Load(reader);
 
-            if(!xmlDoc.DocumentElement.IsSignedByAny(
+            if (!xmlDoc.DocumentElement.IsSignedByAny(
                 signingKeys,
                 validateCertificate,
                 minIncomingSigningAlgorithm))
@@ -145,7 +158,7 @@ namespace Sustainsys.Saml2.Metadata
         internal static MetadataBase Load(XmlDictionaryReader reader)
         {
             var serializer = ExtendedMetadataSerializer.ReaderInstance;
-            
+
             // Filter out the signature from the metadata, as the built in MetadataSerializer
             // doesn't handle the XmlDsigNamespaceUrl http://www.w3.org/2000/09/xmldsig# which
             // is allowed (and for SAMLv1 even recommended).
@@ -155,7 +168,8 @@ namespace Sustainsys.Saml2.Metadata
             }
         }
 
-        internal const string LoadFederationFoundEntityDescriptor = "Tried to load metadata for a Federation, which should be an <EntitiesDescriptor> containing one or more <EntityDescriptor> elements, but found an <EntityDescriptor>. To load that metadata you should use the IdentityProvider configuration and not a Federation.";
+        internal const string LoadFederationFoundEntityDescriptor =
+            "Tried to load metadata for a Federation, which should be an <EntitiesDescriptor> containing one or more <EntityDescriptor> elements, but found an <EntityDescriptor>. To load that metadata you should use the IdentityProvider configuration and not a Federation.";
 
         /// <summary>
         /// Load and parse metadata for a federation.
@@ -179,9 +193,12 @@ namespace Sustainsys.Saml2.Metadata
         /// <param name="minIncomingSigningAlgorithm">Mininum strength accepted
         /// for signing algorithm.</param>
         /// <returns>Extended entitiesdescriptor</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "EntitiesDescriptor")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "EntityDescriptor")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IdentityProvider")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "EntitiesDescriptor")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "EntityDescriptor")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "IdentityProvider")]
         public static EntitiesDescriptor LoadFederation(
             string metadataLocation,
             IEnumerable<SecurityKeyIdentifierClause> signingKeys,
@@ -204,8 +221,7 @@ namespace Sustainsys.Saml2.Metadata
                 throw new InvalidOperationException(LoadFederationFoundEntityDescriptor);
             }
 
-            return (EntitiesDescriptor)result;
+            return (EntitiesDescriptor) result;
         }
-
     }
 }

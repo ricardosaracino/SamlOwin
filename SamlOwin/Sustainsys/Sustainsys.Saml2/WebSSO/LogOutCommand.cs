@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Sustainsys.Saml2.Configuration;
 using System.Security.Claims;
 using System.Net;
@@ -18,7 +18,8 @@ namespace Sustainsys.Saml2.WebSso
     /// Instances of this class can be created directly or by using the factory method
     /// CommandFactory.GetCommand(CommandFactory.LogoutCommandName).
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+        "Logout")]
     public class LogoutCommand : ICommand
     {
         /// <summary>
@@ -29,7 +30,7 @@ namespace Sustainsys.Saml2.WebSso
         /// <returns>CommandResult</returns>
         public CommandResult Run(HttpRequestData request, IOptions options)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
@@ -59,7 +60,8 @@ namespace Sustainsys.Saml2.WebSso
         /// is the start of an SP-initiated logout.</param>
         /// <param name="options">Options</param>
         /// <returns>CommandResult</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2234:PassSystemUriObjectsInsteadOfStrings")]
         public static CommandResult Run(
             HttpRequestData request,
             string returnPath,
@@ -101,6 +103,7 @@ namespace Sustainsys.Saml2.WebSso
             {
                 commandResult = InitiateLogout(request, returnUrl, options, true);
             }
+
             options.Notifications.LogoutCommandResultCreated(commandResult);
             return commandResult;
         }
@@ -111,10 +114,12 @@ namespace Sustainsys.Saml2.WebSso
             {
                 var issuer = unbindResult.Data["Issuer", Saml2Namespaces.Saml2Name]?.InnerText;
 
-                if(issuer == null)
+                if (issuer == null)
                 {
-                    throw new InvalidSignatureException("There is no Issuer element in the message, so there is no way to know what certificate to use to validate the signature.");
+                    throw new InvalidSignatureException(
+                        "There is no Issuer element in the message, so there is no way to know what certificate to use to validate the signature.");
                 }
+
                 var idp = options.IdentityProviders[new EntityId(issuer)];
 
                 if (!unbindResult.Data.IsSignedByAny(
@@ -138,20 +143,27 @@ namespace Sustainsys.Saml2.WebSso
         /// <param name="options">optins</param>
         /// <param name="terminateLocalSession">Terminate local session as part of signout?</param>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "signingCertificate")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SingleLogoutServiceUrl")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SPOptions")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "LogoutNameIdentifier")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "DisableOutboundLogoutRequests")]
-        public static CommandResult InitiateLogout(HttpRequestData request, Uri returnUrl, IOptions options, bool terminateLocalSession)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "signingCertificate")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SingleLogoutServiceUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SPOptions")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "LogoutNameIdentifier")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "DisableOutboundLogoutRequests")]
+        public static CommandResult InitiateLogout(HttpRequestData request, Uri returnUrl, IOptions options,
+            bool terminateLocalSession)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
 
-            if(options == null)
+            if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
@@ -168,15 +180,20 @@ namespace Sustainsys.Saml2.WebSso
             var knownIdp = options.IdentityProviders.TryGetValue(new EntityId(idpEntityId), out idp);
 
             options.SPOptions.Logger.WriteVerbose("Initiating logout, checking requirements for federated logout"
-                + "\n  Issuer of LogoutNameIdentifier claim (should be Idp entity id): " + idpEntityId
-                + "\n  Issuer is a known Idp: " + knownIdp
-                + "\n  Session index claim (should have a value): " + sessionIndexClaim
-                + "\n  Idp has SingleLogoutServiceUrl: " + idp?.SingleLogoutServiceUrl?.OriginalString
-                + "\n  There is a signingCertificate in SPOptions: " + (options.SPOptions.SigningServiceCertificate != null)
-                + "\n  Idp configured to DisableOutboundLogoutRequests (should be false): " + idp?.DisableOutboundLogoutRequests);
+                                                  + "\n  Issuer of LogoutNameIdentifier claim (should be Idp entity id): " +
+                                                  idpEntityId
+                                                  + "\n  Issuer is a known Idp: " + knownIdp
+                                                  + "\n  Session index claim (should have a value): " +
+                                                  sessionIndexClaim
+                                                  + "\n  Idp has SingleLogoutServiceUrl: " +
+                                                  idp?.SingleLogoutServiceUrl?.OriginalString
+                                                  + "\n  There is a signingCertificate in SPOptions: " +
+                                                  (options.SPOptions.SigningServiceCertificate != null)
+                                                  + "\n  Idp configured to DisableOutboundLogoutRequests (should be false): " +
+                                                  idp?.DisableOutboundLogoutRequests);
 
             CommandResult commandResult;
-            if(idpEntityId != null 
+            if (idpEntityId != null
                 && knownIdp
                 && sessionIndexClaim != null
                 && idp.SingleLogoutServiceUrl != null
@@ -214,7 +231,7 @@ namespace Sustainsys.Saml2.WebSso
                 };
 
                 options.SPOptions.Logger.WriteInformation(
-                    "Federated logout not possible, redirecting to post-logout" 
+                    "Federated logout not possible, redirecting to post-logout"
                     + (terminateLocalSession ? " and clearing local session" : ""));
             }
 
@@ -233,16 +250,19 @@ namespace Sustainsys.Saml2.WebSso
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SingleLogoutServiceUrl")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SingleLogoutService")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "LogoutRequest")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SingleLogoutServiceUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SingleLogoutService")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "LogoutRequest")]
         private static CommandResult HandleRequest(UnbindResult unbindResult, IOptions options)
         {
             var request = Saml2LogoutRequest.FromXml(unbindResult.Data);
 
             var idp = options.IdentityProviders[request.Issuer];
 
-            if(options.SPOptions.SigningServiceCertificate == null)
+            if (options.SPOptions.SigningServiceCertificate == null)
             {
                 throw new ConfigurationErrorsException(string.Format(CultureInfo.InvariantCulture,
                     "Received a LogoutRequest from \"{0}\" but cannot reply because single logout responses " +
@@ -251,7 +271,7 @@ namespace Sustainsys.Saml2.WebSso
                     request.Issuer.Id));
             }
 
-            if(idp.SingleLogoutServiceResponseUrl == null)
+            if (idp.SingleLogoutServiceResponseUrl == null)
             {
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
                     "Received a LogoutRequest from \"{0}\" but cannot reply because on logout endpoint is " +
@@ -271,20 +291,24 @@ namespace Sustainsys.Saml2.WebSso
             };
 
             options.SPOptions.Logger.WriteInformation("Got a logout request " + request.Id
-                + ", responding with logout response " + response.Id);
+                                                                              + ", responding with logout response " +
+                                                                              response.Id);
 
             var result = Saml2Binding.Get(idp.SingleLogoutServiceBinding).Bind(response);
             result.TerminateLocalSession = true;
             return result;
         }
 
-        private static CommandResult HandleResponse(UnbindResult unbindResult, StoredRequestState storedRequestState, IOptions options, Uri returnUrl)
+        private static CommandResult HandleResponse(UnbindResult unbindResult, StoredRequestState storedRequestState,
+            IOptions options, Uri returnUrl)
         {
             var logoutResponse = Saml2LogoutResponse.FromXml(unbindResult.Data);
-            var notificationHandledTheStatus = options.Notifications.ProcessSingleLogoutResponseStatus(logoutResponse, storedRequestState);
-            if (!notificationHandledTheStatus) { 
+            var notificationHandledTheStatus =
+                options.Notifications.ProcessSingleLogoutResponseStatus(logoutResponse, storedRequestState);
+            if (!notificationHandledTheStatus)
+            {
                 var status = logoutResponse.Status;
-                if(status != Saml2StatusCode.Success)
+                if (status != Saml2StatusCode.Success)
                 {
                     throw new UnsuccessfulSamlOperationException(string.Format(CultureInfo.InvariantCulture,
                         "Idp returned status \"{0}\", indicating that the single logout failed. The local session has been successfully terminated.",
@@ -300,10 +324,12 @@ namespace Sustainsys.Saml2.WebSso
             {
                 commandResult.ClearCookieName = StoredRequestState.CookieNameBase + unbindResult.RelayState;
             }
+
             commandResult.Location = storedRequestState?.ReturnUrl ?? returnUrl;
 
             options.SPOptions.Logger.WriteInformation("Received logout response " + logoutResponse.Id
-                + ", redirecting to " + commandResult.Location);
+                                                                                  + ", redirecting to " +
+                                                                                  commandResult.Location);
 
             return commandResult;
         }

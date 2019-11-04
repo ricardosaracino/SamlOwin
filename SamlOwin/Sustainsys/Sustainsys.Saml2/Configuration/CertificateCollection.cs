@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -38,6 +38,5 @@ namespace Sustainsys.Saml2.Configuration
         {
             return base.GetEnumerator().AsGeneric<CertificateElement>();
         }
-
     }
 }

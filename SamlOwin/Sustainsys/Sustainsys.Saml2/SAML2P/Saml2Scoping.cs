@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -44,16 +44,14 @@ namespace Sustainsys.Saml2.Saml2P
         /// </summary>
         public int? ProxyCount
         {
-            get
-            {
-                return proxyCount;
-            }
+            get { return proxyCount; }
             set
             {
-                if(value < 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("ProxyCount cannot be negative.");
                 }
+
                 proxyCount = value;
             }
         }
@@ -97,10 +95,9 @@ namespace Sustainsys.Saml2.Saml2P
             }
 
             scopingElement.Add(RequesterIds.Select(x =>
-            new XElement(Saml2Namespaces.Saml2P + "RequesterID", x.Id)));
+                new XElement(Saml2Namespaces.Saml2P + "RequesterID", x.Id)));
 
             return scopingElement;
         }
     }
 }
-

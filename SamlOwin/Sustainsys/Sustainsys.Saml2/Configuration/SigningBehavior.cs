@@ -1,4 +1,4 @@
-﻿﻿namespace Sustainsys.Saml2.Configuration
+﻿namespace Sustainsys.Saml2.Configuration
 {
     /// <summary>
     /// Signing behavior for requests.

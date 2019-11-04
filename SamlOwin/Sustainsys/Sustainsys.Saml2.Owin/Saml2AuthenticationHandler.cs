@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.WebSso;
 using Microsoft.Owin;
@@ -57,8 +57,10 @@ namespace Sustainsys.Saml2.Owin
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SPOptions")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ReturnUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SPOptions")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "ReturnUrl")]
         private AuthenticationTicket CreateErrorAuthenticationTicket(HttpRequestData httpRequestData, Exception ex)
         {
             var authProperties = new AuthenticationProperties();
@@ -82,6 +84,7 @@ namespace Sustainsys.Saml2.Owin
 
                     redirectUrl = httpRequestData.ApplicationUrl;
                 }
+
                 authProperties.RedirectUri = redirectUrl.OriginalString;
             }
 
@@ -119,6 +122,7 @@ namespace Sustainsys.Saml2.Owin
                         Context.Environment.TryGetValue("saml2.idp", out objIdp);
                         idp = objIdp as EntityId;
                     }
+
                     var redirectUri = challenge.Properties.RedirectUri;
                     // Don't serialize the RedirectUri twice.
                     challenge.Properties.RedirectUri = null;
@@ -147,8 +151,9 @@ namespace Sustainsys.Saml2.Owin
         {
             // Automatically sign out, even if passive because passive sign in and auto sign out
             // is typically most common scenario. Unless strict compatibility is set.
-            var mode = Options.SPOptions.Compatibility.StrictOwinAuthenticationMode ?
-                Options.AuthenticationMode : AuthenticationMode.Active;
+            var mode = Options.SPOptions.Compatibility.StrictOwinAuthenticationMode
+                ? Options.AuthenticationMode
+                : AuthenticationMode.Active;
 
             var revoke = Helper.LookupSignOut(Options.AuthenticationType, mode);
 
@@ -190,7 +195,7 @@ namespace Sustainsys.Saml2.Owin
             {
                 if (remainingPath == new PathString("/" + CommandFactory.AcsCommandName))
                 {
-                    var ticket = (MultipleIdentityAuthenticationTicket)await AuthenticateAsync();
+                    var ticket = (MultipleIdentityAuthenticationTicket) await AuthenticateAsync();
                     if (ticket.Identities.Any())
                     {
                         Context.Authentication.SignIn(ticket.Properties, ticket.Identities.ToArray());
@@ -200,6 +205,7 @@ namespace Sustainsys.Saml2.Owin
                     {
                         Response.Redirect(ticket.Properties.RedirectUri);
                     }
+
                     return true;
                 }
 
@@ -215,7 +221,7 @@ namespace Sustainsys.Saml2.Owin
 
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Options.SPOptions.Logger.WriteError("Error in Saml2 for " + Request.Path, ex);
                     throw;

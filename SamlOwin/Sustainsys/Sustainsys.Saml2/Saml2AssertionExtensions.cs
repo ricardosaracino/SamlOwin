@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace Sustainsys.Saml2
         /// <returns>XElement</returns>
         public static XElement ToXElement(this Saml2Assertion assertion)
         {
-            if(assertion == null)
+            if (assertion == null)
             {
                 throw new ArgumentNullException(nameof(assertion));
             }
@@ -28,7 +28,7 @@ namespace Sustainsys.Saml2
                 new XAttribute(XNamespace.Xmlns + "saml2", Saml2Namespaces.Saml2Name),
                 new XAttribute("Version", assertion.Version),
                 new XAttribute("ID", assertion.Id.Value),
-                new XAttribute("IssueInstant", 
+                new XAttribute("IssueInstant",
                     assertion.IssueInstant.ToSaml2DateTimeString()),
                 new XElement(Saml2Namespaces.Saml2 + "Issuer", assertion.Issuer.Value));
 
@@ -37,17 +37,19 @@ namespace Sustainsys.Saml2
                 xml.Add(assertion.Subject.ToXElement());
             }
 
-            if(assertion.Conditions != null)
+            if (assertion.Conditions != null)
             {
                 xml.Add(assertion.Conditions.ToXElement());
             }
-            
+
             if (assertion.Statements != null)
             {
                 foreach (var statement in assertion.Statements)
                 {
                     xml.Add(statement.ToXElement());
-                };
+                }
+
+                ;
             }
 
             return xml;

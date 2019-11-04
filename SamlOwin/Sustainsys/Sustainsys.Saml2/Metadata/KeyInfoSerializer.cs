@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Sustainsys.Saml2.Selectors;
 using Sustainsys.Saml2.Tokens;
-
 using SecurityToken = Microsoft.IdentityModel.Tokens.SecurityToken;
 
 namespace Sustainsys.Saml2.Metadata
@@ -20,7 +19,8 @@ namespace Sustainsys.Saml2.Metadata
     // that doesn't contain the info required to create the key, we're stuck.
     class KeyInfoSerializer : SecurityTokenSerializer
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Only called by framework code")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId
+ = "0", Justification = "Only called by framework code")]
         protected override SecurityKeyIdentifier ReadKeyIdentifierCore(XmlReader reader)
         {
             var result = new SecurityKeyIdentifier();

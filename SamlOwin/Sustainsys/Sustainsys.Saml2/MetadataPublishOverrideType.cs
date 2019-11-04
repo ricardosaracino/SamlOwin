@@ -1,4 +1,4 @@
-﻿﻿namespace Sustainsys.Saml2
+﻿namespace Sustainsys.Saml2
 {
     /// <summary>
     /// How should we override the metadata publishing rules

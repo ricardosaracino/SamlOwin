@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,22 +10,20 @@ namespace Sustainsys.Saml2.Internal
     class EntityIdEqualityComparer : IEqualityComparer<EntityId>
     {
         private static EntityIdEqualityComparer instance = new EntityIdEqualityComparer();
+
         public static EntityIdEqualityComparer Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
 
         public bool Equals(EntityId x, EntityId y)
         {
-            if(x == null)
+            if (x == null)
             {
                 throw new ArgumentNullException(nameof(x));
             }
 
-            if(y == null)
+            if (y == null)
             {
                 throw new ArgumentNullException(nameof(y));
             }
@@ -35,14 +33,16 @@ namespace Sustainsys.Saml2.Internal
 
         public int GetHashCode(EntityId obj)
         {
-            if(obj == null)
+            if (obj == null)
             {
                 throw new ArgumentNullException(nameof(obj));
             }
-            if(obj.Id == null)
+
+            if (obj.Id == null)
             {
                 return 117; // Whatever value, as long as we return the same each time.
             }
+
             return obj.Id.GetHashCode();
         }
     }

@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Saml2P;
 using System;
 using System.Globalization;
@@ -18,8 +18,8 @@ namespace Sustainsys.Saml2.WebSso
             }
 
             return request.HttpMethod == "POST"
-                && (request.Form.Keys.Contains("SAMLResponse")
-                    || request.Form.Keys.Contains("SAMLRequest"));
+                   && (request.Form.Keys.Contains("SAMLResponse")
+                       || request.Form.Keys.Contains("SAMLRequest"));
         }
 
         public override UnbindResult Unbind(HttpRequestData request, IOptions options)
@@ -49,14 +49,14 @@ namespace Sustainsys.Saml2.WebSso
 
         public override CommandResult Bind(ISaml2Message message, ILoggerAdapter logger)
         {
-            if(message == null)
+            if (message == null)
             {
                 throw new ArgumentNullException(nameof(message));
             }
 
             var xml = message.ToXml();
 
-            if(message.SigningCertificate != null)
+            if (message.SigningCertificate != null)
             {
                 var xmlDoc = XmlHelpers.XmlDocumentFromString(xml);
 
@@ -68,18 +68,19 @@ namespace Sustainsys.Saml2.WebSso
 
             var encodedXml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
 
-            var relayStateHtml = string.IsNullOrEmpty(message.RelayState) ? null 
+            var relayStateHtml = string.IsNullOrEmpty(message.RelayState)
+                ? null
                 : string.Format(CultureInfo.InvariantCulture, PostHtmlRelayStateFormatString, message.RelayState);
 
             var cr = new CommandResult()
             {
                 ContentType = "text/html",
                 Content = String.Format(
-                    CultureInfo.InvariantCulture, 
-                    PostHtmlFormatString, 
-                    message.DestinationUrl, 
-                    relayStateHtml, 
-                    message.MessageName, 
+                    CultureInfo.InvariantCulture,
+                    PostHtmlFormatString,
+                    message.DestinationUrl,
+                    relayStateHtml,
+                    message.MessageName,
                     encodedXml)
             };
 

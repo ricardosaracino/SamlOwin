@@ -1,4 +1,4 @@
-﻿﻿namespace Sustainsys.Saml2
+﻿namespace Sustainsys.Saml2
 {
     /// <summary>
     /// Claim type constants.
@@ -17,7 +17,8 @@
         /// Original subject name identifier from the SAML2 idp, that should
         /// be logged out as part of a single logout scenario.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public const string LogoutNameIdentifier = ClaimTypeNamespace + "/LogoutNameIdentifier";
     }
 }

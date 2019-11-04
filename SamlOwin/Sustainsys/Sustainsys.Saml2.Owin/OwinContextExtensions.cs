@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.WebSso;
+﻿using Sustainsys.Saml2.WebSso;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using System;
@@ -18,19 +18,19 @@ namespace Sustainsys.Saml2.Owin
             this IOwinContext context,
             Func<byte[], byte[]> cookieDecryptor)
         {
-            if(context == null)
+            if (context == null)
             {
                 return null;
             }
 
             IFormCollection formData = null;
-            if(context.Request.Body != null)
+            if (context.Request.Body != null)
             {
                 formData = await context.Request.ReadFormAsync();
             }
 
             var applicationRootPath = context.Request.PathBase.Value;
-            if(string.IsNullOrEmpty(applicationRootPath))
+            if (string.IsNullOrEmpty(applicationRootPath))
             {
                 applicationRootPath = "/";
             }

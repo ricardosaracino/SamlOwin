@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using System;
 using System.Security.Cryptography.X509Certificates;
 
@@ -29,6 +29,7 @@ namespace Sustainsys.Saml2
             {
                 throw new ArgumentNullException(nameof(serviceCertElement));
             }
+
             Use = serviceCertElement.Use;
             Status = serviceCertElement.Status;
             MetadataPublishOverride = serviceCertElement.MetadataPublishOverride;

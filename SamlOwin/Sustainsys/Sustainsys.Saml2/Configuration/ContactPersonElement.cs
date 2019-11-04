@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -24,10 +24,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(contactType, IsRequired = true)]
         public ContactType ContactType
         {
-            get
-            {
-                return (ContactType)base[contactType];
-            }
+            get { return (ContactType) base[contactType]; }
         }
 
         const string company = "company";
@@ -38,10 +35,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(company)]
         public string Company
         {
-            get
-            {
-                return (string)base[company];
-            }
+            get { return (string) base[company]; }
         }
 
         const string givenName = "givenName";
@@ -52,10 +46,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(givenName)]
         public string GivenName
         {
-            get
-            {
-                return (string)base[givenName];
-            }
+            get { return (string) base[givenName]; }
         }
 
         const string surname = "surname";
@@ -66,10 +57,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(surname)]
         public string Surname
         {
-            get
-            {
-                return (string)base[surname];
-            }
+            get { return (string) base[surname]; }
         }
 
         const string phoneNumber = "phoneNumber";
@@ -80,10 +68,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(phoneNumber)]
         public string PhoneNumber
         {
-            get
-            {
-                return (string)base[phoneNumber];
-            }
+            get { return (string) base[phoneNumber]; }
         }
 
         const string email = "email";
@@ -94,11 +79,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(email)]
         public string Email
         {
-            get
-            {
-                return (string)base[email];
-            }
+            get { return (string) base[email]; }
         }
-
     }
 }

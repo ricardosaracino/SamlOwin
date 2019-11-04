@@ -1,9 +1,9 @@
-﻿﻿using System.Xml;
+﻿using System.Xml;
 
 namespace Sustainsys.Saml2.Configuration
 {
     interface ICustomIdentityConfiguration
     {
-		void LoadCustomConfiguration(XmlNodeList nodeList);
-	}
+        void LoadCustomConfiguration(XmlNodeList nodeList);
+    }
 }

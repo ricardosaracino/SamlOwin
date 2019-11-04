@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +21,8 @@ namespace Sustainsys.Saml2.Metadata
         /// <param name="signingCertificate">Certificate to sign the metadata
         /// with. Supply null to not sign.</param>
         /// <param name="signingAlgorithm">Algorithm to use when signing.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2202:Do not dispose objects multiple times")]
         public static string ToXmlString(
             this MetadataBase metadata,
             X509Certificate2 signingCertificate,

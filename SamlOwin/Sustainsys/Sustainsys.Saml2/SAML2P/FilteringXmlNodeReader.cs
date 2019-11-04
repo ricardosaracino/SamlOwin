@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +23,7 @@ namespace Sustainsys.Saml2.Saml2P
         {
             var result = base.Read();
 
-            if(result
+            if (result
                 && LocalName == filterNode
                 && NamespaceURI == filterNamespace)
             {

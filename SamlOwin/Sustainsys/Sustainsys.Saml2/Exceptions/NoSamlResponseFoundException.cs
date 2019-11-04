@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace Sustainsys.Saml2.Exceptions
@@ -23,7 +23,8 @@ namespace Sustainsys.Saml2.Exceptions
         /// <param name="message">Message of the exception.</param>
         public NoSamlResponseFoundException(string message)
             : base(message)
-        { }
+        {
+        }
 
         /// <summary>
         /// Ctor
@@ -31,8 +32,9 @@ namespace Sustainsys.Saml2.Exceptions
         /// <param name="message">Message of the exception.</param>
         /// <param name="innerException">Inner exception.</param>
         public NoSamlResponseFoundException(string message, Exception innerException)
-            :base(message, innerException)
-        { }
+            : base(message, innerException)
+        {
+        }
 
         /// <summary>
         /// Serialization Ctor

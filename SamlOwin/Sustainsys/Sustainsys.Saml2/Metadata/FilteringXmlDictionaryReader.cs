@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Xml;
+﻿using Microsoft.IdentityModel.Xml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,37 +26,36 @@ namespace Sustainsys.Saml2.Metadata
             do
             {
                 result = InnerReader.Read();
-            }
-            while (result
-                && InnerReader.NamespaceURI == xmlNamespaceUri
-                && InnerReader.LocalName == name);
+            } while (result
+                     && InnerReader.NamespaceURI == xmlNamespaceUri
+                     && InnerReader.LocalName == name);
 
             return result;
         }
 
-		// Sigh.  ASPNET core bug.
-		// XmlReader:
-		// public void Dispose()
-		// {
-		//     Dispose(true);
-		// }
-		// protected virtual void Dispose(bool disposing)
-		// {
-		//     if (disposing && ReadState != ReadState.Closed)
-		//     {
-		//         Close();
-		//     }
-		// }
-		//
-		// XmlDictionaryReader:
-		// public override void Close()
-		// {
-		// 	base.Dispose();
-		// }
-		// = stack overflow
-		//
-		public override void Close()
-		{
-		}
-	}
+        // Sigh.  ASPNET core bug.
+        // XmlReader:
+        // public void Dispose()
+        // {
+        //     Dispose(true);
+        // }
+        // protected virtual void Dispose(bool disposing)
+        // {
+        //     if (disposing && ReadState != ReadState.Closed)
+        //     {
+        //         Close();
+        //     }
+        // }
+        //
+        // XmlDictionaryReader:
+        // public override void Close()
+        // {
+        // 	base.Dispose();
+        // }
+        // = stack overflow
+        //
+        public override void Close()
+        {
+        }
+    }
 }

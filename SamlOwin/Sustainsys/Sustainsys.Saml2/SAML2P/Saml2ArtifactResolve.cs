@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -25,10 +25,7 @@ namespace Sustainsys.Saml2.Saml2P
         [ExcludeFromCodeCoverage]
         protected override string LocalName
         {
-            get
-            {
-                return "ArtifactResolve";
-            }
+            get { return "ArtifactResolve"; }
         }
 
         /// <summary>
@@ -38,9 +35,9 @@ namespace Sustainsys.Saml2.Saml2P
         public override string ToXml()
         {
             return new XElement(
-                Saml2Namespaces.Saml2P + "ArtifactResolve",
-                base.ToXNodes(),
-                new XElement(Saml2Namespaces.Saml2P + "Artifact", Artifact))
+                    Saml2Namespaces.Saml2P + "ArtifactResolve",
+                    base.ToXNodes(),
+                    new XElement(Saml2Namespaces.Saml2P + "Artifact", Artifact))
                 .ToString();
         }
     }

@@ -1,4 +1,4 @@
-﻿﻿#if NETSTANDARD2_0
+﻿#if NETSTANDARD2_0
 using Microsoft.Extensions.Caching.Memory;
 #else
 using System.Runtime.Caching;
@@ -8,8 +8,8 @@ using System;
 
 namespace Sustainsys.Saml2.Tokens
 {
-	class TokenReplayCache : ITokenReplayCache
-	{
+    class TokenReplayCache : ITokenReplayCache
+    {
 #if NETSTANDARD2_0
         MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
 #else
@@ -19,8 +19,8 @@ namespace Sustainsys.Saml2.Tokens
         // Dummy object to store in cache.
         private static object cacheObject = new object();
 
-		public bool TryAdd(string securityToken, DateTime expiresOn)
-		{
+        public bool TryAdd(string securityToken, DateTime expiresOn)
+        {
 #if NETSTANDARD2_0
             cache.Set(securityToken, cacheObject, new DateTimeOffset(expiresOn));
 #else
@@ -30,8 +30,8 @@ namespace Sustainsys.Saml2.Tokens
         }
 
         public bool TryFind(string securityToken)
-		{
+        {
             return cache.Get(securityToken) != null;
-		}
-	}
+        }
+    }
 }

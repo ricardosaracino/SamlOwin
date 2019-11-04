@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +30,7 @@ namespace Sustainsys.Saml2
             EntityId idp,
             Uri returnUrl,
             Saml2Id messageId,
-            IDictionary<string,string> relayData)
+            IDictionary<string, string> relayData)
         {
             Idp = idp;
             ReturnUrl = returnUrl;
@@ -57,13 +57,14 @@ namespace Sustainsys.Saml2
         /// <summary>
         /// Aux data that need to be preserved across the authentication call.
         /// </summary>
-        public IDictionary<string,string> RelayData { get; }
+        public IDictionary<string, string> RelayData { get; }
 
         /// <summary>
         /// Get a serialized representation of the data.
         /// </summary>
         /// <returns>Serialized data</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2202:Do not dispose objects multiple times")]
         public byte[] Serialize()
         {
             using (var ms = new MemoryStream())
@@ -77,17 +78,18 @@ namespace Sustainsys.Saml2
                 if (hasRelayData)
                 {
                     w.Write(RelayData.Count);
-                    foreach(var kv in RelayData)
+                    foreach (var kv in RelayData)
                     {
                         w.Write(kv.Key);
                         var hasValue = kv.Value != null;
                         w.Write(hasValue);
-                        if(hasValue)
+                        if (hasValue)
                         {
                             w.Write(kv.Value);
                         }
                     }
                 }
+
                 w.Flush();
                 return ms.ToArray();
             }
@@ -98,36 +100,37 @@ namespace Sustainsys.Saml2
         /// representation.
         /// </summary>
         /// <param name="data">data buffer</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2202:Do not dispose objects multiple times")]
         public StoredRequestState(byte[] data)
         {
             using (var ms = new MemoryStream(data))
             using (var r = new BinaryReader(ms, Encoding.UTF8, true))
             {
                 var idp = r.ReadString();
-                if(!string.IsNullOrEmpty(idp))
+                if (!string.IsNullOrEmpty(idp))
                 {
                     Idp = new EntityId(idp);
                 }
-                
+
                 var returnUrl = r.ReadString();
-                if(!string.IsNullOrEmpty(returnUrl))
+                if (!string.IsNullOrEmpty(returnUrl))
                 {
                     ReturnUrl = new Uri(returnUrl, UriKind.RelativeOrAbsolute);
                 }
 
                 var messageId = r.ReadString();
-                if(!string.IsNullOrEmpty(messageId))
+                if (!string.IsNullOrEmpty(messageId))
                 {
                     MessageId = new Saml2Id(messageId);
                 }
 
                 var hasRelayData = r.ReadBoolean();
-                if(hasRelayData)
+                if (hasRelayData)
                 {
                     RelayData = new Dictionary<string, string>();
                     var count = r.ReadInt32();
-                    for(int i = 0; i < count; i++)
+                    for (int i = 0; i < count; i++)
                     {
                         var key = r.ReadString();
                         string value = null;
@@ -136,6 +139,7 @@ namespace Sustainsys.Saml2
                         {
                             value = r.ReadString();
                         }
+
                         RelayData[key] = value;
                     }
                 }

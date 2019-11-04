@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +16,8 @@ namespace Sustainsys.Saml2.Configuration
         /// Ctor
         /// </summary>
         public Compatibility()
-        { }
+        {
+        }
 
         /// <summary>
         /// Ctor
@@ -24,7 +25,7 @@ namespace Sustainsys.Saml2.Configuration
         /// <param name="configElement">Config element to load</param>
         public Compatibility(CompatibilityElement configElement)
         {
-            if(configElement == null)
+            if (configElement == null)
             {
                 throw new ArgumentNullException(nameof(configElement));
             }
@@ -46,7 +47,8 @@ namespace Sustainsys.Saml2.Configuration
         /// Do not send logout state cookie, e.g. if you are not using ReturnUrl
         /// or if you know the cookie will be lost due to cross-domain redirects
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout" )]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public bool DisableLogoutStateCookie { get; set; }
 
         /// <summary>

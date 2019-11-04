@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.WebSso;
+﻿using Sustainsys.Saml2.WebSso;
 using System;
 using System.Configuration;
 using Sustainsys.Saml2.Saml2P;
@@ -32,46 +32,35 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("entityId", IsRequired = true)]
         public string EntityId
         {
-            get
-            {
-                return (string)base["entityId"];
-            }
-            internal set
-            {
-                base["entityId"] = value;
-            }
+            get { return (string) base["entityId"]; }
+            internal set { base["entityId"] = value; }
         }
 
         const string signOnUrl = nameof(signOnUrl);
+
         /// <summary>
         /// Destination url to send sign in requests to.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "SignOn")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "SignOn")]
         [ConfigurationProperty(signOnUrl)]
         public Uri SignOnUrl
         {
-            get
-            {
-                return (Uri)base[signOnUrl];
-            }
-            internal set
-            {
-                base[signOnUrl] = value;
-            }
+            get { return (Uri) base[signOnUrl]; }
+            internal set { base[signOnUrl] = value; }
         }
 
         const string logoutUrl = nameof(logoutUrl);
+
         /// <summary>
         /// Single logout url endpoint of Idp.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         [ConfigurationProperty(logoutUrl)]
         public Uri LogoutUrl
         {
-            get
-            {
-                return (Uri)base[logoutUrl];
-            }
+            get { return (Uri) base[logoutUrl]; }
         }
 
         /// <summary>
@@ -80,14 +69,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("binding")]
         public Saml2BindingType Binding
         {
-            get
-            {
-                return (Saml2BindingType)base["binding"];
-            }
-            internal set
-            {
-                base["binding"] = value;
-            }
+            get { return (Saml2BindingType) base["binding"]; }
+            internal set { base["binding"] = value; }
         }
 
         /// <summary>
@@ -96,17 +79,12 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("signingCertificate")]
         public CertificateElement SigningCertificate
         {
-            get
-            {
-                return (CertificateElement)base["signingCertificate"];
-            }
-            internal set
-            {
-                base["signingCertificate"] = value;
-            }
+            get { return (CertificateElement) base["signingCertificate"]; }
+            internal set { base["signingCertificate"] = value; }
         }
 
         const string outboundSigningAlgorithm = nameof(outboundSigningAlgorithm);
+
         /// <summary>
         /// Signing algorithm for outbound messages to this Idp. Overrides the
         /// main signature algorithm configured in <see cref="SPOptions"/>.
@@ -114,10 +92,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(outboundSigningAlgorithm, IsRequired = false)]
         public string OutboundSigningAlgorithm
         {
-            get
-            {
-                return (string)base[outboundSigningAlgorithm];
-            }
+            get { return (string) base[outboundSigningAlgorithm]; }
         }
 
         /// <summary>
@@ -129,10 +104,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("allowUnsolicitedAuthnResponse", IsRequired = true)]
         public bool AllowUnsolicitedAuthnResponse
         {
-            get
-            {
-                return (bool)base["allowUnsolicitedAuthnResponse"];
-            }
+            get { return (bool) base["allowUnsolicitedAuthnResponse"]; }
         }
 
         /// <summary>
@@ -142,14 +114,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("loadMetadata", IsRequired = false, DefaultValue = false)]
         public bool LoadMetadata
         {
-            get
-            {
-                return (bool)base["loadMetadata"];
-            }
-            set
-            {
-                base["loadMetadata"] = value;
-            }
+            get { return (bool) base["loadMetadata"]; }
+            set { base["loadMetadata"] = value; }
         }
 
         const string metadataLocation = nameof(metadataLocation);
@@ -160,17 +126,12 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(metadataLocation)]
         public string MetadataLocation
         {
-            get
-            {
-                return (string)base[metadataLocation];
-            }
-            internal set
-            {
-                base[metadataLocation] = value;
-            }
+            get { return (string) base[metadataLocation]; }
+            internal set { base[metadataLocation] = value; }
         }
 
         const string artifactResolutionServices = nameof(artifactResolutionServices);
+
         /// <summary>
         /// Artifact Resolution endpoints for the identity provider.
         /// </summary>
@@ -178,23 +139,18 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationCollection(typeof(ArtifactResolutionServiceCollection))]
         public ArtifactResolutionServiceCollection ArtifactResolutionServices
         {
-            get
-            {
-                return (ArtifactResolutionServiceCollection)base[artifactResolutionServices];
-            }
+            get { return (ArtifactResolutionServiceCollection) base[artifactResolutionServices]; }
         }
 
         const string wantAuthnRequestsSigned = nameof(wantAuthnRequestsSigned);
+
         /// <summary>
         /// Does this Idp want the AuthnRequests to be signed?
         /// </summary>
         [ConfigurationProperty(wantAuthnRequestsSigned, IsRequired = false, DefaultValue = false)]
         public bool WantAuthnRequestsSigned
         {
-            get
-            {
-                return (bool)base[wantAuthnRequestsSigned];
-            }
+            get { return (bool) base[wantAuthnRequestsSigned]; }
         }
 
         const string disableOutboundLogoutRequests = nameof(disableOutboundLogoutRequests);
@@ -205,18 +161,13 @@ namespace Sustainsys.Saml2.Configuration
         /// it. This setting might be usable when adding SLO to an existing
         /// setup, to ensure that everyone is ready for SLO before activating.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         [ConfigurationProperty(disableOutboundLogoutRequests, IsRequired = false, DefaultValue = false)]
         public bool DisableOutboundLogoutRequests
         {
-            get
-            {
-                return (bool)base[disableOutboundLogoutRequests];
-            }
-            set
-            {
-                base[disableOutboundLogoutRequests] = value;
-            }
+            get { return (bool) base[disableOutboundLogoutRequests]; }
+            set { base[disableOutboundLogoutRequests] = value; }
         }
 
         /// <summary>
@@ -226,14 +177,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("relayStateUsedAsReturnUrl", IsRequired = false, DefaultValue = false)]
         public bool RelayStateUsedAsReturnUrl
         {
-            get
-            {
-                return (bool)base["relayStateUsedAsReturnUrl"];
-            }
-            set
-            {
-                base["relayStateUsedAsReturnUrl"] = value;
-            }
+            get { return (bool) base["relayStateUsedAsReturnUrl"]; }
+            set { base["relayStateUsedAsReturnUrl"] = value; }
         }
     }
 }

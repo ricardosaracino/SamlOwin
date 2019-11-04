@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Metadata;
+﻿using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.Saml2P;
 using System;
 using System.Collections.Concurrent;
@@ -22,7 +22,7 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public SPOptions()
         {
-			MetadataCacheDuration = new XsdDuration(hours: 1);
+            MetadataCacheDuration = new XsdDuration(hours: 1);
             Compatibility = new Compatibility();
             OutboundSigningAlgorithm = XmlHelpers.GetDefaultSigningAlgorithmName();
             MinIncomingSigningAlgorithm = XmlHelpers.GetDefaultSigningAlgorithmName();
@@ -50,7 +50,8 @@ namespace Sustainsys.Saml2.Configuration
             PublicOrigin = configSection.PublicOrigin;
             Organization = configSection.Organization;
             OutboundSigningAlgorithm = XmlHelpers.GetFullSigningAlgorithmName(configSection.OutboundSigningAlgorithm);
-            MinIncomingSigningAlgorithm = XmlHelpers.GetFullSigningAlgorithmName(configSection.MinIncomingSigningAlgorithm);
+            MinIncomingSigningAlgorithm =
+                XmlHelpers.GetFullSigningAlgorithmName(configSection.MinIncomingSigningAlgorithm);
             AuthenticateRequestSigningBehavior = configSection.AuthenticateRequestSigningBehavior;
             NameIdPolicy = new Saml2NameIdPolicy(
                 configSection.NameIdPolicyElement.AllowCreate, configSection.NameIdPolicyElement.Format);
@@ -102,7 +103,7 @@ namespace Sustainsys.Saml2.Configuration
                 // Capture in a local variable to prevent race conditions. Reads and writes
                 // of references are atomic so there is no need for a lock.
                 var value = saml2PSecurityTokenHandler;
-                if(value == null)
+                if (value == null)
                 {
                     // Set the saved value, but don't trust it - still use a local var for the return.
                     saml2PSecurityTokenHandler = value = new Saml2PSecurityTokenHandler(this);
@@ -110,10 +111,7 @@ namespace Sustainsys.Saml2.Configuration
 
                 return value;
             }
-            set
-            {
-                saml2PSecurityTokenHandler = value; 
-            }
+            set { saml2PSecurityTokenHandler = value; }
         }
 
         /// <summary>
@@ -129,16 +127,15 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public EntityId EntityId
         {
-            get
-            {
-                return entityId;
-            }
+            get { return entityId; }
             set
             {
-                if(saml2PSecurityTokenHandler != null)
+                if (saml2PSecurityTokenHandler != null)
                 {
-                    throw new InvalidOperationException("Can't change entity id when a token handler has been instantiated.");
+                    throw new InvalidOperationException(
+                        "Can't change entity id when a token handler has been instantiated.");
                 }
+
                 entityId = value;
             }
         }
@@ -151,13 +148,10 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public string ModulePath
         {
-            get
-            {
-                return modulePath;
-            }
+            get { return modulePath; }
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
@@ -205,24 +199,18 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public ICollection<ContactPerson> Contacts
         {
-            get
-            {
-                return contacts;
-            }
+            get { return contacts; }
         }
 
         readonly ICollection<AttributeConsumingService> attributeConsumingServices
-			= new List<AttributeConsumingService>();
+            = new List<AttributeConsumingService>();
 
         /// <summary>
         /// Collection of attribute consuming services for the service provider.
         /// </summary>
         public ICollection<AttributeConsumingService> AttributeConsumingServices
         {
-            get
-            {
-                return attributeConsumingServices;
-            }
+            get { return attributeConsumingServices; }
         }
 
         readonly ServiceCertificateCollection serviceCertificates = new ServiceCertificateCollection();
@@ -232,10 +220,7 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public ServiceCertificateCollection ServiceCertificates
         {
-            get
-            {
-                return serviceCertificates;
-            }
+            get { return serviceCertificates; }
         }
 
         /// <summary>
@@ -277,27 +262,32 @@ namespace Sustainsys.Saml2.Configuration
             get
             {
                 var futureEncryptionCertExists = PublishableServiceCertificates
-                    .Any(c => c.Status == CertificateStatus.Future && (c.Use == CertificateUse.Encryption || c.Use == CertificateUse.Both));
+                    .Any(c => c.Status == CertificateStatus.Future &&
+                              (c.Use == CertificateUse.Encryption || c.Use == CertificateUse.Both));
 
                 var metaDataCertificates = PublishableServiceCertificates
                     .Where(
                         // Signing & "Both" certs always get published because we want Idp's to be aware of upcoming keys
                         c => c.Status == CertificateStatus.Future || c.Use != CertificateUse.Encryption
-                        // But current Encryption cert stops getting published immediately when a Future one is added
-                        // (of course we still decrypt with the current cert, but that's a different part of the code)
-                        || (c.Status == CertificateStatus.Current && c.Use == CertificateUse.Encryption && !futureEncryptionCertExists)
-                        || c.MetadataPublishOverride != MetadataPublishOverrideType.None
+                                                                  // But current Encryption cert stops getting published immediately when a Future one is added
+                                                                  // (of course we still decrypt with the current cert, but that's a different part of the code)
+                                                                  || (c.Status == CertificateStatus.Current &&
+                                                                      c.Use == CertificateUse.Encryption &&
+                                                                      !futureEncryptionCertExists)
+                                                                  || c.MetadataPublishOverride !=
+                                                                  MetadataPublishOverrideType.None
                     ).ToList();
 
                 var futureBothCertExists = metaDataCertificates
                     .Any(c => c.Status == CertificateStatus.Future && c.Use == CertificateUse.Both);
 
-                foreach(var cert in metaDataCertificates)
+                foreach (var cert in metaDataCertificates)
                 {
                     // Just like we stop publishing Encryption cert immediately when a Future one is added,
                     // in the case of a "Both" cert we should switch the current use to Signing so that Idp's stop sending
                     // us certs encrypted with the old key
-                    if (cert.Use == CertificateUse.Both && cert.Status == CertificateStatus.Current && futureBothCertExists)
+                    if (cert.Use == CertificateUse.Both && cert.Status == CertificateStatus.Current &&
+                        futureBothCertExists)
                     {
                         cert.Use = CertificateUse.Signing;
                     }
@@ -306,10 +296,12 @@ namespace Sustainsys.Saml2.Configuration
                     {
                         cert.Use = CertificateUse.Encryption;
                     }
+
                     if (cert.MetadataPublishOverride == MetadataPublishOverrideType.PublishSigning)
                     {
                         cert.Use = CertificateUse.Signing;
                     }
+
                     if (cert.MetadataPublishOverride == MetadataPublishOverrideType.PublishUnspecified)
                     {
                         cert.Use = CertificateUse.Both;
@@ -328,6 +320,7 @@ namespace Sustainsys.Saml2.Configuration
             {
                 use = CertificateUse.Both;
             }
+
             return use;
         }
 
@@ -337,7 +330,8 @@ namespace Sustainsys.Saml2.Configuration
             {
                 return ServiceCertificates
                     .Where(c => c.MetadataPublishOverride != MetadataPublishOverrideType.DoNotPublish
-                    && c.Use != CertificateUse.TlsClient) // Certs that are only Tls should not be published.
+                                && c.Use != CertificateUse
+                                    .TlsClient) // Certs that are only Tls should not be published.
                     .Select(c => new ServiceCertificate // Finally create new instances and convert use to ignore Tls.
                     {
                         Use = ConvertUse(c.Use),
@@ -358,7 +352,7 @@ namespace Sustainsys.Saml2.Configuration
         /// overriden for each <see cref="IdentityProvider"/>.
         /// </summary>
         public string OutboundSigningAlgorithm { get; set; }
-        
+
         /// <summary>
         /// Metadata flag that we want assertions to be signed.
         /// </summary>
@@ -379,23 +373,21 @@ namespace Sustainsys.Saml2.Configuration
         public Compatibility Compatibility { get; set; }
 
         private string minIncomingSigningAlgorithm;
-        
+
         /// <summary>
         /// Minimum accepted signature algorithm for any incoming messages.
         /// </summary>
         public string MinIncomingSigningAlgorithm
         {
-            get
-            {
-                return minIncomingSigningAlgorithm;
-            }
+            get { return minIncomingSigningAlgorithm; }
             set
             {
-                if(!XmlHelpers.KnownSigningAlgorithms.Contains(value))
+                if (!XmlHelpers.KnownSigningAlgorithms.Contains(value))
                 {
                     throw new ArgumentException("The signing algorithm " + value +
-                        " is unknown or not supported by the current .NET Framework.");
+                                                " is unknown or not supported by the current .NET Framework.");
                 }
+
                 minIncomingSigningAlgorithm = value;
             }
         }

@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,8 @@ namespace Sustainsys.Saml2.Metadata
     /// <summary>
     /// Specifies an attribute requested by the service provider.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+        "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     public class RequestedAttribute : Saml2Attribute
     {
         /// <summary>
@@ -18,21 +19,23 @@ namespace Sustainsys.Saml2.Metadata
         /// <param name="name">Name of the attribute.</param>
         public RequestedAttribute(string name)
             : base(name)
-        { }
+        {
+        }
 
-		/// <summary>
-		/// Ctor
-		/// </summary>
-		/// <param name="name">Name of the attribute.</param>
-		/// <param name="value">Value of the attribute.</param>
-		public RequestedAttribute(string name, string value)
-			: base(name, value)
-		{ }
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="name">Name of the attribute.</param>
+        /// <param name="value">Value of the attribute.</param>
+        public RequestedAttribute(string name, string value)
+            : base(name, value)
+        {
+        }
 
-		/// <summary>
-		/// Is this attribute required by the service provider?
-		/// </summary>
-		public bool? IsRequired { get; set; }
+        /// <summary>
+        /// Is this attribute required by the service provider?
+        /// </summary>
+        public bool? IsRequired { get; set; }
 
         /// <summary>
         /// Uri used for NameFormat to specify that the Name is a Uri.
@@ -43,12 +46,14 @@ namespace Sustainsys.Saml2.Metadata
         /// Uri used for NameFormat to specify that the format of the Name 
         /// is unspecified.
         /// </summary>
-        public static readonly Uri AttributeNameFormatUnspecified = new Uri("urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified");
+        public static readonly Uri AttributeNameFormatUnspecified =
+            new Uri("urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified");
 
         /// <summary>
         /// Uri used for NameFormat to specify that the format of the Name 
         /// fulfills the standard's basic requirements.
         /// </summary>
-        public static readonly Uri AttributeNameFormatBasic = new Uri("urn:oasis:names:tc:SAML:2.0:attrname-format:basic");
+        public static readonly Uri AttributeNameFormatBasic =
+            new Uri("urn:oasis:names:tc:SAML:2.0:attrname-format:basic");
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,8 @@ namespace Sustainsys.Saml2.Saml2P
     /// <summary>
     /// A Saml2 Logout Response.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+        "Logout")]
     public class Saml2LogoutResponse : Saml2StatusResponseType
     {
         /// <summary>
@@ -20,7 +21,8 @@ namespace Sustainsys.Saml2.Saml2P
         /// <param name="status">Status of the response.</param>
         public Saml2LogoutResponse(Saml2StatusCode status)
             : base(status)
-        { }
+        {
+        }
 
         /// <summary>
         /// Serializes the message into wellformed Xml.
@@ -48,8 +50,8 @@ namespace Sustainsys.Saml2.Saml2P
                 .AddAttributeIfNotNull("Destination", DestinationUrl?.OriginalString)
                 .If(Issuer != null, x => x.AddElement("Issuer", Saml2Namespaces.Saml2Uri, Issuer.Id))
                 .StartElement("Status", Saml2Namespaces.Saml2PUri)
-                    .StartElement("StatusCode", Saml2Namespaces.Saml2PUri)
-                    .AddAttribute("Value", StatusCodeHelper.FromCode(Status));
+                .StartElement("StatusCode", Saml2Namespaces.Saml2PUri)
+                .AddAttribute("Value", StatusCodeHelper.FromCode(Status));
         }
 
         /// <summary>
@@ -59,15 +61,15 @@ namespace Sustainsys.Saml2.Saml2P
         /// <returns></returns>
         public static Saml2LogoutResponse FromXml(XmlElement xml)
         {
-            if(xml == null)
+            if (xml == null)
             {
                 throw new ArgumentNullException(nameof(xml));
             }
 
             var status = StatusCodeHelper.FromString(
                 xml["Status", Saml2Namespaces.Saml2PName]
-                ["StatusCode", Saml2Namespaces.Saml2PName]
-                .GetAttribute("Value"));
+                    ["StatusCode", Saml2Namespaces.Saml2PName]
+                    .GetAttribute("Value"));
             return new Saml2LogoutResponse(status);
         }
     }

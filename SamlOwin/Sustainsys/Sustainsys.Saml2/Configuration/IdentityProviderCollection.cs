@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace Sustainsys.Saml2.Configuration
         /// <returns>element.Name</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((IdentityProviderElement)element).EntityId;
+            return ((IdentityProviderElement) element).EntityId;
         }
 
         /// <summary>
@@ -47,15 +47,15 @@ namespace Sustainsys.Saml2.Configuration
         /// <param name="options">Current options.</param>
         public void RegisterIdentityProviders(IOptions options)
         {
-            if(options == null)
+            if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
 
-            foreach(var idpEntry in this)
+            foreach (var idpEntry in this)
             {
                 var idp = new IdentityProvider(idpEntry, options.SPOptions);
-                
+
                 options.IdentityProviders[idp.EntityId] = idp;
             }
         }

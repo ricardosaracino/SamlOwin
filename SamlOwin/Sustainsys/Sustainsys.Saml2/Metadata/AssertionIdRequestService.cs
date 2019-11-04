@@ -1,6 +1,6 @@
-﻿﻿namespace Sustainsys.Saml2.Metadata
+﻿namespace Sustainsys.Saml2.Metadata
 {
-	public class AssertionIdRequestService : Endpoint
-	{
-	}
+    public class AssertionIdRequestService : Endpoint
+    {
+    }
 }

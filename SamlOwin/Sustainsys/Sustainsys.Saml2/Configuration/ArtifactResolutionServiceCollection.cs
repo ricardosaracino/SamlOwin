@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,7 +11,8 @@ namespace Sustainsys.Saml2.Configuration
     /// <summary>
     /// Config collection of ArtifactResolutionElements.
     /// </summary>
-    public class ArtifactResolutionServiceCollection : ConfigurationElementCollection, IEnumerable<ArtifactResolutionServiceElement>
+    public class ArtifactResolutionServiceCollection : ConfigurationElementCollection,
+        IEnumerable<ArtifactResolutionServiceElement>
     {
         /// <summary>
         /// Factory for element type.
@@ -29,7 +30,7 @@ namespace Sustainsys.Saml2.Configuration
         /// <returns>Index of endpoint</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((ArtifactResolutionServiceElement)element).Index;
+            return ((ArtifactResolutionServiceElement) element).Index;
         }
 
         /// <summary>

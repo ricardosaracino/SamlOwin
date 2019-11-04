@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -17,14 +17,16 @@ namespace Sustainsys.Saml2.Exceptions
         /// Ctor
         /// </summary>
         public UnexpectedInResponseToException()
-        { }
+        {
+        }
 
         /// <summary>
         /// Ctor
         /// </summary>
         /// <param name="message">Message of the exception.</param>
         public UnexpectedInResponseToException(string message) : base(message)
-        { }
+        {
+        }
 
         /// <summary>
         /// Ctor
@@ -33,7 +35,8 @@ namespace Sustainsys.Saml2.Exceptions
         /// <param name="innerException">Inner exception.</param>
         public UnexpectedInResponseToException(string message, Exception innerException)
             : base(message, innerException)
-        { }
+        {
+        }
 
         /// <summary>
         /// Serialization Ctor
@@ -42,6 +45,7 @@ namespace Sustainsys.Saml2.Exceptions
         /// <param name="context">Serialization context</param>
         protected UnexpectedInResponseToException(SerializationInfo info, StreamingContext context)
             : base(info, context)
-        { }
+        {
+        }
     }
 }

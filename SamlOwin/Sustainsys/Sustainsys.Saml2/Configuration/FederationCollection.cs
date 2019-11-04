@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace Sustainsys.Saml2.Configuration
         /// <returns></returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((FederationElement)element).MetadataLocation.ToString();
+            return ((FederationElement) element).MetadataLocation.ToString();
         }
 
         /// <summary>
@@ -45,15 +45,17 @@ namespace Sustainsys.Saml2.Configuration
         /// Registers the identity providers from the configured federations in the identity provider dictionary.
         /// </summary>
         /// <param name="options">Current options.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Sustainsys.Saml2.Federation", Justification="The federation will register its identity providers in the options")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults",
+            MessageId = "Sustainsys.Saml2.Federation",
+            Justification = "The federation will register its identity providers in the options")]
         public void RegisterFederations(IOptions options)
         {
-            if(options == null)
+            if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
 
-            foreach(var configFederation in this)
+            foreach (var configFederation in this)
             {
                 new Federation(configFederation, options);
             }

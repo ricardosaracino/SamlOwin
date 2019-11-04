@@ -1,4 +1,4 @@
-﻿﻿using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sustainsys.Saml2.Configuration;
 using System;
 using System.Configuration;
@@ -29,7 +29,8 @@ namespace Sustainsys.Saml2
         /// <param name="entityId">Entity id of the identityprovider.</param>
         /// <param name="spOptions">Service provider options to use when 
         /// creating AuthnRequests for this Idp.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
         public IdentityProvider(EntityId entityId, SPOptions spOptions)
         {
             if (spOptions == null)
@@ -52,7 +53,8 @@ namespace Sustainsys.Saml2
             binding = config.Binding;
             AllowUnsolicitedAuthnResponse = config.AllowUnsolicitedAuthnResponse;
             metadataLocation = string.IsNullOrEmpty(config.MetadataLocation)
-                ? null : config.MetadataLocation;
+                ? null
+                : config.MetadataLocation;
             WantAuthnRequestsSigned = config.WantAuthnRequestsSigned;
             DisableOutboundLogoutRequests = config.DisableOutboundLogoutRequests;
 
@@ -63,9 +65,9 @@ namespace Sustainsys.Saml2
                     new X509RawDataKeyIdentifierClause(certificate));
             }
 
-            OutboundSigningAlgorithm = string.IsNullOrEmpty(config.OutboundSigningAlgorithm) ?
-                spOptions.OutboundSigningAlgorithm :
-                XmlHelpers.GetFullSigningAlgorithmName(config.OutboundSigningAlgorithm);
+            OutboundSigningAlgorithm = string.IsNullOrEmpty(config.OutboundSigningAlgorithm)
+                ? spOptions.OutboundSigningAlgorithm
+                : XmlHelpers.GetFullSigningAlgorithmName(config.OutboundSigningAlgorithm);
 
             foreach (var ars in config.ArtifactResolutionServices)
             {
@@ -95,12 +97,14 @@ namespace Sustainsys.Saml2
 
             if (!SigningKeys.Any())
             {
-                throw new ConfigurationErrorsException("Missing signing certificate configuration on Idp " + EntityId.Id + ".");
+                throw new ConfigurationErrorsException("Missing signing certificate configuration on Idp " +
+                                                       EntityId.Id + ".");
             }
 
             if (SingleSignOnServiceUrl == null)
             {
-                throw new ConfigurationErrorsException("Missing assertion consumer service url configuration on Idp " + EntityId.Id + ".");
+                throw new ConfigurationErrorsException("Missing assertion consumer service url configuration on Idp " +
+                                                       EntityId.Id + ".");
             }
         }
 
@@ -112,10 +116,7 @@ namespace Sustainsys.Saml2
         /// must be correct before settingLoadMetadata to true.</summary>
         public bool LoadMetadata
         {
-            get
-            {
-                return loadMetadata;
-            }
+            get { return loadMetadata; }
             set
             {
                 loadMetadata = value;
@@ -144,10 +145,7 @@ namespace Sustainsys.Saml2
                 ReloadMetadataIfRequired();
                 return binding;
             }
-            set
-            {
-                binding = value;
-            }
+            set { binding = value; }
         }
 
         private Uri singleSignOnServiceUrl;
@@ -156,7 +154,8 @@ namespace Sustainsys.Saml2
         /// The Url of the single sign on service. This is where the browser is redirected or
         /// where the post data is sent to when sending an AuthnRequest to the idp.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "SignOn")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "SignOn")]
         public Uri SingleSignOnServiceUrl
         {
             get
@@ -164,10 +163,7 @@ namespace Sustainsys.Saml2
                 ReloadMetadataIfRequired();
                 return singleSignOnServiceUrl;
             }
-            set
-            {
-                singleSignOnServiceUrl = value;
-            }
+            set { singleSignOnServiceUrl = value; }
         }
 
         private IDictionary<int, Uri> artifactResolutionServiceUrls
@@ -187,12 +183,14 @@ namespace Sustainsys.Saml2
 
 
         Uri singleLogoutServiceUrl;
+
         /// <summary>
         /// The Url of the single sign out service. This is where the browser
         /// is redirected or where the post data is sent to when sending a
         /// LogoutRequest to the idp.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Uri SingleLogoutServiceUrl
         {
             get
@@ -200,18 +198,17 @@ namespace Sustainsys.Saml2
                 ReloadMetadataIfRequired();
                 return singleLogoutServiceUrl;
             }
-            set
-            {
-                singleLogoutServiceUrl = value;
-            }
+            set { singleLogoutServiceUrl = value; }
         }
 
         Uri singleLogoutServiceResponseUrl;
+
         /// <summary>
         /// The Url to send single logout responses to. Defaults to 
         /// SingleLogoutServiceUrl.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Uri SingleLogoutServiceResponseUrl
         {
             get
@@ -219,18 +216,17 @@ namespace Sustainsys.Saml2
                 ReloadMetadataIfRequired();
                 return singleLogoutServiceResponseUrl ?? SingleLogoutServiceUrl;
             }
-            set
-            {
-                singleLogoutServiceResponseUrl = value;
-            }
+            set { singleLogoutServiceResponseUrl = value; }
         }
 
         private Saml2BindingType singleLogoutServiceBinding;
+
         /// <summary>
         /// Binding for the Single logout service. If not set, returns the
         /// same as the main binding (used for AuthnRequests)
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Saml2BindingType SingleLogoutServiceBinding
         {
             get
@@ -240,10 +236,7 @@ namespace Sustainsys.Saml2
                     ? Binding
                     : singleLogoutServiceBinding;
             }
-            set
-            {
-                singleLogoutServiceBinding = value;
-            }
+            set { singleLogoutServiceBinding = value; }
         }
 
         /// <summary>
@@ -273,10 +266,7 @@ namespace Sustainsys.Saml2
         /// </summary>
         public string MetadataLocation
         {
-            get
-            {
-                return metadataLocation ?? EntityId.Id;
-            }
+            get { return metadataLocation ?? EntityId.Id; }
             set
             {
                 metadataLocation = value;
@@ -289,9 +279,12 @@ namespace Sustainsys.Saml2
         /// </summary>
         /// <param name="saml2Urls">Urls for Saml2, used to populate fields
         /// in the created AuthnRequest</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "AuthenticateRequestSigningBehavior")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ServiceCertificates")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "AuthenticateRequests")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "AuthenticateRequestSigningBehavior")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "ServiceCertificates")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "AuthenticateRequests")]
         public Saml2AuthenticationRequest CreateAuthenticateRequest(
             Saml2Urls saml2Urls)
         {
@@ -306,7 +299,7 @@ namespace Sustainsys.Saml2
                 AssertionConsumerServiceUrl = saml2Urls.AssertionConsumerServiceUrl,
                 Issuer = spOptions.EntityId,
                 // For now we only support one attribute consuming service.
-                AttributeConsumingServiceIndex = spOptions.AttributeConsumingServices.Any() ? 0 : (int?)null,
+                AttributeConsumingServiceIndex = spOptions.AttributeConsumingServices.Any() ? 0 : (int?) null,
                 NameIdPolicy = spOptions.NameIdPolicy,
                 RequestedAuthnContext = spOptions.RequestedAuthnContext,
                 SigningAlgorithm = this.OutboundSigningAlgorithm
@@ -314,7 +307,7 @@ namespace Sustainsys.Saml2
 
             if (spOptions.AuthenticateRequestSigningBehavior == SigningBehavior.Always
                 || (spOptions.AuthenticateRequestSigningBehavior == SigningBehavior.IfIdpWantAuthnRequestsSigned
-                && WantAuthnRequestsSigned))
+                    && WantAuthnRequestsSigned))
             {
                 if (spOptions.SigningServiceCertificate == null)
                 {
@@ -441,11 +434,11 @@ namespace Sustainsys.Saml2
 
             foreach (var kv in idpDescriptor.ArtifactResolutionServices)
             {
-				var ars = kv.Value;
+                var ars = kv.Value;
                 artifactResolutionServiceUrls[ars.Index] = ars.Location;
             }
 
-			var arsKeys = idpDescriptor.ArtifactResolutionServices.ToLookup(x => x.Value.Index);
+            var arsKeys = idpDescriptor.ArtifactResolutionServices.ToLookup(x => x.Value.Index);
             foreach (var ars in artifactResolutionServiceUrls.Keys
                 .Where(k => !arsKeys.Contains(k)))
             {
@@ -455,7 +448,7 @@ namespace Sustainsys.Saml2
             var keys = idpDescriptor.Keys.Where(k => k.Use == KeyType.Unspecified || k.Use == KeyType.Signing);
 
             signingKeys.SetLoadedItems(keys.Select(k => k.KeyInfo
-				.MakeSecurityKeyIdentifier().First(c => c.CanCreateKey)).ToList());
+                .MakeSecurityKeyIdentifier().First(c => c.CanCreateKey)).ToList());
         }
 
         private static T GetPreferredEndpoint<T>(ICollection<T> endpoints) where T : Endpoint
@@ -463,7 +456,7 @@ namespace Sustainsys.Saml2
             // Prefer an endpoint with a redirect binding, then check for POST which 
             // is the other supported by Saml2.
             return endpoints.FirstOrDefault(s => s.Binding == Saml2Binding.HttpRedirectUri) ??
-                endpoints.FirstOrDefault(s => s.Binding == Saml2Binding.HttpPostUri);
+                   endpoints.FirstOrDefault(s => s.Binding == Saml2Binding.HttpPostUri);
         }
 
         private DateTime? metadataValidUntil;
@@ -474,10 +467,7 @@ namespace Sustainsys.Saml2
         /// </summary>
         public DateTime? MetadataValidUntil
         {
-            get
-            {
-                return metadataValidUntil;
-            }
+            get { return metadataValidUntil; }
             private set
             {
                 metadataValidUntil = value;
@@ -506,7 +496,7 @@ namespace Sustainsys.Saml2
         private static void DoLoadMetadataIfTargetAlive(WeakReference<IdentityProvider> target)
         {
             IdentityProvider idp;
-            if(target.TryGetTarget(out idp))
+            if (target.TryGetTarget(out idp))
             {
                 idp.DoLoadMetadata();
             }
@@ -532,10 +522,14 @@ namespace Sustainsys.Saml2
         /// Create a logout request to the idp, for the current identity.
         /// </summary>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "serviceCertificates")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ServiceCertificates")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ISPOptions")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "serviceCertificates")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "ServiceCertificates")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "ISPOptions")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Saml2LogoutRequest CreateLogoutRequest(ClaimsPrincipal user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
@@ -551,7 +545,7 @@ namespace Sustainsys.Saml2
                 DestinationUrl = SingleLogoutServiceUrl,
                 Issuer = spOptions.EntityId,
                 NameId = user.FindFirst(Saml2ClaimTypes.LogoutNameIdentifier)
-                            .ToSaml2NameIdentifier(),
+                    .ToSaml2NameIdentifier(),
                 SessionIndex =
                     user.FindFirst(Saml2ClaimTypes.SessionIndex).Value,
                 SigningCertificate = spOptions.SigningServiceCertificate,
@@ -565,7 +559,8 @@ namespace Sustainsys.Saml2
         /// it. This setting might be usable when adding SLO to an existing
         /// setup, to ensure that everyone is ready for SLO before activating.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public bool DisableOutboundLogoutRequests { get; set; }
     }
 }

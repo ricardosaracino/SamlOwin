@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using Sustainsys.Saml2.Saml2P;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,8 @@ namespace Sustainsys.Saml2.Saml2P
     /// <summary>
     /// A Saml2 LogoutRequest message (SAML core spec 3.7.1)
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+        "Logout")]
     public class Saml2LogoutRequest : Saml2RequestBase
     {
         /// <summary>
@@ -39,7 +40,7 @@ namespace Sustainsys.Saml2.Saml2P
         /// <param name="xml">Xml data to initialize the Saml2LogoutRequest from.</param>
         public static Saml2LogoutRequest FromXml(XmlElement xml)
         {
-            if(xml == null)
+            if (xml == null)
             {
                 throw new ArgumentNullException(nameof(xml));
             }
@@ -54,13 +55,13 @@ namespace Sustainsys.Saml2.Saml2P
             request.ReadBaseProperties(xml);
 
             var format = xml["NameID", Saml2Namespaces.Saml2Name].GetAttribute("Format");
-            if(!string.IsNullOrEmpty(format))
+            if (!string.IsNullOrEmpty(format))
             {
                 request.NameId.Format = new Uri(format);
             }
 
             var sessionIndexElement = xml["SessionIndex", Saml2Namespaces.Saml2PName];
-            if(sessionIndexElement != null)
+            if (sessionIndexElement != null)
             {
                 request.SessionIndex = sessionIndexElement.InnerText;
             }
@@ -73,10 +74,7 @@ namespace Sustainsys.Saml2.Saml2P
         /// </summary>
         protected override string LocalName
         {
-            get
-            {
-                return "LogoutRequest";
-            }
+            get { return "LogoutRequest"; }
         }
 
         /// <summary>

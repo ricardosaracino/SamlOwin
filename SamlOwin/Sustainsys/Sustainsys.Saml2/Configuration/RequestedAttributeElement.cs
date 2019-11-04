@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -19,10 +19,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(name, IsRequired = true)]
         public string Name
         {
-            get
-            {
-                return (string)base[name];
-            }
+            get { return (string) base[name]; }
         }
 
         const string friendlyName = "friendlyName";
@@ -33,10 +30,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(friendlyName)]
         public string FriendlyName
         {
-            get
-            {
-                return (string)base[friendlyName];
-            }
+            get { return (string) base[friendlyName]; }
         }
 
         const string nameFormat = "nameFormat";
@@ -44,13 +38,10 @@ namespace Sustainsys.Saml2.Configuration
         /// <summary>
         /// Format of the Name property, one of the standard Uris in the saml specification.
         /// </summary>
-        [ConfigurationProperty(nameFormat, DefaultValue="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified")]
+        [ConfigurationProperty(nameFormat, DefaultValue = "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified")]
         public Uri NameFormat
         {
-            get
-            {
-                return (Uri)base[nameFormat];
-            }
+            get { return (Uri) base[nameFormat]; }
         }
 
         const string isRequired = "isRequired";
@@ -61,10 +52,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(isRequired)]
         public bool IsRequired
         {
-            get
-            {
-                return (bool)base[isRequired];
-            }
+            get { return (bool) base[isRequired]; }
         }
     }
 }

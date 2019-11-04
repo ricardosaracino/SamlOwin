@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Xml.Linq;
 using Sustainsys.Saml2.Metadata;
 
@@ -18,7 +18,7 @@ namespace Sustainsys.Saml2.Saml2P
         {
             ProviderId = providerId;
         }
-        
+
         /// <summary>
         /// A URI reference representing the location of a profile-specific
         /// endpoint supporting the authentication request protocol. The
@@ -32,21 +32,20 @@ namespace Sustainsys.Saml2.Saml2P
         public string Name { get; set; }
 
         EntityId providerId;
+
         /// <summary>
         /// The Entity Id of the Identity Provider. Cannot be null.
         /// </summary>
         public EntityId ProviderId
         {
-            get
-            {
-                return providerId;
-            }
+            get { return providerId; }
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
+
                 providerId = value;
             }
         }

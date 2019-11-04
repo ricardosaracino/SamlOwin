@@ -1,69 +1,72 @@
-﻿﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System;
 
 namespace Sustainsys.Saml2.Tokens
 {
-	public abstract class BinaryKeyIdentifierClause : SecurityKeyIdentifierClause
-	{
-		private byte[] identificationData;
-		private bool cloneBuffer;
+    public abstract class BinaryKeyIdentifierClause : SecurityKeyIdentifierClause
+    {
+        private byte[] identificationData;
+        private bool cloneBuffer;
 
-		protected BinaryKeyIdentifierClause(
-			string clauseType,
-			byte[] identificationData,
-			bool cloneBuffer,
-			byte[] derivationNonce,
-			int derivationLength) :
-			base(clauseType, derivationNonce, derivationLength)
-		{
-			if (identificationData == null)
-			{
-				throw new ArgumentNullException(nameof(identificationData));
-			}
-			this.cloneBuffer = cloneBuffer;
-			this.identificationData = cloneBuffer ? identificationData.CloneByteArray() : identificationData;
-		}
+        protected BinaryKeyIdentifierClause(
+            string clauseType,
+            byte[] identificationData,
+            bool cloneBuffer,
+            byte[] derivationNonce,
+            int derivationLength) :
+            base(clauseType, derivationNonce, derivationLength)
+        {
+            if (identificationData == null)
+            {
+                throw new ArgumentNullException(nameof(identificationData));
+            }
 
-		protected BinaryKeyIdentifierClause(string clauseType, byte[] identificationData, bool cloneBuffer) :
-			this(clauseType, identificationData, cloneBuffer, null, 0)
-		{
-		}
+            this.cloneBuffer = cloneBuffer;
+            this.identificationData = cloneBuffer ? identificationData.CloneByteArray() : identificationData;
+        }
 
-		public byte[] GetBuffer()
-		{
-			return identificationData.CloneByteArray();
-		}
+        protected BinaryKeyIdentifierClause(string clauseType, byte[] identificationData, bool cloneBuffer) :
+            this(clauseType, identificationData, cloneBuffer, null, 0)
+        {
+        }
 
-		public byte[] GetRawBuffer()
-		{
-			return cloneBuffer ? identificationData.CloneByteArray() : identificationData;
-		}
+        public byte[] GetBuffer()
+        {
+            return identificationData.CloneByteArray();
+        }
 
-		public bool Matches(byte[] data, int offset)
-		{
-			if (data.Length - offset != identificationData.Length)
-			{
-				return false;
-			}
-			for (int i = 0; i < identificationData.Length; ++i)
-			{
-				if (data[i + offset] != identificationData[i])
-				{
-					return false;
-				}
-			}
-			return true;
-		}
+        public byte[] GetRawBuffer()
+        {
+            return cloneBuffer ? identificationData.CloneByteArray() : identificationData;
+        }
 
-		public bool Matches(byte[] data)
-		{
-			return Matches(data, 0);
-		}
+        public bool Matches(byte[] data, int offset)
+        {
+            if (data.Length - offset != identificationData.Length)
+            {
+                return false;
+            }
 
-		public override bool Matches(SecurityKeyIdentifierClause keyIdentifierClause)
-		{
-			return keyIdentifierClause is BinaryKeyIdentifierClause otherClause &&
-				Matches(otherClause.identificationData);
-		}
-	}
+            for (int i = 0; i < identificationData.Length; ++i)
+            {
+                if (data[i + offset] != identificationData[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool Matches(byte[] data)
+        {
+            return Matches(data, 0);
+        }
+
+        public override bool Matches(SecurityKeyIdentifierClause keyIdentifierClause)
+        {
+            return keyIdentifierClause is BinaryKeyIdentifierClause otherClause &&
+                   Matches(otherClause.identificationData);
+        }
+    }
 }

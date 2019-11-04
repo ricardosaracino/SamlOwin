@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +26,7 @@ namespace Sustainsys.Saml2.WebSso
         /// <returns>CommandResult</returns>
         public CommandResult Run(HttpRequestData request, IOptions options)
         {
-            if(options == null)
+            if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
@@ -58,11 +58,11 @@ namespace Sustainsys.Saml2.WebSso
         private object CreateFileName(string id)
         {
             return id
-                .Replace("http://", "")
-                .Replace("https://", "")
-                .Replace(':', '.')
-                .Replace('/', '_')
-                + ".xml";
+                       .Replace("http://", "")
+                       .Replace("https://", "")
+                       .Replace(':', '.')
+                       .Replace('/', '_')
+                   + ".xml";
         }
     }
 }

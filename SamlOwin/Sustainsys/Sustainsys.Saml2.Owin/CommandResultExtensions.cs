@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.WebSso;
+﻿using Sustainsys.Saml2.WebSso;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using System;
@@ -26,7 +26,7 @@ namespace Sustainsys.Saml2.Owin
             }
 
             context.Response.ContentType = commandResult.ContentType;
-            context.Response.StatusCode = (int)commandResult.HttpStatusCode;
+            context.Response.StatusCode = (int) commandResult.HttpStatusCode;
 
             if (commandResult.Location != null)
             {
@@ -38,7 +38,7 @@ namespace Sustainsys.Saml2.Owin
                 context.Authentication.SignOut();
             }
 
-            foreach(var h in commandResult.Headers)
+            foreach (var h in commandResult.Headers)
             {
                 context.Response.Headers[h.Key] = h.Value;
             }
@@ -56,14 +56,15 @@ namespace Sustainsys.Saml2.Owin
             }
         }
 
-        private static void ApplyCookies(CommandResult commandResult, IOwinContext context, IDataProtector dataProtector)
+        private static void ApplyCookies(CommandResult commandResult, IOwinContext context,
+            IDataProtector dataProtector)
         {
             var serializedCookieData = commandResult.GetSerializedRequestState();
 
             if (serializedCookieData != null && !string.IsNullOrEmpty(commandResult.SetCookieName))
             {
                 var protectedData = HttpRequestData.ConvertBinaryData(
-                        dataProtector.Protect(serializedCookieData));
+                    dataProtector.Protect(serializedCookieData));
 
                 context.Response.Cookies.Append(
                     commandResult.SetCookieName,

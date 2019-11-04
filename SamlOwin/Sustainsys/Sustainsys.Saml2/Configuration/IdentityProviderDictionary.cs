@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,9 @@ namespace Sustainsys.Saml2.Configuration
     /// is dynamically loaded from a federation and later removed. Locks are simple and
     /// this part of the code shouldn't be that performance sensitive.
     /// </remarks>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification="It works like dictionary, even though it doesn't implement the full interface.")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+        "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification =
+            "It works like dictionary, even though it doesn't implement the full interface.")]
     public class IdentityProviderDictionary
     {
         private Dictionary<EntityId, IdentityProvider> dictionary =
@@ -29,17 +31,18 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         /// <param name="entityId">entity Id to look up.</param>
         /// <returns>IdentityProvider</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1043:UseIntegralOrStringArgumentForIndexers")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1043:UseIntegralOrStringArgumentForIndexers")]
         public IdentityProvider this[EntityId entityId]
         {
             get
             {
-                if(entityId == null)
+                if (entityId == null)
                 {
                     throw new ArgumentNullException(nameof(entityId));
                 }
 
-                lock(dictionary)
+                lock (dictionary)
                 {
                     try
                     {
@@ -68,12 +71,12 @@ namespace Sustainsys.Saml2.Configuration
         /// <param name="idp">Identity provider to add.</param>
         public void Add(IdentityProvider idp)
         {
-            if(idp == null)
+            if (idp == null)
             {
                 throw new ArgumentNullException(nameof(idp));
             }
 
-            lock(dictionary)
+            lock (dictionary)
             {
                 dictionary.Add(idp.EntityId, idp);
             }
@@ -84,10 +87,7 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public IdentityProvider Default
         {
-            get
-            {
-                return this[0];
-            }
+            get { return this[0]; }
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Sustainsys.Saml2.Configuration
         {
             get
             {
-                lock(dictionary)
+                lock (dictionary)
                 {
                     return dictionary.Values.ToList();
                 }
@@ -110,7 +110,7 @@ namespace Sustainsys.Saml2.Configuration
         {
             get
             {
-                lock(dictionary)
+                lock (dictionary)
                 {
                     return dictionary.Values.Skip(i).First();
                 }
@@ -152,7 +152,7 @@ namespace Sustainsys.Saml2.Configuration
         /// <param name="idp">EntityId of idp to remove.</param>
         public void Remove(EntityId idp)
         {
-            lock(dictionary)
+            lock (dictionary)
             {
                 dictionary.Remove(idp);
             }

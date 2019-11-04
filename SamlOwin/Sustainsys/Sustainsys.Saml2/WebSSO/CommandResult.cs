@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
@@ -16,17 +16,17 @@ namespace Sustainsys.Saml2.WebSso
         /// Status code that should be returned.
         /// </summary>
         public HttpStatusCode HttpStatusCode { get; set; }
-        
+
         /// <summary>
         /// Cacheability of the command result.
         /// </summary>
         public Cacheability Cacheability { get; set; }
-        
+
         /// <summary>
         /// Location, if the status code is a redirect.
         /// </summary>
         public Uri Location { get; set; }
-        
+
         /// <summary>
         /// The extracted principal if the command has parsed an incoming assertion.
         /// </summary>
@@ -53,7 +53,8 @@ namespace Sustainsys.Saml2.WebSso
         /// Data relayed from a previous request, such as the dictionary storing
         /// the Owin Authentication Properties.
         /// </summary>
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "The RelayData is a complete piece of data, not a collection that is manipulated")]
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification =
+            "The RelayData is a complete piece of data, not a collection that is manipulated")]
         public IDictionary<string, string> RelayData { get; set; }
 
         /// <summary>

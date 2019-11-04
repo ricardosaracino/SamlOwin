@@ -1,19 +1,19 @@
-﻿﻿using System;
+﻿using System;
 using System.Globalization;
 
 namespace Sustainsys.Saml2.Metadata
 {
     public abstract class LocalizedEntry
     {
-		public string Language { get; set; }
+        public string Language { get; set; }
 
-		protected LocalizedEntry()
-		{
-		}
+        protected LocalizedEntry()
+        {
+        }
 
-		protected LocalizedEntry(string language)
-		{
-			Language = language;
-		}
-	}
+        protected LocalizedEntry(string language)
+        {
+            Language = language;
+        }
+    }
 }

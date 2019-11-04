@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Sustainsys.Saml2.Internal
 
             public T Current
             {
-                get { return (T)source.Current; }
+                get { return (T) source.Current; }
             }
 
             public void Dispose()
@@ -30,10 +30,7 @@ namespace Sustainsys.Saml2.Internal
 
             object System.Collections.IEnumerator.Current
             {
-                get
-                {
-                    return source.Current;
-                }
+                get { return source.Current; }
             }
 
             public bool MoveNext()

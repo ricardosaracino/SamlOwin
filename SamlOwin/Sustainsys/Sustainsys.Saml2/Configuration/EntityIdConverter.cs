@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -25,7 +25,7 @@ namespace Sustainsys.Saml2.Configuration
         /// <returns>EntityID</returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            return new EntityId((string)value);
+            return new EntityId((string) value);
         }
     }
 }

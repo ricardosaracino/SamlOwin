@@ -1,6 +1,6 @@
-﻿﻿namespace Sustainsys.Saml2.Metadata
+﻿namespace Sustainsys.Saml2.Metadata
 {
-	public class AuthnQueryService : Endpoint
-	{
-	}
+    public class AuthnQueryService : Endpoint
+    {
+    }
 }

@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Saml2P;
+﻿using Sustainsys.Saml2.Saml2P;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -25,6 +25,7 @@ namespace Sustainsys.Saml2.Configuration
         }
 
         const string classRef = nameof(classRef);
+
         /// <summary>
         /// AuthnContextClassRef. Either a full URL or the last word of a
         /// standard URL.
@@ -32,27 +33,19 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(classRef)]
         public string AuthnContextClassRef
         {
-            get
-            {
-                return (string)base[classRef];
-            }
-            internal set
-            {
-                base[classRef] = value;
-            }
+            get { return (string) base[classRef]; }
+            internal set { base[classRef] = value; }
         }
 
         const string comparison = nameof(comparison);
+
         /// <summary>
         /// Comparison mode of AuthnContextClassRef
         /// </summary>
         [ConfigurationProperty(comparison)]
         public AuthnContextComparisonType Comparison
         {
-            get
-            {
-                return (AuthnContextComparisonType)base[comparison];
-            }
+            get { return (AuthnContextComparisonType) base[comparison]; }
         }
     }
 }

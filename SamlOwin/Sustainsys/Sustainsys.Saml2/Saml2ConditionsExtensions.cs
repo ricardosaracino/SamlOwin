@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace Sustainsys.Saml2
         /// <returns>XElement</returns>
         public static XElement ToXElement(this Saml2Conditions conditions)
         {
-            if(conditions == null)
+            if (conditions == null)
             {
                 throw new ArgumentNullException(nameof(conditions));
             }
@@ -29,13 +29,13 @@ namespace Sustainsys.Saml2
             var xml = new XElement(Saml2Namespaces.Saml2 + "Conditions");
 
             xml.AddAttributeIfNotNullOrEmpty("NotOnOrAfter",
-                    conditions.NotOnOrAfter?.ToSaml2DateTimeString());
+                conditions.NotOnOrAfter?.ToSaml2DateTimeString());
 
-            foreach(var ar in conditions.AudienceRestrictions)
+            foreach (var ar in conditions.AudienceRestrictions)
             {
                 xml.Add(new XElement(Saml2Namespaces.Saml2 + "AudienceRestriction",
                     ar.Audiences.Select(a =>
-                    new XElement(Saml2Namespaces.Saml2 + "Audience", a))));
+                        new XElement(Saml2Namespaces.Saml2 + "Audience", a))));
             }
 
             return xml;

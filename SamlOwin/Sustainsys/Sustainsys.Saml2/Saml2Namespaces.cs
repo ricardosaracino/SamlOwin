@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,9 +21,10 @@ namespace Sustainsys.Saml2
         /// <summary>
         /// Namespace of the SAML2 protocol.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+            "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly XNamespace Saml2P = XNamespace.Get(Saml2PName);
-        
+
         /// <summary>
         /// Namespace Uri of Saml2 protocol.
         /// </summary>
@@ -37,7 +38,8 @@ namespace Sustainsys.Saml2
         /// <summary>
         /// Namespace of SAML2 assertions.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+            "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly XNamespace Saml2 = XNamespace.Get(Saml2Name);
 
         /// <summary>
@@ -53,7 +55,8 @@ namespace Sustainsys.Saml2
         /// <summary>
         /// Namespace of SAML2 Metadata.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+            "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly XNamespace Saml2Metadata = XNamespace.Get(Saml2MetadataName);
 
         /// <summary>
@@ -64,14 +67,17 @@ namespace Sustainsys.Saml2
         /// <summary>
         /// Namespace for idp discovery protocol extension.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+            "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly XNamespace Saml2IdpDiscovery = XNamespace.Get(Saml2IdpDiscoveryName);
 
         /// <summary>
         /// Namespace for Xml schema instance.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly XNamespace XmlSchemaInstance = XNamespace.Get(System.Xml.Schema.XmlSchema.InstanceNamespace);
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+            "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly XNamespace XmlSchemaInstance =
+            XNamespace.Get(System.Xml.Schema.XmlSchema.InstanceNamespace);
 
         /// <summary>
         /// Namespace for Soap envelope.
@@ -81,7 +87,8 @@ namespace Sustainsys.Saml2
         /// <summary>
         /// Namespace for Soap envelope.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+            "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly XNamespace SoapEnvelope = XNamespace.Get(SoapEnvelopeName);
     }
 }

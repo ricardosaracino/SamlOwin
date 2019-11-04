@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,15 +28,18 @@ namespace Sustainsys.Saml2.WebSso
         /// <param name="cookies">Cookies of request</param>
         /// <param name="cookieDecryptor">Function that decrypts cookie
         /// contents to clear text.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Decryptor")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Decryptor")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public HttpRequestData(
             string httpMethod,
             Uri url,
             string applicationPath,
             IEnumerable<KeyValuePair<string, IEnumerable<string>>> formData,
             IEnumerable<KeyValuePair<string, string>> cookies,
-            Func<byte[], byte[]> cookieDecryptor) : this(httpMethod, url, applicationPath, formData, cookies, cookieDecryptor, user: null)
+            Func<byte[], byte[]> cookieDecryptor) : this(httpMethod, url, applicationPath, formData, cookies,
+            cookieDecryptor, user: null)
         {
             // empty
         }
@@ -52,8 +55,10 @@ namespace Sustainsys.Saml2.WebSso
         /// <param name="cookieDecryptor">Function that decrypts cookie
         /// contents to clear text.</param>
         /// <param name="user">Claims Principal associated with the request</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Decryptor")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Decryptor")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public HttpRequestData(
             string httpMethod,
             Uri url,
@@ -97,10 +102,11 @@ namespace Sustainsys.Saml2.WebSso
             User = user;
 
             var relayState = QueryString["RelayState"].SingleOrDefault();
-            if(relayState == null)
+            if (relayState == null)
             {
                 Form.TryGetValue("RelayState", out relayState);
             }
+
             RelayState = relayState;
 
             if (relayState != null)
@@ -122,12 +128,13 @@ namespace Sustainsys.Saml2.WebSso
         {
             return Convert.FromBase64String(
                 cookieData
-                .Replace('_', '/')
-                .Replace('-', '+')
-                .Replace('.', '='));
+                    .Replace('_', '/')
+                    .Replace('-', '+')
+                    .Replace('.', '='));
         }
 
-        private void InitBasicFields(string httpMethod, Uri url, string applicationPath, IEnumerable<KeyValuePair<string, IEnumerable<string>>> formData)
+        private void InitBasicFields(string httpMethod, Uri url, string applicationPath,
+            IEnumerable<KeyValuePair<string, IEnumerable<string>>> formData)
         {
             HttpMethod = httpMethod;
             Url = url;

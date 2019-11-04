@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -37,7 +37,8 @@ namespace Sustainsys.Saml2.Saml2P
         /// Serializes the request to a Xml message.
         /// </summary>
         /// <returns>XElement</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Lowercase demanded by specification.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
+            "CA1308:NormalizeStringsToUppercase", Justification = "Lowercase demanded by specification.")]
         public XElement ToXElement()
         {
             var x = new XElement(Saml2Namespaces.Saml2P + LocalName);
@@ -47,6 +48,7 @@ namespace Sustainsys.Saml2.Saml2P
             {
                 x.AddAttributeIfNotNullOrEmpty("ProtocolBinding", Saml2Binding.Saml2BindingTypeToUri(Binding.Value));
             }
+
             x.AddAttributeIfNotNullOrEmpty("AssertionConsumerServiceURL", AssertionConsumerServiceUrl);
             x.AddAttributeIfNotNullOrEmpty("AttributeConsumingServiceIndex", AttributeConsumingServiceIndex);
             if (ForceAuthentication)
@@ -72,8 +74,10 @@ namespace Sustainsys.Saml2.Saml2P
             return x;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "NameIdPolicy")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "AllowCreate")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "NameIdPolicy")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "AllowCreate")]
         private void AddNameIdPolicy(XElement xElement)
         {
             if (NameIdPolicy != null &&
@@ -81,7 +85,8 @@ namespace Sustainsys.Saml2.Saml2P
             {
                 if (NameIdPolicy.AllowCreate.HasValue && NameIdPolicy.Format == NameIdFormat.Transient)
                 {
-                    throw new InvalidOperationException("When NameIdPolicy/Format is set to Transient, it is not permitted to specify AllowCreate. Change Format or leave AllowCreate as null.");
+                    throw new InvalidOperationException(
+                        "When NameIdPolicy/Format is set to Transient, it is not permitted to specify AllowCreate. Change Format or leave AllowCreate as null.");
                 }
 
                 var nameIdPolicyElement = new XElement(Saml2Namespaces.Saml2P + "NameIDPolicy");
@@ -132,6 +137,7 @@ namespace Sustainsys.Saml2.Saml2P
             {
                 return null;
             }
+
             var x = XmlHelpers.XmlDocumentFromString(xml);
 
             return new Saml2AuthenticationRequest(x.DocumentElement, relayState);
@@ -142,7 +148,9 @@ namespace Sustainsys.Saml2.Saml2P
         /// </summary>
         /// <param name="xml">Xml data</param>
         /// <param name="relayState">RelayState associateed with the message.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "System.Enum.TryParse<Sustainsys.Saml2.Saml2P.NameIdFormat>(System.String,System.Boolean,Sustainsys.Saml2.Saml2P.NameIdFormat@)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults",
+            MessageId =
+                "System.Enum.TryParse<Sustainsys.Saml2.Saml2P.NameIdFormat>(System.String,System.Boolean,Sustainsys.Saml2.Saml2P.NameIdFormat@)")]
         public Saml2AuthenticationRequest(XmlElement xml, string relayState)
         {
             ReadBaseProperties(xml);

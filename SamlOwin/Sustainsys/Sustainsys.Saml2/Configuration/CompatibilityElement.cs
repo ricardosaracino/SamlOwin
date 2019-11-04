@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace Sustainsys.Saml2.Configuration
 {
     /// <summary>
     /// Compatibility settings. Can be used to make Saml2 accept
-        /// certain non-standard behaviour.
+    /// certain non-standard behaviour.
     /// </summary>
     public class CompatibilityElement : ConfigurationElement
     {
@@ -35,14 +35,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(unpackEntitiesDescriptorInIdentityProviderMetadata, IsRequired = false)]
         public bool UnpackEntitiesDescriptorInIdentityProviderMetadata
         {
-            get
-            {
-                return (bool)base[unpackEntitiesDescriptorInIdentityProviderMetadata];
-            }
-            set
-            {
-                base[unpackEntitiesDescriptorInIdentityProviderMetadata] = value;
-            }
+            get { return (bool) base[unpackEntitiesDescriptorInIdentityProviderMetadata]; }
+            set { base[unpackEntitiesDescriptorInIdentityProviderMetadata] = value; }
         }
 
         const string disableLogoutStateCookie = nameof(disableLogoutStateCookie);
@@ -51,18 +45,13 @@ namespace Sustainsys.Saml2.Configuration
         /// Do not send logout state cookie, e.g. if you are not using ReturnUrl
         /// or if you know the cookie will be lost due to cross-domain redirects
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         [ConfigurationProperty(disableLogoutStateCookie, IsRequired = false)]
         public bool DisableLogoutStateCookie
         {
-            get
-            {
-                return (bool)base[disableLogoutStateCookie];
-            }
-            set
-            {
-                base[disableLogoutStateCookie] = value;
-            }
+            get { return (bool) base[disableLogoutStateCookie]; }
+            set { base[disableLogoutStateCookie] = value; }
         }
 
         const string ignoreMissingInResponseTo = nameof(ignoreMissingInResponseTo);
@@ -76,14 +65,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(ignoreMissingInResponseTo, IsRequired = false)]
         public bool IgnoreMissingInResponseTo
         {
-            get
-            {
-                return (bool)base[ignoreMissingInResponseTo];
-            }
-            set
-            {
-                base[ignoreMissingInResponseTo] = value;
-            }
+            get { return (bool) base[ignoreMissingInResponseTo]; }
+            set { base[ignoreMissingInResponseTo] = value; }
         }
     }
 }

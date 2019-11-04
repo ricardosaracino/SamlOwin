@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Metadata;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,8 @@ namespace Sustainsys.Saml2
         /// <param name="config">Config to use to initialize the federation.</param>
         /// <param name="options">Options to pass on to created IdentityProvider
         /// instances and register identity providers in.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
         public Federation(FederationElement config, IOptions options)
         {
             if (config == null)
@@ -32,9 +33,9 @@ namespace Sustainsys.Saml2
                 throw new ArgumentNullException(nameof(config));
             }
 
-            var signingKeys = config.SigningCertificates.Any() ?
-                config.SigningCertificates.Select(
-                sc => new X509RawDataKeyIdentifierClause(sc.LoadCertificate()))
+            var signingKeys = config.SigningCertificates.Any()
+                ? config.SigningCertificates.Select(
+                    sc => new X509RawDataKeyIdentifierClause(sc.LoadCertificate()))
                 : null;
 
             Init(config.MetadataLocation, config.AllowUnsolicitedAuthnResponse, options, signingKeys);
@@ -49,13 +50,15 @@ namespace Sustainsys.Saml2
         /// from idps in this federation be accepted?</param>
         /// <param name="options">Options to pass on to created IdentityProvider
         /// instances and register identity providers in.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
         public Federation(string metadataLocation, bool allowUnsolicitedAuthnResponse, IOptions options)
-            : this (metadataLocation,
-                  allowUnsolicitedAuthnResponse,
-                  options,
-                  (IEnumerable<SecurityKeyIdentifierClause>)null)
-        { }
+            : this(metadataLocation,
+                allowUnsolicitedAuthnResponse,
+                options,
+                (IEnumerable<SecurityKeyIdentifierClause>) null)
+        {
+        }
 
         /// <summary>
         /// Ctor
@@ -67,16 +70,18 @@ namespace Sustainsys.Saml2
         /// <param name="options">Options to pass on to created IdentityProvider
         /// instances and register identity providers in.</param>
         /// <param name="signingKeys">List of signing keys to use to validate metadata.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
         public Federation(string metadataLocation,
             bool allowUnsolicitedAuthnResponse,
             IOptions options,
             IEnumerable<X509Certificate2> signingKeys)
-            :this (metadataLocation,
-                 allowUnsolicitedAuthnResponse,
-                 options, 
-                 signingKeys.Select(k => new X509RawDataKeyIdentifierClause(k)))
-        { }
+            : this(metadataLocation,
+                allowUnsolicitedAuthnResponse,
+                options,
+                signingKeys.Select(k => new X509RawDataKeyIdentifierClause(k)))
+        {
+        }
 
         /// <summary>
         /// Ctor
@@ -88,7 +93,8 @@ namespace Sustainsys.Saml2
         /// <param name="options">Options to pass on to created IdentityProvider
         /// instances and register identity providers in.</param>
         /// <param name="signingKeys">List of signing keys to use to validate metadata.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
         public Federation(string metadataLocation,
             bool allowUnsolicitedAuthnResponse,
             IOptions options,
@@ -102,9 +108,12 @@ namespace Sustainsys.Saml2
         internal string metadataLocation;
         private IOptions options;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "metadataLocation")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "allowUnsolicitedAuthnResponse")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "options")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability",
+            "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "metadataLocation")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability",
+            "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "allowUnsolicitedAuthnResponse")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability",
+            "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "options")]
         private void Init(string metadataLocation,
             bool allowUnsolicitedAuthnResponse,
             IOptions options,
@@ -120,14 +129,16 @@ namespace Sustainsys.Saml2
 
         private object metadataLoadLock = new object();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification ="We want a retry, regardless of exception type")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "We want a retry, regardless of exception type")]
         private void LoadMetadata()
         {
             lock (metadataLoadLock)
             {
                 try
                 {
-                    options.SPOptions.Logger?.WriteInformation("Loading metadata for federation from " + metadataLocation);
+                    options.SPOptions.Logger?.WriteInformation(
+                        "Loading metadata for federation from " + metadataLocation);
                     var metadata = MetadataLoader.LoadFederation(
                         metadataLocation,
                         SigningKeys,
@@ -139,7 +150,7 @@ namespace Sustainsys.Saml2
 
                     var identityProviders = new List<IdentityProvider>();
 
-                    foreach(var idpMetadata in identityProvidersMetadata)
+                    foreach (var idpMetadata in identityProvidersMetadata)
                     {
                         var idp = new IdentityProvider(idpMetadata.EntityId, options.SPOptions)
                         {
@@ -152,7 +163,7 @@ namespace Sustainsys.Saml2
 
                     RegisterIdentityProviders(identityProviders);
 
-                    MetadataValidUntil =  metadata.CalculateMetadataValidUntil();
+                    MetadataValidUntil = metadata.CalculateMetadataValidUntil();
 
                     LastMetadataLoadException = null;
                 }
@@ -223,10 +234,7 @@ namespace Sustainsys.Saml2
         /// </summary>
         public DateTime MetadataValidUntil
         {
-            get
-            {
-                return metadataValidUntil;
-            }
+            get { return metadataValidUntil; }
             private set
             {
                 metadataValidUntil = value;

@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Microsoft.IdentityModel.Tokens.Saml2;
 using System.Security.Claims;
 using System.Linq;
@@ -76,8 +76,8 @@ namespace Sustainsys.Saml2
                 });
 
             var attributeClaims = identity.Claims.Where(
-                c => c.Type != ClaimTypes.NameIdentifier
-                && c.Type != Saml2ClaimTypes.SessionIndex).GroupBy(c => c.Type)
+                    c => c.Type != ClaimTypes.NameIdentifier
+                         && c.Type != Saml2ClaimTypes.SessionIndex).GroupBy(c => c.Type)
                 .ToArray();
 
             if (attributeClaims.Any())
@@ -90,20 +90,20 @@ namespace Sustainsys.Saml2
 
             var notOnOrAfter = DateTime.UtcNow.AddMinutes(2);
 
-			Saml2SubjectConfirmationData confirmationData =
-				new Saml2SubjectConfirmationData
-				{
-					NotOnOrAfter = notOnOrAfter,
-					InResponseTo = inResponseTo
-				};
+            Saml2SubjectConfirmationData confirmationData =
+                new Saml2SubjectConfirmationData
+                {
+                    NotOnOrAfter = notOnOrAfter,
+                    InResponseTo = inResponseTo
+                };
 
-			// Work around a bug in Microsoft.IdentityModel.Tokens.Saml2.Saml2SubjectConfirmationData
-			// where the setter for Recipient throws an ArgumentNullException.  Recipient is optional
-			// as per [Saml2Core, 2.4.1.2]
-			if (destinationUri != null)
-			{
-				confirmationData.Recipient = destinationUri;
-			}
+            // Work around a bug in Microsoft.IdentityModel.Tokens.Saml2.Saml2SubjectConfirmationData
+            // where the setter for Recipient throws an ArgumentNullException.  Recipient is optional
+            // as per [Saml2Core, 2.4.1.2]
+            if (destinationUri != null)
+            {
+                confirmationData.Recipient = destinationUri;
+            }
 
             assertion.Subject = new Saml2Subject(identity.ToSaml2NameIdentifier())
             {
@@ -111,7 +111,7 @@ namespace Sustainsys.Saml2
                 {
                     new Saml2SubjectConfirmation(
                         new Uri("urn:oasis:names:tc:SAML:2.0:cm:bearer"),
-						confirmationData)
+                        confirmationData)
                 }
             };
 
@@ -136,7 +136,7 @@ namespace Sustainsys.Saml2
         /// <returns>Saml2NameIdentifier</returns>
         public static Saml2NameIdentifier ToSaml2NameIdentifier(this ClaimsIdentity identity)
         {
-            if(identity == null)
+            if (identity == null)
             {
                 throw new ArgumentNullException(nameof(identity));
             }

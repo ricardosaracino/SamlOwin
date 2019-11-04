@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Sustainsys.Saml2.Saml2P;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
@@ -13,16 +13,19 @@ namespace Sustainsys.Saml2
         static Dictionary<NameIdFormat, Uri> enumToUri
             = new Dictionary<NameIdFormat, Uri>()
             {
-                { NameIdFormat.Unspecified, new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified") },
-                { NameIdFormat.EmailAddress, new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress") },
-                { NameIdFormat.X509SubjectName, new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName") },
-                { NameIdFormat.WindowsDomainQualifiedName, new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName") },
-                { NameIdFormat.KerberosPrincipalName, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos") },
-                { NameIdFormat.EntityIdentifier, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:entity") },
-                { NameIdFormat.Persistent, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:persistent") },
-                { NameIdFormat.Transient, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:transient") }
+                {NameIdFormat.Unspecified, new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified")},
+                {NameIdFormat.EmailAddress, new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress")},
+                {NameIdFormat.X509SubjectName, new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName")},
+                {
+                    NameIdFormat.WindowsDomainQualifiedName,
+                    new Uri("urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName")
+                },
+                {NameIdFormat.KerberosPrincipalName, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos")},
+                {NameIdFormat.EntityIdentifier, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:entity")},
+                {NameIdFormat.Persistent, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:persistent")},
+                {NameIdFormat.Transient, new Uri("urn:oasis:names:tc:SAML:2.0:nameid-format:transient")}
             };
-        
+
         /// <summary>
         /// Get the full Uri for a NameIdFormat.
         /// </summary>

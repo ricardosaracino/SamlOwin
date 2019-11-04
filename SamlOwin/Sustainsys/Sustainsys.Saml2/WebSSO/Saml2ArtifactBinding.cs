@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using Sustainsys.Saml2.Saml2P;
@@ -17,7 +17,9 @@ namespace Sustainsys.Saml2.WebSso
     /// </summary>
     public class Saml2ArtifactBinding : Saml2Binding
     {
-        internal Saml2ArtifactBinding() { }
+        internal Saml2ArtifactBinding()
+        {
+        }
 
         /// <summary>
         /// 
@@ -26,13 +28,13 @@ namespace Sustainsys.Saml2.WebSso
         /// <returns></returns>
         protected internal override bool CanUnbind(HttpRequestData request)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
 
             return (request.HttpMethod == "GET" && request.QueryString.Contains("SAMLart"))
-                || (request.HttpMethod == "POST" && request.Form.ContainsKey("SAMLart"));
+                   || (request.HttpMethod == "POST" && request.Form.ContainsKey("SAMLart"));
         }
 
         /// <summary>
@@ -45,11 +47,12 @@ namespace Sustainsys.Saml2.WebSso
         /// <returns>True if the binding supports the current request.</returns>
         public override UnbindResult Unbind(HttpRequestData request, IOptions options)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
-            if(options == null)
+
+            if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
@@ -57,7 +60,7 @@ namespace Sustainsys.Saml2.WebSso
             string relayState;
             string artifact;
 
-            switch(request.HttpMethod)
+            switch (request.HttpMethod)
             {
                 case "GET":
                     relayState = request.QueryString["RelayState"].SingleOrDefault();
@@ -103,7 +106,8 @@ namespace Sustainsys.Saml2.WebSso
                 payload = xmlDoc.OuterXml;
             }
 
-            options.SPOptions.Logger.WriteVerbose("Calling idp " + idp.EntityId.Id + " to resolve artifact\n" + artifact);
+            options.SPOptions.Logger.WriteVerbose(
+                "Calling idp " + idp.EntityId.Id + " to resolve artifact\n" + artifact);
 
             var clientCertificates = options.SPOptions.ServiceCertificates
                 .Where(sc => sc.Use.HasFlag(CertificateUse.TlsClient) && sc.Status == CertificateStatus.Current)
@@ -121,9 +125,10 @@ namespace Sustainsys.Saml2.WebSso
             StoredRequestState storedRequestState,
             IOptions options)
         {
-            if(storedRequestState != null)
+            if (storedRequestState != null)
             {
-                return options.Notifications.GetIdentityProvider(storedRequestState.Idp, storedRequestState.RelayData, options);
+                return options.Notifications.GetIdentityProvider(storedRequestState.Idp, storedRequestState.RelayData,
+                    options);
             }
 
             // It is RECOMMENDED in the spec that the first part of the artifact
@@ -133,7 +138,7 @@ namespace Sustainsys.Saml2.WebSso
 
             return options.IdentityProviders.KnownIdentityProviders
                 .Single(idp => sha1.ComputeHash(
-                    Encoding.UTF8.GetBytes(idp.EntityId.Id))
+                        Encoding.UTF8.GetBytes(idp.EntityId.Id))
                     .SequenceEqual(sourceId));
         }
 
@@ -147,7 +152,7 @@ namespace Sustainsys.Saml2.WebSso
         /// that the requester should use to resolve the artifact.</param>
         public static byte[] CreateArtifact(EntityId issuer, int endpointIndex)
         {
-            if(issuer == null)
+            if (issuer == null)
             {
                 throw new ArgumentNullException(nameof(issuer));
             }
@@ -155,8 +160,8 @@ namespace Sustainsys.Saml2.WebSso
             var artifact = new byte[44];
             artifact[1] = 4; // Header is 0004
 
-            artifact[2] = (byte)(endpointIndex >> 8);
-            artifact[3] = (byte)endpointIndex;
+            artifact[2] = (byte) (endpointIndex >> 8);
+            artifact[3] = (byte) endpointIndex;
 
             Array.Copy(sha1.ComputeHash(Encoding.UTF8.GetBytes(issuer.Id)),
                 0, artifact, 4, 20);
@@ -174,25 +179,26 @@ namespace Sustainsys.Saml2.WebSso
         /// <returns>CommandResult.</returns>
         public override CommandResult Bind(ISaml2Message message, ILoggerAdapter logger)
         {
-            if(message == null)
+            if (message == null)
             {
                 throw new ArgumentNullException(nameof(message));
             }
 
             var artifact = CreateArtifact(message.Issuer, 0);
 
-            ((IDictionary<byte[], ISaml2Message>)PendingMessages).Add(artifact, message);
+            ((IDictionary<byte[], ISaml2Message>) PendingMessages).Add(artifact, message);
 
-            var relayParam = string.IsNullOrEmpty(message.RelayState) ? "" 
+            var relayParam = string.IsNullOrEmpty(message.RelayState)
+                ? ""
                 : "&RelayState=" + Uri.EscapeDataString(message.RelayState);
 
             return new CommandResult
             {
                 HttpStatusCode = System.Net.HttpStatusCode.SeeOther,
                 Location = new Uri(message.DestinationUrl.OriginalString
-                + (string.IsNullOrEmpty(message.DestinationUrl.Query) ? "?" : "&")
-                + "SAMLart=" + Uri.EscapeDataString(Convert.ToBase64String(artifact))
-                + relayParam)
+                                   + (string.IsNullOrEmpty(message.DestinationUrl.Query) ? "?" : "&")
+                                   + "SAMLart=" + Uri.EscapeDataString(Convert.ToBase64String(artifact))
+                                   + relayParam)
             };
         }
 
@@ -209,7 +215,8 @@ namespace Sustainsys.Saml2.WebSso
                 return x.SequenceEqual(y);
             }
 
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+                "CA1062:Validate arguments of public methods", MessageId = "0")]
             public int GetHashCode(byte[] obj)
             {
                 return Enumerable.Range(0, obj.Length / 4)

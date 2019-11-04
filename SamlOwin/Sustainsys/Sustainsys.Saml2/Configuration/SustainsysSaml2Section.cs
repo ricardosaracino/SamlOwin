@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -17,25 +17,22 @@ namespace Sustainsys.Saml2.Configuration
     /// </summary>
     public class SustainsysSaml2Section : ConfigurationSection
     {
-		private static System.Configuration.Configuration configuration;
+        private static System.Configuration.Configuration configuration;
 
-		public static System.Configuration.Configuration Configuration
-		{
-			get
-			{
-				return configuration;
-			}
-			set
-			{
-				configuration = value;
-				current = (SustainsysSaml2Section)(configuration != null ? 
-					configuration.GetSection("sustainsys.saml2") :
-					ConfigurationManager.GetSection("sustainsys.saml2"));
-			}
-		}
+        public static System.Configuration.Configuration Configuration
+        {
+            get { return configuration; }
+            set
+            {
+                configuration = value;
+                current = (SustainsysSaml2Section) (configuration != null
+                    ? configuration.GetSection("sustainsys.saml2")
+                    : ConfigurationManager.GetSection("sustainsys.saml2"));
+            }
+        }
 
-		private static SustainsysSaml2Section current =
-            (SustainsysSaml2Section)ConfigurationManager.GetSection("sustainsys.saml2");
+        private static SustainsysSaml2Section current =
+            (SustainsysSaml2Section) ConfigurationManager.GetSection("sustainsys.saml2");
 
         internal bool AllowChange { get; set; }
 
@@ -53,10 +50,7 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public static SustainsysSaml2Section Current
         {
-            get
-            {
-                return current;
-            }
+            get { return current; }
         }
 
         /// <summary>
@@ -67,10 +61,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("entityId")]
         public EntityId EntityId
         {
-            get
-            {
-                return (EntityId)base["entityId"];
-            }
+            get { return (EntityId) base["entityId"]; }
         }
 
         /// <summary>
@@ -79,10 +70,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("returnUrl")]
         public Uri ReturnUrl
         {
-            get
-            {
-                return (Uri)base["returnUrl"];
-            }
+            get { return (Uri) base["returnUrl"]; }
         }
 
         /// <summary>
@@ -94,10 +82,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("publicOrigin", IsRequired = false)]
         public Uri PublicOrigin
         {
-            get
-            {
-                return (Uri)base["publicOrigin"];
-            }
+            get { return (Uri) base["publicOrigin"]; }
         }
 
         /// <summary>
@@ -107,10 +92,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationCollection(typeof(IdentityProviderCollection))]
         public IdentityProviderCollection IdentityProviders
         {
-            get
-            {
-                return (IdentityProviderCollection)base["identityProviders"];
-            }
+            get { return (IdentityProviderCollection) base["identityProviders"]; }
         }
 
         /// <summary>
@@ -120,26 +102,22 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationCollection(typeof(FederationCollection))]
         public FederationCollection Federations
         {
-            get
-            {
-                return (FederationCollection)base["federations"];
-            }
+            get { return (FederationCollection) base["federations"]; }
         }
 
         const string discoveryServiceUrl = "discoveryServiceUrl";
+
         /// <summary>
         /// Url to discovery service to use if no idp is specified in the sign in call.
         /// </summary>
         [ConfigurationProperty(discoveryServiceUrl, IsRequired = false)]
         public Uri DiscoveryServiceUrl
         {
-            get
-            {
-                return (Uri)base[discoveryServiceUrl];
-            }
+            get { return (Uri) base[discoveryServiceUrl]; }
         }
 
         const string modulePath = "modulePath";
+
         /// <summary>
         /// Application root relative path for Saml2 endpoints. The 
         /// default is "Saml2".
@@ -148,36 +126,29 @@ namespace Sustainsys.Saml2.Configuration
         [RegexStringValidator("/.*")]
         public string ModulePath
         {
-            get
-            {
-                return (string)base[modulePath];
-            }
+            get { return (string) base[modulePath]; }
         }
 
         const string nameIdPolicy = nameof(nameIdPolicy);
+
         /// <summary>
         /// NamedId policy element.
         /// </summary>
         [ConfigurationProperty(nameIdPolicy)]
         public NameIdPolicyElement NameIdPolicyElement
         {
-            get
-            {
-                return (NameIdPolicyElement)base[nameIdPolicy];
-            }
+            get { return (NameIdPolicyElement) base[nameIdPolicy]; }
         }
 
         const string requestedAuthnContext = nameof(requestedAuthnContext);
+
         /// <summary>
         /// RequestedAuthnContext config.
         /// </summary>
         [ConfigurationProperty(requestedAuthnContext)]
         public RequestedAuthnContextElement RequestedAuthnContext
         {
-            get
-            {
-                return (RequestedAuthnContextElement)base[requestedAuthnContext];
-            }
+            get { return (RequestedAuthnContextElement) base[requestedAuthnContext]; }
         }
 
         // Reset by the tests.
@@ -194,11 +165,11 @@ namespace Sustainsys.Saml2.Configuration
                 // Metadata.Organization will still be instantiated, but the Url will be null.
                 if (organization == null && Metadata.Organization.Url != null)
                 {
-					var lang = "en";
+                    var lang = "en";
                     if (!String.IsNullOrEmpty(Metadata.Organization.Language))
                     {
-						lang = Metadata.Organization.Language;
-					}
+                        lang = Metadata.Organization.Language;
+                    }
 
                     var org = new Organization();
                     org.Names.Add(new LocalizedName(Metadata.Organization.Name, lang));
@@ -213,20 +184,15 @@ namespace Sustainsys.Saml2.Configuration
         }
 
         const string metadata = "metadata";
+
         /// <summary>
         /// Metadata of the service provider.
         /// </summary>
         [ConfigurationProperty(metadata)]
         public MetadataElement Metadata
         {
-            get
-            {
-                return (MetadataElement)base[metadata];
-            }
-            internal set
-            {
-                base[metadata] = value;
-            }
+            get { return (MetadataElement) base[metadata]; }
+            internal set { base[metadata] = value; }
         }
 
         IEnumerable<ContactPerson> contacts;
@@ -285,7 +251,7 @@ namespace Sustainsys.Saml2.Configuration
                     {
                         IsDefault = true
                     };
-					acs.ServiceNames.Add(new LocalizedName("SP", "en"));
+                    acs.ServiceNames.Add(new LocalizedName("SP", "en"));
 
                     foreach (var confAttribute in Metadata.RequestedAttributes)
                     {
@@ -303,6 +269,7 @@ namespace Sustainsys.Saml2.Configuration
         }
 
         const string serviceCertificates = nameof(serviceCertificates);
+
         /// <summary>
         /// Certificates used by the service provider for signing and/or decryption.
         /// </summary>
@@ -310,30 +277,23 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationCollection(typeof(ServiceCertificateElementCollection))]
         public ServiceCertificateElementCollection ServiceCertificates
         {
-            get
-            {
-                return (ServiceCertificateElementCollection)base[serviceCertificates];
-            }
+            get { return (ServiceCertificateElementCollection) base[serviceCertificates]; }
         }
 
         const string authenticateRequestSigningBehavior = nameof(authenticateRequestSigningBehavior);
+
         /// <summary>
         /// Signing behavior for created AuthnRequests.
         /// </summary>
         [ConfigurationProperty(authenticateRequestSigningBehavior)]
         public SigningBehavior AuthenticateRequestSigningBehavior
         {
-            get
-            {
-                return (SigningBehavior)base[authenticateRequestSigningBehavior];
-            }
-            internal set
-            {
-                base[authenticateRequestSigningBehavior] = value;
-            }
+            get { return (SigningBehavior) base[authenticateRequestSigningBehavior]; }
+            internal set { base[authenticateRequestSigningBehavior] = value; }
         }
 
         const string outboundSigningAlgorithm = nameof(outboundSigningAlgorithm);
+
         /// <summary>
         /// Signing algorithm for metadata and outbound messages. Can be 
         /// overriden for each <see cref="IdentityProvider"/>.
@@ -341,26 +301,22 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(outboundSigningAlgorithm, IsRequired = false)]
         public string OutboundSigningAlgorithm
         {
-            get
-            {
-                return (string)base[outboundSigningAlgorithm];
-            }
+            get { return (string) base[outboundSigningAlgorithm]; }
         }
 
         const string minIncomingSigningAlgorithm = nameof(minIncomingSigningAlgorithm);
+
         /// <summary>
         /// Weakest accepted signing algorithm for inbound messages.
         /// </summary>
         [ConfigurationProperty(minIncomingSigningAlgorithm, IsRequired = false)]
         public string MinIncomingSigningAlgorithm
         {
-            get
-            {
-                return (string)base[minIncomingSigningAlgorithm];
-            }
+            get { return (string) base[minIncomingSigningAlgorithm]; }
         }
 
         const string validateCertificates = nameof(validateCertificates);
+
         /// <summary>
         /// Validate certificates when validating signatures? Normally not a
         /// good idea as SAML2 deployments typically exchange certificates
@@ -370,14 +326,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(validateCertificates, IsRequired = false)]
         public bool ValidateCertificates
         {
-            get
-            {
-                return (bool)base[validateCertificates];
-            }
-            internal set
-            {
-                base[validateCertificates] = value;
-            }
+            get { return (bool) base[validateCertificates]; }
+            internal set { base[validateCertificates] = value; }
         }
 
         const string compatibility = nameof(compatibility);
@@ -389,10 +339,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(compatibility)]
         public CompatibilityElement Compatibility
         {
-            get
-            {
-                return (CompatibilityElement)base[compatibility];
-            }
+            get { return (CompatibilityElement) base[compatibility]; }
         }
-	}
+    }
 }

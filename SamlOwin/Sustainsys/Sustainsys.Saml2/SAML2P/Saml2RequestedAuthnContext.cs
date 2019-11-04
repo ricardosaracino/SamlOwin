@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using System;
 
 namespace Sustainsys.Saml2.Saml2P
@@ -14,17 +14,17 @@ namespace Sustainsys.Saml2.Saml2P
         /// <param name="requestedAuthnContextElement">Config element to load.</param>
         public Saml2RequestedAuthnContext(RequestedAuthnContextElement requestedAuthnContextElement)
         {
-            if(requestedAuthnContextElement == null)
+            if (requestedAuthnContextElement == null)
             {
                 throw new ArgumentNullException(nameof(requestedAuthnContextElement));
             }
-            
-            if(!string.IsNullOrEmpty(requestedAuthnContextElement.AuthnContextClassRef))
+
+            if (!string.IsNullOrEmpty(requestedAuthnContextElement.AuthnContextClassRef))
             {
                 ClassRef = new Uri(
                     !requestedAuthnContextElement.AuthnContextClassRef.Contains(":")
-                    ? "urn:oasis:names:tc:SAML:2.0:ac:classes:" + requestedAuthnContextElement.AuthnContextClassRef
-                    : requestedAuthnContextElement.AuthnContextClassRef);
+                        ? "urn:oasis:names:tc:SAML:2.0:ac:classes:" + requestedAuthnContextElement.AuthnContextClassRef
+                        : requestedAuthnContextElement.AuthnContextClassRef);
             }
 
             Comparison = requestedAuthnContextElement.Comparison;

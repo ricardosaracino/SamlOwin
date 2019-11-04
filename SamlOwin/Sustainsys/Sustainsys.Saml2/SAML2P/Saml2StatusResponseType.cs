@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using Sustainsys.Saml2.Metadata;

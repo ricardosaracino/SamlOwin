@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,13 +12,16 @@ using Sustainsys.Saml2.Selectors;
 
 namespace Sustainsys.Saml2.Metadata
 {
-	class ExtendedMetadataSerializer : MetadataSerializer
+    class ExtendedMetadataSerializer : MetadataSerializer
     {
         private ExtendedMetadataSerializer(SecurityTokenSerializer serializer)
             : base(serializer)
-        { }
+        {
+        }
 
-        private ExtendedMetadataSerializer() { }
+        private ExtendedMetadataSerializer()
+        {
+        }
 
         private static ExtendedMetadataSerializer readerInstance =
             new ExtendedMetadataSerializer();
@@ -29,10 +32,7 @@ namespace Sustainsys.Saml2.Metadata
         /// </summary>
         public static ExtendedMetadataSerializer ReaderInstance
         {
-            get
-            {
-                return readerInstance;
-            }
+            get { return readerInstance; }
         }
 
         private static ExtendedMetadataSerializer writerInstance =
@@ -40,16 +40,15 @@ namespace Sustainsys.Saml2.Metadata
 
         public static ExtendedMetadataSerializer WriterInstance
         {
-            get
-            {
-                return writerInstance;
-            }
+            get { return writerInstance; }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Method is only called by base class no validation needed.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods", MessageId = "0",
+            Justification = "Method is only called by base class no validation needed.")]
         protected override void WriteCustomAttributes<T>(XmlWriter writer, T source)
         {
-            if(typeof(T) == typeof(EntityDescriptor))
+            if (typeof(T) == typeof(EntityDescriptor))
             {
                 writer.WriteAttributeString("xmlns", "saml2", null, Saml2Namespaces.Saml2Name);
             }
@@ -57,19 +56,21 @@ namespace Sustainsys.Saml2.Metadata
 
 
 #if FALSE
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId
+ = "0")]
         protected override ServiceProviderSingleSignOnDescriptor ReadServiceProviderSingleSignOnDescriptor(XmlReader reader)
         {
             reader.Skip();
             return CreateServiceProviderSingleSignOnDescriptorInstance();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId
+ = "0")]
         protected override Organization ReadOrganization(XmlReader reader)
         {
             reader.Skip();
             return CreateOrganizationInstance();
         }
 #endif
-	}
+    }
 }

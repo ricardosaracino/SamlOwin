@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Metadata;
+﻿using Sustainsys.Saml2.Metadata;
 using Sustainsys.Saml2.Saml2P;
 using Sustainsys.Saml2.WebSso;
 using System;
@@ -17,10 +17,10 @@ namespace Sustainsys.Saml2.Configuration
         /// has been created. The authenticationrequest can be amended and
         /// modified.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public Action<Saml2AuthenticationRequest, IdentityProvider, IDictionary<string, string>>
-            AuthenticationRequestCreated
-        { get; set; } = (request, provider, dictionary) => { };
+            AuthenticationRequestCreated { get; set; } = (request, provider, dictionary) => { };
 
         /// <summary>
         /// Notification called when the SignIn command has produced a
@@ -29,10 +29,10 @@ namespace Sustainsys.Saml2.Configuration
         /// flag to suppress the library's built in apply functionality to the
         /// outgoing response.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public Action<CommandResult, IDictionary<string, string>>
-            SignInCommandResultCreated
-        { get; set; } = (cr, r) => { };
+            SignInCommandResultCreated { get; set; } = (cr, r) => { };
 
         /// <summary>
         /// Notification called when the SignIn command is about to select
@@ -41,10 +41,10 @@ namespace Sustainsys.Saml2.Configuration
         /// simply return it. Return <code>null</code> to fall back to built
         /// in selection.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public Func<EntityId, IDictionary<string, string>, IdentityProvider>
-            SelectIdentityProvider
-        { get; set; } = (ei, r) => null;
+            SelectIdentityProvider { get; set; } = (ei, r) => null;
 
         /// <summary>
         /// Notification called when the logout command is about to use the 
@@ -52,11 +52,12 @@ namespace Sustainsys.Saml2.Configuration
         /// Return a different StoredRequestState if you would like to customize the 
         /// RelayState lookup. 
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Func<HttpRequestData, StoredRequestState>
-            GetLogoutResponseState
-        { get; set; } = (httpRequestData) => httpRequestData.StoredRequestState;
+            GetLogoutResponseState { get; set; } = (httpRequestData) => httpRequestData.StoredRequestState;
 
         /// <summary>
         /// Notification called when a command is about to construct a fully-qualified url
@@ -65,18 +66,17 @@ namespace Sustainsys.Saml2.Configuration
         /// and the SPOptions.PublicOrigin setting
         /// </summary>
         public Func<HttpRequestData, Uri>
-            GetPublicOrigin
-        { get; set; } = (httpRequestData) => null;
+            GetPublicOrigin { get; set; } = (httpRequestData) => null;
 
         /// <summary>
         /// Notification called when single logout status is returned from IDP.
         /// Return true to indicate that your notification has handled this status. Otherwise
         /// it will fall back to the normal status processing logic.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Func<Saml2LogoutResponse, StoredRequestState, bool>
-            ProcessSingleLogoutResponseStatus
-        { get; set; } = (response, state) => false;
+            ProcessSingleLogoutResponseStatus { get; set; } = (response, state) => false;
 
         /// <summary>
         /// Get a binding that can unbind data from the supplied request. The
@@ -98,7 +98,7 @@ namespace Sustainsys.Saml2.Configuration
         /// outgoing response.
         /// </summary>
         public Action<CommandResult, Saml2Response> AcsCommandResultCreated { get; set; }
-         = (cr, r) => { };
+            = (cr, r) => { };
 
         /// <summary>
         /// Notification called when the Logout command has produced a
@@ -107,7 +107,8 @@ namespace Sustainsys.Saml2.Configuration
         /// flag to suppress the library's built in apply functionality to the
         /// outgoing response.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Action<CommandResult> LogoutCommandResultCreated { get; set; } = cr => { };
 
         /// <summary>
@@ -116,8 +117,7 @@ namespace Sustainsys.Saml2.Configuration
         /// altered before presented.
         /// </summary>
         public Action<EntityDescriptor, Saml2Urls>
-            MetadataCreated
-        { get; set; } = (md, urls) => { };
+            MetadataCreated { get; set; } = (md, urls) => { };
 
         /// <summary>
         /// Notification called when the Metadata command has produced a

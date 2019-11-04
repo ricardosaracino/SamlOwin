@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.WebSso;
+﻿using Sustainsys.Saml2.WebSso;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +27,8 @@ namespace Sustainsys.Saml2.WebSso
         /// <summary>
         /// The name of the Log Out Command.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public const string LogoutCommandName = "Logout";
 
         /// <summary>
@@ -37,13 +38,13 @@ namespace Sustainsys.Saml2.WebSso
         public const string MetadataCommand = "";
 
         private static readonly IDictionary<string, ICommand> commands =
-        new Dictionary<string, ICommand>(StringComparer.OrdinalIgnoreCase) 
-        { 
-            { SignInCommandName, new SignInCommand() },
-            { AcsCommandName, new AcsCommand() },
-            { MetadataCommand, new MetadataCommand() },
-            { LogoutCommandName, new LogoutCommand() }
-        };
+            new Dictionary<string, ICommand>(StringComparer.OrdinalIgnoreCase)
+            {
+                {SignInCommandName, new SignInCommand()},
+                {AcsCommandName, new AcsCommand()},
+                {MetadataCommand, new MetadataCommand()},
+                {LogoutCommandName, new LogoutCommand()}
+            };
 
         /// <summary>
         /// Gets a command for a command name.
@@ -55,12 +56,12 @@ namespace Sustainsys.Saml2.WebSso
         {
             ICommand command;
 
-            if(commandName ==  null)
+            if (commandName == null)
             {
                 throw new ArgumentNullException(nameof(commandName));
             }
 
-            if(commandName.StartsWith("/", StringComparison.OrdinalIgnoreCase))
+            if (commandName.StartsWith("/", StringComparison.OrdinalIgnoreCase))
             {
                 commandName = commandName.Substring(1);
             }

@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -10,7 +10,8 @@ namespace Sustainsys.Saml2.Configuration
     /// <summary>
     /// Config collection of contacts.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+        "CA1010:CollectionsShouldImplementGenericInterface")]
     public class ContactPersonsCollection : ConfigurationElementCollection, IEnumerable<ContactPersonElement>
     {
         /// <summary>

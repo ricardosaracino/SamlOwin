@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
@@ -36,14 +36,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("fileName")]
         public string FileName
         {
-            get
-            {
-                return (string)this["fileName"];
-            }
-            internal set
-            {
-                base["fileName"] = value;
-            }
+            get { return (string) this["fileName"]; }
+            internal set { base["fileName"] = value; }
         }
 
         /// <summary>
@@ -53,10 +47,7 @@ namespace Sustainsys.Saml2.Configuration
         [ExcludeFromCodeCoverage]
         public StoreName StoreName
         {
-            get
-            {
-                return (StoreName)this["storeName"];
-            }
+            get { return (StoreName) this["storeName"]; }
         }
 
         /// <summary>
@@ -66,10 +57,7 @@ namespace Sustainsys.Saml2.Configuration
         [ExcludeFromCodeCoverage]
         public StoreLocation StoreLocation
         {
-            get
-            {
-                return (StoreLocation)this["storeLocation"];
-            }
+            get { return (StoreLocation) this["storeLocation"]; }
         }
 
         /// <summary>
@@ -79,10 +67,7 @@ namespace Sustainsys.Saml2.Configuration
         [ExcludeFromCodeCoverage]
         public string FindValue
         {
-            get
-            {
-                return (string)this["findValue"];
-            }
+            get { return (string) this["findValue"]; }
         }
 
         /// <summary>
@@ -92,10 +77,7 @@ namespace Sustainsys.Saml2.Configuration
         [ExcludeFromCodeCoverage]
         public X509FindType X509FindType
         {
-            get
-            {
-                return (X509FindType)this["x509FindType"];
-            }
+            get { return (X509FindType) this["x509FindType"]; }
         }
 
         /// <summary>
@@ -109,7 +91,7 @@ namespace Sustainsys.Saml2.Configuration
             {
                 string fileName = FileName;
                 fileName = PathHelper.MapPath(fileName);
-                
+
                 return new X509Certificate2(fileName, "", X509KeyStorageFlags.MachineKeySet);
             }
             else
@@ -128,8 +110,8 @@ namespace Sustainsys.Saml2.Configuration
                         {
                             throw new InvalidOperationException(
                                 string.Format(CultureInfo.InvariantCulture,
-                                "Finding cert through {0} in {1}:{2} with value {3} matched {4} certificates. A unique match is required.",
-                                X509FindType, StoreLocation, StoreName, FindValue, certs.Count));
+                                    "Finding cert through {0} in {1}:{2} with value {3} matched {4} certificates. A unique match is required.",
+                                    X509FindType, StoreLocation, StoreName, FindValue, certs.Count));
                         }
 
                         return certs[0];

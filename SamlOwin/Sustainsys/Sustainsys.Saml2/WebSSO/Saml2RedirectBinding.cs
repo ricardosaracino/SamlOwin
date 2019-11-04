@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Exceptions;
 using Sustainsys.Saml2.Internal;
 using Sustainsys.Saml2.Metadata;
@@ -31,8 +31,9 @@ namespace Sustainsys.Saml2.WebSso
             var serializedRequest = Serialize(messageXml);
 
             var queryString = message.MessageName + "=" + serializedRequest
-                + (string.IsNullOrEmpty(message.RelayState) ? ""
-                    : ("&RelayState=" + Uri.EscapeDataString(message.RelayState)));
+                              + (string.IsNullOrEmpty(message.RelayState)
+                                  ? ""
+                                  : ("&RelayState=" + Uri.EscapeDataString(message.RelayState)));
 
             if (message.SigningCertificate != null)
             {
@@ -40,8 +41,8 @@ namespace Sustainsys.Saml2.WebSso
             }
 
             var redirectUri = new Uri(message.DestinationUrl.ToString()
-                + (string.IsNullOrEmpty(message.DestinationUrl.Query) ? "?" : "&")
-                + queryString);
+                                      + (string.IsNullOrEmpty(message.DestinationUrl.Query) ? "?" : "&")
+                                      + queryString);
 
             return new CommandResult()
             {
@@ -55,20 +56,24 @@ namespace Sustainsys.Saml2.WebSso
             string signingAlgorithmUrl = message.SigningAlgorithm;
 
             queryString += "&SigAlg=" + Uri.EscapeDataString(signingAlgorithmUrl);
-            var signatureDescription = (SignatureDescription)CryptographyExtensions.CreateAlgorithmFromName(signingAlgorithmUrl);
+            var signatureDescription =
+                (SignatureDescription) CryptographyExtensions.CreateAlgorithmFromName(signingAlgorithmUrl);
             HashAlgorithm hashAlg = signatureDescription.CreateDigest();
             hashAlg.ComputeHash(Encoding.UTF8.GetBytes(queryString));
             AsymmetricSignatureFormatter asymmetricSignatureFormatter =
                 signatureDescription.CreateFormatter(
-                    EnvironmentHelpers.IsNetCore ? message.SigningCertificate.PrivateKey :
-                    ((RSACryptoServiceProvider)message.SigningCertificate.PrivateKey)
-                    .GetSha256EnabledRSACryptoServiceProvider());
+                    EnvironmentHelpers.IsNetCore
+                        ? message.SigningCertificate.PrivateKey
+                        : ((RSACryptoServiceProvider) message.SigningCertificate.PrivateKey)
+                        .GetSha256EnabledRSACryptoServiceProvider());
             byte[] signatureValue = asymmetricSignatureFormatter.CreateSignature(hashAlg);
             queryString += "&Signature=" + Uri.EscapeDataString(Convert.ToBase64String(signatureValue));
             return queryString;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "The MemoryStream is not disposed by the DeflateStream - we're using the keep-open flag.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2202:Do not dispose objects multiple times", Justification =
+                "The MemoryStream is not disposed by the DeflateStream - we're using the keep-open flag.")]
         public override UnbindResult Unbind(HttpRequestData request, IOptions options)
         {
             if (request == null)
@@ -76,7 +81,8 @@ namespace Sustainsys.Saml2.WebSso
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var encodedPayload = request.QueryString["SAMLRequest"].FirstOrDefault() ?? request.QueryString["SAMLResponse"].First();
+            var encodedPayload = request.QueryString["SAMLRequest"].FirstOrDefault() ??
+                                 request.QueryString["SAMLResponse"].First();
             try
             {
                 var payload = Convert.FromBase64String(encodedPayload);
@@ -90,18 +96,22 @@ namespace Sustainsys.Saml2.WebSso
                             decompressedStream.CopyTo(deCompressed);
 
                             var xml = XmlHelpers.XmlDocumentFromString(
-                                Encoding.UTF8.GetString(deCompressed.GetBuffer(), 0, (int)deCompressed.Length));
+                                Encoding.UTF8.GetString(deCompressed.GetBuffer(), 0, (int) deCompressed.Length));
 
-                            options?.SPOptions.Logger.WriteVerbose("Http Redirect binding extracted message\n" + xml.OuterXml);
+                            options?.SPOptions.Logger.WriteVerbose(
+                                "Http Redirect binding extracted message\n" + xml.OuterXml);
 
-                            return new UnbindResult(xml.DocumentElement, request.QueryString["RelayState"].SingleOrDefault(), GetTrustLevel(xml.DocumentElement, request, options));
+                            return new UnbindResult(xml.DocumentElement,
+                                request.QueryString["RelayState"].SingleOrDefault(),
+                                GetTrustLevel(xml.DocumentElement, request, options));
                         }
                     }
                 }
             }
-            catch(FormatException ex)
+            catch (FormatException ex)
             {
-                throw new FormatException($"\'{encodedPayload}\' is not a valid Base64 encoded string: {ex.Message}", ex);
+                throw new FormatException($"\'{encodedPayload}\' is not a valid Base64 encoded string: {ex.Message}",
+                    ex);
             }
         }
 
@@ -127,7 +137,8 @@ namespace Sustainsys.Saml2.WebSso
             IdentityProvider idp;
             if (!options.IdentityProviders.TryGetValue(new EntityId(issuer), out idp))
             {
-                throw new InvalidSignatureException(string.Format(CultureInfo.InvariantCulture, "Cannot verify signature of message from unknown sender {0}.", issuer));
+                throw new InvalidSignatureException(string.Format(CultureInfo.InvariantCulture,
+                    "Cannot verify signature of message from unknown sender {0}.", issuer));
             }
 
             CheckSignature(request, idp, options);
@@ -140,7 +151,8 @@ namespace Sustainsys.Saml2.WebSso
             // Can't use the query string params as found in HttpReqeustData
             // because they are already unescaped and we need the exact format
             // of the original data.
-            var rawQueryStringParams = request.Url.Query.TrimStart('?').Split('&').Select(qp => qp.Split('=')).ToDictionary(kv => kv[0], kv => kv[1]);
+            var rawQueryStringParams = request.Url.Query.TrimStart('?').Split('&').Select(qp => qp.Split('='))
+                .ToDictionary(kv => kv[0], kv => kv[1]);
 
             var msgParam = "";
             string msg;
@@ -160,26 +172,33 @@ namespace Sustainsys.Saml2.WebSso
                 relayStateParam = "&RelayState=" + relayState;
             }
 
-            var signedString = string.Format(CultureInfo.InvariantCulture, "{0}{1}&SigAlg={2}", msgParam, relayStateParam, rawQueryStringParams["SigAlg"]);
+            var signedString = string.Format(CultureInfo.InvariantCulture, "{0}{1}&SigAlg={2}", msgParam,
+                relayStateParam, rawQueryStringParams["SigAlg"]);
 
             var sigAlg = request.QueryString["SigAlg"].Single();
 
             XmlHelpers.ValidateSignatureMethodStrength(options.SPOptions.MinIncomingSigningAlgorithm, sigAlg);
 
-            var signatureDescription = (SignatureDescription)CryptographyExtensions.CreateAlgorithmFromName(sigAlg);
+            var signatureDescription = (SignatureDescription) CryptographyExtensions.CreateAlgorithmFromName(sigAlg);
 
             var hashAlg = signatureDescription.CreateDigest();
             hashAlg.ComputeHash(Encoding.UTF8.GetBytes(signedString));
 
             var signature = Convert.FromBase64String(request.QueryString["Signature"].Single());
 
-            if (!idp.SigningKeys.Any(kic => signatureDescription.CreateDeformatter(((AsymmetricSecurityKey)kic.CreateKey()).GetAsymmetricAlgorithm(sigAlg, false)).VerifySignature(hashAlg, signature)))
+            if (!idp.SigningKeys.Any(kic =>
+                signatureDescription
+                    .CreateDeformatter(((AsymmetricSecurityKey) kic.CreateKey()).GetAsymmetricAlgorithm(sigAlg, false))
+                    .VerifySignature(hashAlg, signature)))
             {
-                throw new InvalidSignatureException(string.Format(CultureInfo.InvariantCulture, "Message from {0} failed signature verification", idp.EntityId.Id));
+                throw new InvalidSignatureException(string.Format(CultureInfo.InvariantCulture,
+                    "Message from {0} failed signature verification", idp.EntityId.Id));
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "The MemoryStream is not disposed by the DeflateStream - we're using the keep-open flag.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2202:Do not dispose objects multiple times", Justification =
+                "The MemoryStream is not disposed by the DeflateStream - we're using the keep-open flag.")]
         private static string Serialize(string payload)
         {
             using (var compressed = new MemoryStream())
@@ -189,7 +208,7 @@ namespace Sustainsys.Saml2.WebSso
                     writer.Write(payload);
                 }
 
-                return Uri.EscapeDataString(Convert.ToBase64String(compressed.GetBuffer(), 0, (int)compressed.Length));
+                return Uri.EscapeDataString(Convert.ToBase64String(compressed.GetBuffer(), 0, (int) compressed.Length));
             }
         }
 

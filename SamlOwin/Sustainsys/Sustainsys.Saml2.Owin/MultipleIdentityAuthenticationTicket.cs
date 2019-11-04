@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.Owin.Security;
+﻿using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +21,7 @@ namespace Sustainsys.Saml2.Owin
 
         public IEnumerable<ClaimsIdentity> Identities
         {
-            get
-            {
-                return identities;
-            }
+            get { return identities; }
         }
     }
 }

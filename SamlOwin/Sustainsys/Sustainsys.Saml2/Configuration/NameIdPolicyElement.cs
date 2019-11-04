@@ -1,4 +1,4 @@
-﻿﻿using System.Configuration;
+﻿using System.Configuration;
 using Sustainsys.Saml2.Saml2P;
 
 namespace Sustainsys.Saml2.Configuration
@@ -14,10 +14,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("allowCreate", IsRequired = false)]
         public bool? AllowCreate
         {
-            get
-            {
-                return (bool?)base["allowCreate"];
-            }
+            get { return (bool?) base["allowCreate"]; }
         }
 
         /// <summary>
@@ -26,10 +23,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("format", IsRequired = false)]
         public NameIdFormat Format
         {
-            get
-            {
-                return (NameIdFormat)base["format"];
-            }
+            get { return (NameIdFormat) base["format"]; }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,10 +17,7 @@ namespace Sustainsys.Saml2.Internal
         /// </summary>
         public static String BasePath
         {
-            get
-            {
-				return AppDomain.CurrentDomain.BaseDirectory;
-			}
+            get { return AppDomain.CurrentDomain.BaseDirectory; }
         }
 
         /// <summary>
@@ -40,9 +37,9 @@ namespace Sustainsys.Saml2.Internal
                 return Path.GetFullPath(virtualPath);
             }
 
-        
+
             // Strip until and including the initial /
-            virtualPath = virtualPath.Substring(virtualPath.IndexOfAny(new char[] { '/', '\\' }) + 1);
+            virtualPath = virtualPath.Substring(virtualPath.IndexOfAny(new char[] {'/', '\\'}) + 1);
 
             // Normalize the slashes.
             virtualPath = virtualPath.Replace('/', '\\');
@@ -60,6 +57,7 @@ namespace Sustainsys.Saml2.Internal
             {
                 throw new ArgumentNullException(nameof(virtualPath));
             }
+
             if (virtualPath.Length == 0)
             {
                 return false;
@@ -84,16 +82,19 @@ namespace Sustainsys.Saml2.Internal
             {
                 throw new ArgumentNullException(nameof(url));
             }
+
             if (IsWebRootRelative(url))
             {
                 return true;
             }
+
             if (url.StartsWith(@"/", StringComparison.Ordinal)
-                && !url.StartsWith( @"//", StringComparison.Ordinal)
-                && !url.StartsWith( @"/\", StringComparison.Ordinal))
+                && !url.StartsWith(@"//", StringComparison.Ordinal)
+                && !url.StartsWith(@"/\", StringComparison.Ordinal))
             {
                 return true;
             }
+
             return false;
         }
     }

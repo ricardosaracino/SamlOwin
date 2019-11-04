@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Xml.Linq;
 
@@ -16,13 +16,13 @@ namespace Sustainsys.Saml2
         /// <returns></returns>
         public static XElement ToXElement(this Saml2NameIdentifier nameIdentifier)
         {
-            if(nameIdentifier == null)
+            if (nameIdentifier == null)
             {
                 throw new ArgumentNullException(nameof(nameIdentifier));
             }
 
             var nameIdElement = new XElement(Saml2Namespaces.Saml2 + "NameID",
-                            nameIdentifier.Value);
+                nameIdentifier.Value);
             nameIdElement.AddAttributeIfNotNullOrEmpty("Format", nameIdentifier.Format);
             nameIdElement.AddAttributeIfNotNullOrEmpty("NameQualifier", nameIdentifier.NameQualifier);
             nameIdElement.AddAttributeIfNotNullOrEmpty("SPNameQualifier", nameIdentifier.SPNameQualifier);

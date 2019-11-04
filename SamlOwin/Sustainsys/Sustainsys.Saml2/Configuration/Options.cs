@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
@@ -22,13 +22,10 @@ namespace Sustainsys.Saml2.Configuration
         /// <returns>Options object.</returns>
         public static Options FromConfiguration
         {
-            get
-            {
-                return optionsFromConfiguration.Value;
-            }
+            get { return optionsFromConfiguration.Value; }
         }
 
-        private static readonly Lazy<Options> optionsFromConfiguration 
+        private static readonly Lazy<Options> optionsFromConfiguration
             = new Lazy<Options>(() => LoadOptionsFromConfiguration(), true);
 
         private static Options LoadOptionsFromConfiguration()
@@ -45,12 +42,13 @@ namespace Sustainsys.Saml2.Configuration
         /// Creates an options object with the specified SPOptions.
         /// </summary>
         /// <param name="spOptions"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
         public Options(SPOptions spOptions)
         {
             Notifications = new Saml2Notifications();
             SPOptions = spOptions;
-            if(SPOptions.Logger == null)
+            if (SPOptions.Logger == null)
             {
                 SPOptions.Logger = new NullLoggerAdapter();
             }
@@ -69,10 +67,7 @@ namespace Sustainsys.Saml2.Configuration
         /// </summary>
         public IdentityProviderDictionary IdentityProviders
         {
-            get
-            {
-                return identityProviders;
-            }
+            get { return identityProviders; }
         }
     }
 }

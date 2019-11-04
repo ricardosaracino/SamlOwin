@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,8 @@ namespace Sustainsys.Saml2.Metadata
 {
     static class SPOptionsExtensions
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability",
+            "CA1506:AvoidExcessiveClassCoupling")]
         public static EntityDescriptor CreateMetadata(this SPOptions spOptions, Saml2Urls urls)
         {
             var ed = new EntityDescriptor
@@ -22,7 +23,7 @@ namespace Sustainsys.Saml2.Metadata
                 CacheDuration = spOptions.MetadataCacheDuration,
             };
 
-            if(spOptions.MetadataValidDuration.HasValue)
+            if (spOptions.MetadataValidDuration.HasValue)
             {
                 ed.ValidUntil = DateTime.UtcNow.Add(spOptions.MetadataValidDuration.Value);
             }
@@ -56,7 +57,7 @@ namespace Sustainsys.Saml2.Metadata
                 Location = urls.AssertionConsumerServiceUrl
             });
 
-            foreach(var attributeService in spOptions.AttributeConsumingServices)
+            foreach (var attributeService in spOptions.AttributeConsumingServices)
             {
                 spsso.AttributeConsumingServices.Add(attributeService.Index, attributeService);
             }
@@ -66,22 +67,22 @@ namespace Sustainsys.Saml2.Metadata
                 var publishCertificates = spOptions.MetadataCertificates;
                 foreach (var serviceCert in publishCertificates)
                 {
-					var x509Data = new X509Data();
-					x509Data.Certificates.Add(serviceCert.Certificate);
-					var keyInfo = new DSigKeyInfo();
-					keyInfo.Data.Add(x509Data);
+                    var x509Data = new X509Data();
+                    x509Data.Certificates.Add(serviceCert.Certificate);
+                    var keyInfo = new DSigKeyInfo();
+                    keyInfo.Data.Add(x509Data);
 
                     spsso.Keys.Add(
                         new KeyDescriptor
                         {
-                            Use = (KeyType)(byte)serviceCert.Use,
+                            Use = (KeyType) (byte) serviceCert.Use,
                             KeyInfo = keyInfo
                         }
                     );
                 }
             }
 
-            if(spOptions.SigningServiceCertificate != null)
+            if (spOptions.SigningServiceCertificate != null)
             {
                 spsso.SingleLogoutServices.Add(new SingleLogoutService(
                     Saml2Binding.HttpRedirectUri, urls.LogoutUrl));

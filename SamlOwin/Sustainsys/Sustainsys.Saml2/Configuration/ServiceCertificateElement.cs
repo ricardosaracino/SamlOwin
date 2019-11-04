@@ -1,4 +1,4 @@
-﻿﻿using System.Configuration;
+﻿using System.Configuration;
 
 namespace Sustainsys.Saml2.Configuration
 {
@@ -13,10 +13,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("status", IsRequired = false, DefaultValue = CertificateStatus.Current)]
         public CertificateStatus Status
         {
-            get
-            {
-                return (CertificateStatus)base["status"];
-            }
+            get { return (CertificateStatus) base["status"]; }
         }
 
         /// <summary>
@@ -25,22 +22,17 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty("use", IsRequired = false, DefaultValue = CertificateUse.Both)]
         public CertificateUse Use
         {
-            get
-            {
-                return (CertificateUse)base["use"];
-            }
+            get { return (CertificateUse) base["use"]; }
         }
 
         /// <summary>
         /// How should we override the metadata publishing rules?
         /// </summary>
-        [ConfigurationProperty("metadataPublishOverride", IsRequired = false, DefaultValue = MetadataPublishOverrideType.None)]
+        [ConfigurationProperty("metadataPublishOverride", IsRequired = false,
+            DefaultValue = MetadataPublishOverrideType.None)]
         public MetadataPublishOverrideType MetadataPublishOverride
         {
-            get
-            {
-                return (MetadataPublishOverrideType)base["metadataPublishOverride"];
-            }
+            get { return (MetadataPublishOverrideType) base["metadataPublishOverride"]; }
         }
     }
 }

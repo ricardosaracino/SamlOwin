@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,17 +16,21 @@ namespace Sustainsys.Saml2.Metadata
 	}
 #endif
 
-	public class AttributeAuthorityDescriptor : RoleDescriptor
-	{
-		public ICollection<AttributeService> AttributeServices { get; private set; } =
-			new Collection<AttributeService>();
-		public ICollection<AssertionIdRequestService> AssertionIdRequestServices { get; private set; } =
-			new Collection<AssertionIdRequestService>();
-		public ICollection<NameIDFormat> NameIDFormats { get; private set; } =
-			new Collection<NameIDFormat>();
-		public ICollection<AttributeProfile> AttributeProfiles { get; private set; } =
-			new Collection<AttributeProfile>();
-		public ICollection<Saml2Attribute> Attributes { get; private set; } =
-			new Collection<Saml2Attribute>();
-	}
+    public class AttributeAuthorityDescriptor : RoleDescriptor
+    {
+        public ICollection<AttributeService> AttributeServices { get; private set; } =
+            new Collection<AttributeService>();
+
+        public ICollection<AssertionIdRequestService> AssertionIdRequestServices { get; private set; } =
+            new Collection<AssertionIdRequestService>();
+
+        public ICollection<NameIDFormat> NameIDFormats { get; private set; } =
+            new Collection<NameIDFormat>();
+
+        public ICollection<AttributeProfile> AttributeProfiles { get; private set; } =
+            new Collection<AttributeProfile>();
+
+        public ICollection<Saml2Attribute> Attributes { get; private set; } =
+            new Collection<Saml2Attribute>();
+    }
 }

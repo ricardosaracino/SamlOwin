@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -41,7 +41,8 @@ namespace Sustainsys.Saml2.Saml2P
         /// <summary>
         /// Unexpected or invalid content was encountered within a saml:Attribute or saml:AttributeValue element.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Attr")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Attr")]
         InvalidAttrNameOrValue = 6,
 
         /// <summary>
@@ -73,7 +74,8 @@ namespace Sustainsys.Saml2.Saml2P
         /// <summary>
         /// Used by a session authority to indicate to a session participant that it was not able to propagate logout to all other session participants.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         PartialLogout = 12,
 
         /// <summary>
@@ -124,7 +126,8 @@ namespace Sustainsys.Saml2.Saml2P
         /// An entity that has no knowledge of a particular attribute profile has been presented with an attribute
         /// drawn from that profile.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Attr")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Attr")]
         UnknownAttrProfile = 21,
 
         /// <summary>

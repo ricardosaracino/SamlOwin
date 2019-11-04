@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -13,6 +13,7 @@ namespace Sustainsys.Saml2.Configuration
     public class FederationElement : ConfigurationElement
     {
         private const string metadataLocation = nameof(metadataLocation);
+
         /// <summary>
         /// Location (url, local path or app relative path such as ~/App_Data)
         /// where metadata is located.
@@ -20,23 +21,18 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(metadataLocation, IsRequired = true)]
         public string MetadataLocation
         {
-            get
-            {
-                return (string)base[metadataLocation];
-            }
+            get { return (string) base[metadataLocation]; }
         }
 
         private const string allowUnsolicitedAuthnResponse = "allowUnsolicitedAuthnResponse";
+
         /// <summary>
         /// Are unsolicited responses from the idps in the federation allowed?
         /// </summary>
         [ConfigurationProperty(allowUnsolicitedAuthnResponse)]
         public bool AllowUnsolicitedAuthnResponse
         {
-            get
-            {
-                return (bool)base[allowUnsolicitedAuthnResponse];
-            }
+            get { return (bool) base[allowUnsolicitedAuthnResponse]; }
         }
 
         /// <summary>
@@ -46,10 +42,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationCollection(typeof(CertificateCollection), AddItemName = "signingCertificate")]
         public CertificateCollection SigningCertificates
         {
-            get
-            {
-                return (CertificateCollection)base[""];
-            }
+            get { return (CertificateCollection) base[""]; }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -51,9 +51,12 @@ namespace Sustainsys.Saml2.WebSso
             return result;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SignIn")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "RelayState")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ReturnUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SignIn")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "RelayState")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "ReturnUrl")]
         private static string GetReturnUrl(HttpRequestData request, IOptions options)
         {
             var returnUrl = request.QueryString["ReturnUrl"].FirstOrDefault();
@@ -62,9 +65,9 @@ namespace Sustainsys.Saml2.WebSso
                 if (request.RelayState != null)
                 {
                     throw new InvalidOperationException("Both a ReturnUrl and a RelayState query " +
-                        "string parameter found in call to SignIn. That is not allowed. If a " +
-                        "RelayState is found the call is a response to a discovery service request. " +
-                        "The ReturnUrl has been added erroneously by the discovery service.");
+                                                        "string parameter found in call to SignIn. That is not allowed. If a " +
+                                                        "RelayState is found the call is a response to a discovery service request. " +
+                                                        "The ReturnUrl has been added erroneously by the discovery service.");
                 }
 
                 options.SPOptions.Logger.WriteVerbose("Extracted ReturnUrl " + returnUrl + " from query string");
@@ -97,7 +100,8 @@ namespace Sustainsys.Saml2.WebSso
         /// <param name="relayData">Data to store and make available when the
         /// ACS command has processed the response.</param>
         /// <returns>Command Result</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2234:PassSystemUriObjectsInsteadOfStrings")]
         public static CommandResult Run(
             EntityId idpEntityId,
             string returnPath,
@@ -125,6 +129,7 @@ namespace Sustainsys.Saml2.WebSso
                         options.SPOptions.Logger.WriteInformation("Redirecting to Discovery Service to select Idp.");
                         return commandResult;
                     }
+
                     idp = options.IdentityProviders.Default;
                     options.SPOptions.Logger.WriteVerbose(
                         "No specific idp requested and no Discovery Service configured. " +
@@ -147,7 +152,8 @@ namespace Sustainsys.Saml2.WebSso
             return InitiateLoginToIdp(options, relayData, urls, idp, returnUrl);
         }
 
-        private static CommandResult InitiateLoginToIdp(IOptions options, IDictionary<string, string> relayData, Saml2Urls urls, IdentityProvider idp, Uri returnUrl)
+        private static CommandResult InitiateLoginToIdp(IOptions options, IDictionary<string, string> relayData,
+            Saml2Urls urls, IdentityProvider idp, Uri returnUrl)
         {
             var authnRequest = idp.CreateAuthenticateRequest(urls);
 

@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +8,8 @@ namespace Sustainsys.Saml2.Configuration
     /// <summary>
     /// Config collection of ServiceCertificateElements.
     /// </summary>
-    public class ServiceCertificateElementCollection : ConfigurationElementCollection, IEnumerable<ServiceCertificateElement>
+    public class ServiceCertificateElementCollection : ConfigurationElementCollection,
+        IEnumerable<ServiceCertificateElement>
     {
         /// <summary>
         /// Create new element of right type.
@@ -44,12 +45,12 @@ namespace Sustainsys.Saml2.Configuration
         /// <param name="options">Current options.</param>
         public void RegisterServiceCertificates(SPOptions options)
         {
-            if(options == null)
+            if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
 
-            foreach(var serviceCertEntry in this)
+            foreach (var serviceCertEntry in this)
             {
                 options.ServiceCertificates.Add(new ServiceCertificate(serviceCertEntry));
             }

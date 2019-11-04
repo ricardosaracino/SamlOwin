@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Exceptions;
+﻿using Sustainsys.Saml2.Exceptions;
 using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
@@ -28,8 +28,8 @@ namespace Sustainsys.Saml2.Saml2P
 
             Status = StatusCodeHelper.FromString(
                 xml["Status", Saml2Namespaces.Saml2PName]
-                ["StatusCode", Saml2Namespaces.Saml2PName]
-                .GetAttribute("Value"));
+                    ["StatusCode", Saml2Namespaces.Saml2PName]
+                    .GetAttribute("Value"));
 
             if (Status == Saml2StatusCode.Success)
             {
@@ -47,7 +47,7 @@ namespace Sustainsys.Saml2.Saml2P
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         public XmlElement GetMessage()
         {
-            if(Status != Saml2StatusCode.Success)
+            if (Status != Saml2StatusCode.Success)
             {
                 throw new UnsuccessfulSamlOperationException(string.Format(
                     CultureInfo.InvariantCulture,

@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.IdentityModel.Tokens.Saml2;
+﻿using Microsoft.IdentityModel.Tokens.Saml2;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,14 +25,8 @@ namespace Sustainsys.Saml2.Saml2P
         /// </summary>
         public Saml2Id Id
         {
-            get
-            {
-                return id;
-            }
-            protected set
-            {
-                id = value;
-            }
+            get { return id; }
+            protected set { id = value; }
         }
 
         /// <summary>
@@ -41,10 +35,7 @@ namespace Sustainsys.Saml2.Saml2P
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public string Version
         {
-            get
-            {
-                return "2.0";
-            }
+            get { return "2.0"; }
         }
 
         private readonly string issueInstant =
@@ -55,10 +46,7 @@ namespace Sustainsys.Saml2.Saml2P
         /// </summary>
         public string IssueInstant
         {
-            get
-            {
-                return issueInstant;
-            }
+            get { return issueInstant; }
         }
 
         /// <summary>
@@ -66,10 +54,7 @@ namespace Sustainsys.Saml2.Saml2P
         /// </summary>
         public string MessageName
         {
-            get
-            {
-                return "SAMLRequest";
-            }
+            get { return "SAMLRequest"; }
         }
 
         /// <summary>
@@ -132,6 +117,7 @@ namespace Sustainsys.Saml2.Saml2P
             {
                 throw new ArgumentNullException(nameof(xml));
             }
+
             ValidateCorrectDocument(xml);
             Id = new Saml2Id(xml.Attributes["ID"].Value);
 
@@ -159,7 +145,7 @@ namespace Sustainsys.Saml2.Saml2P
         private void ValidateCorrectDocument(XmlElement xml)
         {
             if (xml.LocalName != LocalName
-               || xml.NamespaceURI != Saml2Namespaces.Saml2P)
+                || xml.NamespaceURI != Saml2Namespaces.Saml2P)
             {
                 throw new XmlException("Expected a SAML2 authentication request document");
             }
@@ -186,6 +172,7 @@ namespace Sustainsys.Saml2.Saml2P
         /// to the signature processing rules of each binding.
         /// </summary>
         public X509Certificate2 SigningCertificate { get; set; }
+
         /// <summary>
         /// The signing algorithm to use when signing the message during binding, 
         /// according to the signature processing rules of each binding.

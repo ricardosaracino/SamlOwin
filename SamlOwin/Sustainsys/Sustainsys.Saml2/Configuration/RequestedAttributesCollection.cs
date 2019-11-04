@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace Sustainsys.Saml2.Configuration
         /// <returns>The name of the requested attribute.</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((RequestedAttributeElement)element).Name;
+            return ((RequestedAttributeElement) element).Name;
         }
 
         /// <summary>

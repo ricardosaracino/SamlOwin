@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -36,14 +36,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(name, IsRequired = true)]
         public string Name
         {
-            get
-            {
-                return (string)base[name];
-            }
-            set
-            {
-                base[name] = value;
-            }
+            get { return (string) base[name]; }
+            set { base[name] = value; }
         }
 
         const string displayName = "displayName";
@@ -54,14 +48,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(displayName, IsRequired = true)]
         public string DisplayName
         {
-            get
-            {
-                return (string)base[displayName];
-            }
-            set
-            {
-                base[displayName] = value;
-            }
+            get { return (string) base[displayName]; }
+            set { base[displayName] = value; }
         }
 
         const string url = "url";
@@ -72,14 +60,8 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(url, IsRequired = true)]
         public Uri Url
         {
-            get
-            {
-                return (Uri)base[url];
-            }
-            set
-            {
-                base[url] = value;
-            }
+            get { return (Uri) base[url]; }
+            set { base[url] = value; }
         }
 
         const string language = "language";
@@ -90,10 +72,7 @@ namespace Sustainsys.Saml2.Configuration
         [ConfigurationProperty(language)]
         public string Language
         {
-            get
-            {
-                return (string)base[language];
-            }
+            get { return (string) base[language]; }
         }
     }
 }

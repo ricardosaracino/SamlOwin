@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Owin;
+﻿using Sustainsys.Saml2.Owin;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Owin
         /// <param name="app">Owin pipeline builder.</param>
         /// <param name="options">Options for the middleware.</param>
         /// <returns></returns>
-        public static IAppBuilder UseSaml2Authentication(this IAppBuilder app, 
+        public static IAppBuilder UseSaml2Authentication(this IAppBuilder app,
             Saml2AuthenticationOptions options)
         {
             if (app == null)

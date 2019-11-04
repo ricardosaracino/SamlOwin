@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
@@ -13,6 +13,7 @@ namespace Sustainsys.Saml2.Internal
     internal class ClientCertificateWebClient : WebClient
     {
         private readonly IEnumerable<X509Certificate2> certificates;
+
         /// <summary>
         /// Register the certificate to be used for this requets.
         /// </summary>
@@ -21,6 +22,7 @@ namespace Sustainsys.Saml2.Internal
         {
             this.certificates = certificates;
         }
+
         /// <summary>
         /// Override the base class to add the certificate 
         /// to the reuqest before returning it.
@@ -29,14 +31,15 @@ namespace Sustainsys.Saml2.Internal
         /// <returns></returns>
         protected override WebRequest GetWebRequest(Uri address)
         {
-            var request = (HttpWebRequest)base.GetWebRequest(address);
+            var request = (HttpWebRequest) base.GetWebRequest(address);
             if (certificates != null)
             {
-                foreach(var c in certificates)
+                foreach (var c in certificates)
                 {
                     request.ClientCertificates.Add(c);
                 }
             }
+
             return request;
         }
     }

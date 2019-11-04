@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,7 +22,8 @@ namespace Sustainsys.Saml2.Saml2P
     /// </remarks>
     public static class Saml2SoapBinding
     {
-        const string soapFormatString = "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Body>{0}</SOAP-ENV:Body></SOAP-ENV:Envelope>";
+        const string soapFormatString =
+            "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Body>{0}</SOAP-ENV:Body></SOAP-ENV:Envelope>";
 
         /// <summary>
         /// Create a SOAP body around a specified payload.
@@ -71,7 +72,7 @@ namespace Sustainsys.Saml2.Saml2P
             Uri destination,
             IEnumerable<X509Certificate2> clientCertificates)
         {
-            if(destination == null)
+            if (destination == null)
             {
                 throw new ArgumentNullException(nameof(destination));
             }
@@ -83,7 +84,7 @@ namespace Sustainsys.Saml2.Saml2P
                     break;
                 default:
                     throw new ArgumentException("The Uri scheme " + destination.Scheme +
-                        " is not allowed for outbound SOAP messages. Only http or https URLs are allowed.");
+                                                " is not allowed for outbound SOAP messages. Only http or https URLs are allowed.");
             }
 
             var message = CreateSoapBody(payload);

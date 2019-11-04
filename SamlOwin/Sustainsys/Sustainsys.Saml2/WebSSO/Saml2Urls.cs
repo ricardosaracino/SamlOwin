@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Configuration;
+﻿using Sustainsys.Saml2.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +17,20 @@ namespace Sustainsys.Saml2.WebSso
         /// </summary>
         /// <param name="request">Request to get application root url from.</param>
         /// <param name="options">Options to get module path and (optional) notification hooks from.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SignInUrl")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "LogoutUrl")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Saml2Url")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "AssertionConsumerServiceUrl")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ApplicationUrl")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "SignInUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "LogoutUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "Saml2Url")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "AssertionConsumerServiceUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA2204:Literals should be spelled correctly", MessageId = "ApplicationUrl")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+             "CA2208:InstantiateArgumentExceptionsCorrectly"),
+         System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+             "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sp")]
         public Saml2Urls(HttpRequestData request, IOptions options)
         {
             if (request == null)
@@ -35,14 +43,15 @@ namespace Sustainsys.Saml2.WebSso
                 throw new ArgumentNullException(nameof(options));
             }
 
-            var publicOrigin = options.Notifications.GetPublicOrigin(request) ?? options.SPOptions.PublicOrigin ?? request.ApplicationUrl;
+            var publicOrigin = options.Notifications.GetPublicOrigin(request) ??
+                               options.SPOptions.PublicOrigin ?? request.ApplicationUrl;
             Init(publicOrigin, options.SPOptions.ModulePath);
 
             options.SPOptions.Logger.WriteVerbose("Expanded Saml2Url"
-                + "\n  AssertionConsumerServiceUrl: " + AssertionConsumerServiceUrl
-                + "\n  SignInUrl: " + SignInUrl
-                + "\n  LogoutUrl: " + LogoutUrl
-                + "\n  ApplicationUrl: " + ApplicationUrl);
+                                                  + "\n  AssertionConsumerServiceUrl: " + AssertionConsumerServiceUrl
+                                                  + "\n  SignInUrl: " + SignInUrl
+                                                  + "\n  LogoutUrl: " + LogoutUrl
+                                                  + "\n  ApplicationUrl: " + ApplicationUrl);
         }
 
         /// <summary>
@@ -51,8 +60,9 @@ namespace Sustainsys.Saml2.WebSso
         /// </summary>
         /// <param name="applicationUrl">The full Url to the root of the application.</param>
         /// <param name="modulePath">Path of module, starting with / and ending without.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Design", "CA1057:StringUriOverloadsCallSystemUriOverloads"
-            , Justification = "Incorrect warning. modulePath isn't a string representation of a Uri" )]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1057:StringUriOverloadsCallSystemUriOverloads"
+            , Justification = "Incorrect warning. modulePath isn't a string representation of a Uri")]
         public Saml2Urls(Uri applicationUrl, string modulePath)
         {
             if (applicationUrl == null)
@@ -94,7 +104,7 @@ namespace Sustainsys.Saml2.WebSso
                 throw new ArgumentException("modulePath should start with /.");
             }
 
-            if(!publicOrigin.AbsoluteUri.EndsWith("/", StringComparison.Ordinal))
+            if (!publicOrigin.AbsoluteUri.EndsWith("/", StringComparison.Ordinal))
             {
                 publicOrigin = new Uri(publicOrigin.AbsoluteUri + "/");
             }
@@ -117,7 +127,7 @@ namespace Sustainsys.Saml2.WebSso
         /// location for idp discovery.
         /// </summary>
         public Uri SignInUrl { get; private set; }
-        
+
         /// <summary>
         /// The full url of the application root. Used as default redirect
         /// location after logout.
@@ -127,7 +137,8 @@ namespace Sustainsys.Saml2.WebSso
         /// <summary>
         /// The full url of the logout command.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId =
+            "Logout")]
         public Uri LogoutUrl { get; internal set; }
     }
 }

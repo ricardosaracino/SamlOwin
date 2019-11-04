@@ -1,6 +1,6 @@
-﻿﻿namespace Sustainsys.Saml2.Metadata
+﻿namespace Sustainsys.Saml2.Metadata
 {
-	public class PassiveRequestorEndpoint : Endpoint
-	{
-	}
+    public class PassiveRequestorEndpoint : Endpoint
+    {
+    }
 }

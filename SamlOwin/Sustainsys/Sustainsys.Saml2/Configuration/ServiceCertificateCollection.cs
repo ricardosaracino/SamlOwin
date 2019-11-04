@@ -1,4 +1,4 @@
-﻿﻿using Sustainsys.Saml2.Internal;
+﻿using Sustainsys.Saml2.Internal;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
@@ -12,7 +12,7 @@ namespace Sustainsys.Saml2.Configuration
     /// Certificates used by the service provider for signing, decryption and
     /// TLS client certificates for artifact resolve.
     /// </summary>
-    public class ServiceCertificateCollection: Collection<ServiceCertificate>
+    public class ServiceCertificateCollection : Collection<ServiceCertificate>
     {
         /// <summary>
         /// Add a certificate to the collection with default status use and
@@ -39,16 +39,19 @@ namespace Sustainsys.Saml2.Configuration
 
             if (!item.Certificate.HasPrivateKey)
             {
-                throw new ArgumentException(@"Provided certificate is not valid because it does not contain a private key.");
+                throw new ArgumentException(
+                    @"Provided certificate is not valid because it does not contain a private key.");
             }
 
             if (item.Use == CertificateUse.Encryption || item.Use == CertificateUse.Both)
             {
                 if (!CertificateWorksForDecryption(item.Certificate))
                 {
-                    throw new ArgumentException(@"Provided certificate is not valid for encryption/decryption. There may be insufficient permissions to its private key in the windows certificate store or the certificate itself may not have the correct purposes. If you only want to use it for signing, set the Use property to Signing (CertificateUse.Signing).");
+                    throw new ArgumentException(
+                        @"Provided certificate is not valid for encryption/decryption. There may be insufficient permissions to its private key in the windows certificate store or the certificate itself may not have the correct purposes. If you only want to use it for signing, set the Use property to Signing (CertificateUse.Signing).");
                 }
             }
+
             base.InsertItem(index, item);
         }
 
@@ -66,6 +69,7 @@ namespace Sustainsys.Saml2.Configuration
             {
                 return false;
             }
+
             return true;
         }
     }

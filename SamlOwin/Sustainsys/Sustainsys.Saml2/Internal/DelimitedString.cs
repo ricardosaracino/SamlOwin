@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,8 +32,8 @@ namespace Sustainsys.Saml2.Internal
                 DelimiterString,
                 strings.Select(
                     s => s
-                    .Replace(EscapeString, EscapeString + EscapeString)
-                    .Replace(DelimiterString, EscapeString + DelimiterString)));
+                        .Replace(EscapeString, EscapeString + EscapeString)
+                        .Replace(DelimiterString, EscapeString + DelimiterString)));
         }
 
         /// <summary>
