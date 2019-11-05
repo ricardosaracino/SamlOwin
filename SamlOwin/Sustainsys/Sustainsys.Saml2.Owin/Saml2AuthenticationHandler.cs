@@ -123,18 +123,11 @@ namespace Sustainsys.Saml2.Owin
                         idp = objIdp as EntityId;
                     }
 
-                    var redirectUri = challenge.Properties.RedirectUri;
                     // Don't serialize the RedirectUri twice.
                     challenge.Properties.RedirectUri = null;
-
-                    if (redirectUri == null)
-                    {
-                        redirectUri = Context.Request.Uri.ToString();
-                    }
-
+                    
                     var result = SignInCommand.Run(
                         idp,
-                        redirectUri,
                         await Context.ToHttpRequestData(Options.DataProtector.Unprotect),
                         Options,
                         challenge.Properties.Dictionary);

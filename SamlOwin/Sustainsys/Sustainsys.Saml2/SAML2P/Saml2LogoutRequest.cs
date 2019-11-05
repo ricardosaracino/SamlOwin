@@ -3,10 +3,12 @@ using Sustainsys.Saml2.Saml2P;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using Sustainsys.Saml2.Internal;
 
 namespace Sustainsys.Saml2.Saml2P
 {
@@ -91,7 +93,7 @@ namespace Sustainsys.Saml2.Saml2P
         /// Serializes the message into wellformed Xml.
         /// </summary>
         /// <returns>string containing the Xml data.</returns>
-        public override string ToXml()
+        public string ToXmlOld()
         {
             var x = new XElement(Saml2Namespaces.Saml2P + LocalName);
 
@@ -102,6 +104,71 @@ namespace Sustainsys.Saml2.Saml2P
                 SessionIndex));
 
             return x.ToString();
+        }
+
+        /// <summary>
+        /// https://gist.github.com/rarous/3150395
+        /// </summary>
+        /// <returns></returns>
+        public override string ToXml()
+        {
+            var x = new XElement(Saml2Namespaces.Saml2P + LocalName);
+
+            x.Add(base.ToXNodes());
+            
+            var doc = new XmlDocument {PreserveWhitespace = true};
+
+            doc.Load(x.CreateReader()); // https://gist.github.com/ChuckSavage/4991478
+
+            var encryptedIdElement = doc.CreateElement("EncryptedID");
+
+            doc.DocumentElement.AppendChild(encryptedIdElement);
+            
+            var encryptedDataElement = doc.CreateElement("EncryptedData");
+
+            encryptedIdElement.AppendChild(encryptedDataElement);
+            
+            var encNameIdElement = doc.ImportNode(ToXmlElement(NameId.ToXElement()), true);
+
+            encryptedDataElement.AppendChild(encNameIdElement);
+
+            encryptedDataElement.Encrypt(false, FindFirstByFriendlyName("GCCF Encryption", "1CA-AC1"));
+            
+            var sessionIndexElement = ToXmlElement(new XElement(Saml2Namespaces.Saml2P + "SessionIndex", SessionIndex));
+            
+            var sessionIndexElementCopy = doc.ImportNode(sessionIndexElement, true);
+
+            doc.DocumentElement.AppendChild(sessionIndexElementCopy);
+            
+            return doc.OuterXml;
+        }
+
+        public static XmlElement ToXmlElement(XElement el)
+        {
+            var doc = new XmlDocument();
+            doc.Load(el.CreateReader());
+            return doc.DocumentElement;
+        }
+
+        private static X509Certificate2 FindFirstByFriendlyName(string friendlyName, string issuerName = null)
+        {
+            var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+
+            store.Open(OpenFlags.ReadOnly);
+
+            var certificates = issuerName == null
+                ? store.Certificates
+                : store.Certificates.Find(X509FindType.FindByIssuerName, issuerName, false);
+
+            foreach (var certificate in certificates)
+            {
+                if (certificate.FriendlyName != friendlyName) continue;
+                store.Close();
+                return certificate;
+            }
+
+            store.Close();
+            return null;
         }
     }
 }

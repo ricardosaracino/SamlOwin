@@ -33,12 +33,9 @@ namespace Sustainsys.Saml2.WebSso
             {
                 throw new ArgumentNullException(nameof(options));
             }
-
-            var returnUrl = GetReturnUrl(request, options);
-
+            
             var result = Run(
                 new EntityId(request.QueryString["idp"].FirstOrDefault()),
-                returnUrl,
                 request,
                 options,
                 request.StoredRequestState?.RelayData);
@@ -50,61 +47,21 @@ namespace Sustainsys.Saml2.WebSso
 
             return result;
         }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
-            "CA2204:Literals should be spelled correctly", MessageId = "SignIn")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
-            "CA2204:Literals should be spelled correctly", MessageId = "RelayState")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
-            "CA2204:Literals should be spelled correctly", MessageId = "ReturnUrl")]
-        private static string GetReturnUrl(HttpRequestData request, IOptions options)
-        {
-            var returnUrl = request.QueryString["ReturnUrl"].FirstOrDefault();
-            if (returnUrl != null)
-            {
-                if (request.RelayState != null)
-                {
-                    throw new InvalidOperationException("Both a ReturnUrl and a RelayState query " +
-                                                        "string parameter found in call to SignIn. That is not allowed. If a " +
-                                                        "RelayState is found the call is a response to a discovery service request. " +
-                                                        "The ReturnUrl has been added erroneously by the discovery service.");
-                }
-
-                options.SPOptions.Logger.WriteVerbose("Extracted ReturnUrl " + returnUrl + " from query string");
-                if (!PathHelper.IsLocalWebUrl(returnUrl))
-                {
-                    if (!options.Notifications.ValidateAbsoluteReturnUrl(returnUrl))
-                    {
-                        throw new InvalidOperationException("Return Url must be a relative Url.");
-                    }
-                }
-            }
-
-            if (request.StoredRequestState != null)
-            {
-                returnUrl = request.StoredRequestState.ReturnUrl?.OriginalString;
-            }
-
-            return returnUrl;
-        }
+        
+ 
 
         /// <summary>
         /// Initiate the sign in sequence.
         /// </summary>
         /// <param name="idpEntityId">Entity id of idp to sign in to, or
         /// null to use default (discovery service if configured)</param>
-        /// <param name="returnPath">Path to redirect to when the sign in
-        /// is complete.</param>
         /// <param name="request">The incoming http request.</param>
         /// <param name="options">Options.</param>
         /// <param name="relayData">Data to store and make available when the
         /// ACS command has processed the response.</param>
         /// <returns>Command Result</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
-            "CA2234:PassSystemUriObjectsInsteadOfStrings")]
         public static CommandResult Run(
             EntityId idpEntityId,
-            string returnPath,
             HttpRequestData request,
             IOptions options,
             IDictionary<string, string> relayData)
@@ -124,7 +81,7 @@ namespace Sustainsys.Saml2.WebSso
                 {
                     if (options.SPOptions.DiscoveryServiceUrl != null)
                     {
-                        var commandResult = RedirectToDiscoveryService(returnPath, options.SPOptions, urls, relayData);
+                        var commandResult = RedirectToDiscoveryService(null, options.SPOptions, urls, relayData);
                         options.Notifications.SignInCommandResultCreated(commandResult, relayData);
                         options.SPOptions.Logger.WriteInformation("Redirecting to Discovery Service to select Idp.");
                         return commandResult;
@@ -144,16 +101,22 @@ namespace Sustainsys.Saml2.WebSso
                 }
             }
 
-            var returnUrl = string.IsNullOrEmpty(returnPath)
-                ? null
-                : new Uri(returnPath, UriKind.RelativeOrAbsolute);
+            var returnUrl = request.QueryString["returnUrl"].FirstOrDefault();
+            var errorUrl = request.QueryString["errorUrl"].FirstOrDefault();
+            var unauthorizedUrl = request.QueryString["unauthorizedUrl"].FirstOrDefault();
+                
+            if (returnUrl != null)
+            {
+                // some hacks
+                options.SPOptions.ReturnUrl = new Uri($"{options.SPOptions.ReturnUrl.GetLeftPart(UriPartial.Path)}?returnUrl={returnUrl}&errorUrl={errorUrl}unauthorizedUrl={unauthorizedUrl}");
+            }
 
             options.SPOptions.Logger.WriteInformation("Initiating login to " + idp.EntityId.Id);
-            return InitiateLoginToIdp(options, relayData, urls, idp, returnUrl);
+            return InitiateLoginToIdp(options, relayData, urls, idp);
         }
 
         private static CommandResult InitiateLoginToIdp(IOptions options, IDictionary<string, string> relayData,
-            Saml2Urls urls, IdentityProvider idp, Uri returnUrl)
+            Saml2Urls urls, IdentityProvider idp)
         {
             var authnRequest = idp.CreateAuthenticateRequest(urls);
 
@@ -162,7 +125,7 @@ namespace Sustainsys.Saml2.WebSso
             var commandResult = idp.Bind(authnRequest);
 
             commandResult.RequestState = new StoredRequestState(
-                idp.EntityId, returnUrl, authnRequest.Id, relayData);
+                idp.EntityId, null, authnRequest.Id, relayData);
             commandResult.SetCookieName = StoredRequestState.CookieNameBase + authnRequest.RelayState;
 
             options.Notifications.SignInCommandResultCreated(commandResult, relayData);
