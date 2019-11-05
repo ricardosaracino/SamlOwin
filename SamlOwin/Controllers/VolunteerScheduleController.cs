@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -30,7 +29,7 @@ namespace SamlOwin.Controllers
         /// Finds the Volunteer Schedules assigned to Current User
         /// </summary>
         [HttpGet, Route("")]
-        public WebApiSuccessResponse<List<VolunteerScheduleResponse>> FindAll()
+        public WebApiSuccessResponse<List<VolunteerScheduleResponse>> FindAll([FromUri] ScheduleCalendarRequestParams requestParams)
         {
             var queryable = from volunteerScheduleEntity in _ctx.csc_ScheduleSet
                 join scheduledActivityEntity in _ctx.csc_ScheduledActivitySet on volunteerScheduleEntity
@@ -41,7 +40,9 @@ namespace SamlOwin.Controllers
                 join activityTypeEntity in _ctx.csc_ActivityTypeSet on scheduledActivityEntity.csc_ActivityType.Id
                     equals
                     activityTypeEntity.Id
-                where volunteerScheduleEntity.csc_Volunteer.Id.Equals(User.Identity.GetVolunteerId())
+                where volunteerScheduleEntity.csc_Volunteer.Id == User.Identity.GetVolunteerId()
+                where volunteerScheduleEntity.csc_ShiftStart >= requestParams.StartDate
+                where volunteerScheduleEntity.csc_ShiftEnd <= requestParams.EndDate
                 select new {volunteerScheduleEntity, locationEntity, activityTypeEntity};
 
             return new WebApiSuccessResponse<List<VolunteerScheduleResponse>>
@@ -53,6 +54,22 @@ namespace SamlOwin.Controllers
                         ScheduledActivityType = _mapper.Map<ScheduledActivityTypeResponse>(result.activityTypeEntity),
                     }))
             };
+        }
+        
+        
+        /// <summary>
+        /// Updates the Volunteer Schedule assigned to the Current User
+        /// </summary>
+        [HttpPost, Route("")]
+        public WebApiSuccessResponse Save(VolunteerRequest volunteerRequest)
+        {
+            //var volunteerEntity = GetVolunteerEntityById(User.Identity.GetVolunteerId());
+
+            //_ctx.UpdateObject(_mapper.Map(volunteerRequest, volunteerEntity));
+
+            //_ctx.SaveChanges();
+
+            return new WebApiSuccessResponse();
         }
     }
 }

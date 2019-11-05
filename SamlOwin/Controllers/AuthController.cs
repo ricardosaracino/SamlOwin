@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -10,13 +7,17 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SamlOwin.GuidIdentity;
 using SamlOwin.Handlers;
+using SamlOwin.Models;
 
 namespace SamlOwin.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {
         private readonly ApplicationSignInManager _signInManager;
+
+        private const string BaseUrl = "https://dev-ep-pe.csc-scc.gc.ca";
 
         public AuthController()
         {
@@ -27,73 +28,50 @@ namespace SamlOwin.Controllers
             HttpContext.Current.GetOwinContext().Authentication;
 
         /// <summary>
-        /// Creates Application Cookie
+        /// Creates Application Cookie, Redirects
         /// </summary>
         /// <param name="returnUrl"></param>
-        /// <returns></returns>
+        /// <returns>RedirectActionResult</returns>
         [AllowAnonymous]
         [HttpGet, Route("saml2/callback")]
-        public async Task<HttpResponseMessage> SigninCallback(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/en/")
+        public async Task<RedirectActionResult> SigninCallback(string returnUrl = null)
         {
             /**
              * Could create a session in SamlOwin.Identity.ApplicationSignInManager.CreateUserIdentityAsync
              * and have it checked and deleted on soap logout
              */
-            var response = Request.CreateResponse(HttpStatusCode.Redirect);
-            response.Headers.Location = new Uri(returnUrl);
 
             // refreshing url will be null
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
 
             if (loginInfo == null)
             {
-                // i think the url has a error message on it
-                response.Headers.Location =
-                    new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/error?error=ExternalLoginInfo");
-                return response;
+                return new RedirectActionResult($"{BaseUrl}/en/bad-request?error=ExternalLoginInfo");
             }
 
             // If IsPersistent property of AuthenticationProperties is set to false, then the cookie expiration time is set to Session.
             var signInStatus = await _signInManager.ExternalSignInAsync(loginInfo, true);
+
+            if (signInStatus != SignInStatus.Success)
+            {
+                return new RedirectActionResult($"{BaseUrl}/en/bad-request?error={signInStatus:G}");
+            }
 
             // required for saml2 single sign out
             AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
 
             GccfAuthorizationFilter.RegisterSession(loginInfo.ExternalIdentity);
 
-            switch (signInStatus)
-            {
-                // user null
-                case SignInStatus.Failure:
-                    response.Headers.Location = new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/error?error=Failure");
-                    break;
-                case SignInStatus.LockedOut:
-                    response.Headers.Location =
-                        new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/error?error=LockedOut");
-                    break;
-                case SignInStatus.RequiresVerification:
-                    response.Headers.Location =
-                        new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/error?error=RequiresVerification");
-                    break;
-                case SignInStatus.Success:
-                    break;
-                default:
-                    response.Headers.Location =
-                        new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/error?error=RequiresVerification");
-                    break;
-            }
-
-            return response;
+            return new RedirectActionResult(returnUrl ?? $"{BaseUrl}/en/#SignIn");
         }
 
         /// <summary>
-        /// Removes Application Cookie
+        /// Removes Application Cookie, Redirects
         /// </summary>
         /// <param name="returnUrl"></param>
-        /// <returns></returns>
-        [Authorize]
+        /// <returns>RedirectActionResult</returns>
         [HttpGet, Route("logout")]
-        public HttpResponseMessage Logout(string returnUrl = "https://dev-ep-pe.csc-scc.gc.ca/en/")
+        public RedirectActionResult Logout(string returnUrl = null)
         {
             // triggers the saml2 sign out
             AuthenticationManager.SignOut();
@@ -101,24 +79,27 @@ namespace SamlOwin.Controllers
             // Dont clear Current.User needed for sign out
             GccfAuthorizationFilter.DeregisterSession();
 
-            var response = Request.CreateResponse(HttpStatusCode.Redirect);
-            response.Headers.Location = new Uri(returnUrl);
-
-            return response;
+            return new RedirectActionResult(returnUrl ?? $"{BaseUrl}/en/#SignOut");
         }
 
-        [Authorize]
-        [HttpGet, Route("ping")]
-        public Dictionary<string, string> Ping()
+        /// <summary>
+        /// User Claims
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("claims")]
+        public Dictionary<string, string> Claims()
         {
             return AuthenticationManager.User.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
         }
 
-        [AllowAnonymous]
-        [HttpGet, Route("error")]
-        public string Error()
+        /// <summary>
+        /// Ping
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("ping")]
+        public WebApiSuccessResponse Ping()
         {
-            return ":(";
+            return new WebApiSuccessResponse();
         }
     }
 }
