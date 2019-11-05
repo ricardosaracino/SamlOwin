@@ -56,6 +56,7 @@ namespace CrmEarlyBound
 			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
 			public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
+			public const string csc_csc_country_csc_provinceorstate_Country = "csc_csc_country_csc_provinceorstate_Country";
 		}
 		
 		/// <summary>
@@ -578,6 +579,27 @@ namespace CrmEarlyBound
 				this.OnPropertyChanging("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province");
 				this.SetRelatedEntities<CrmEarlyBound.csc_VolunteerEmergencyContact>("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province", null, value);
 				this.OnPropertyChanged("csc_csc_provinceorstate_csc_volunteeremergencycontact_Province");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_country_csc_provinceorstate_Country
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_country")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_country_csc_provinceorstate_Country")]
+		public CrmEarlyBound.csc_Country csc_csc_country_csc_provinceorstate_Country
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Country>("csc_csc_country_csc_provinceorstate_Country", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_country_csc_provinceorstate_Country");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Country>("csc_csc_country_csc_provinceorstate_Country", null, value);
+				this.OnPropertyChanged("csc_csc_country_csc_provinceorstate_Country");
 			}
 		}
 		

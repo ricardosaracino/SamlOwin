@@ -30,6 +30,18 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_ActivityType"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_ActivityType> csc_ActivityTypeSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_ActivityType>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Country"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<CrmEarlyBound.csc_Country> csc_CountrySet
@@ -110,6 +122,30 @@ namespace CrmEarlyBound
 			get
 			{
 				return this.CreateQuery<CrmEarlyBound.csc_Region>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_Schedule"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_Schedule> csc_ScheduleSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_Schedule>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CrmEarlyBound.csc_ScheduledActivity"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CrmEarlyBound.csc_ScheduledActivity> csc_ScheduledActivitySet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CrmEarlyBound.csc_ScheduledActivity>();
 			}
 		}
 		

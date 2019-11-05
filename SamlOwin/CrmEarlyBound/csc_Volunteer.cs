@@ -149,8 +149,13 @@ namespace CrmEarlyBound
 			public const string traversedpath = "traversedpath";
 			public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
+			public const string csc_csc_country_csc_volunteer_HomeAddressCountry = "csc_csc_country_csc_volunteer_HomeAddressCountry";
+			public const string csc_csc_country_csc_volunteer_MailingAddressCountry = "csc_csc_country_csc_volunteer_MailingAddressCountry";
+			public const string csc_csc_location_csc_volunteer_AdminLocation = "csc_csc_location_csc_volunteer_AdminLocation";
+			public const string csc_csc_nationality_csc_volunteer_Citizenship = "csc_csc_nationality_csc_volunteer_Citizenship";
 			public const string csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState = "csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState";
 			public const string csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState = "csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState";
+			public const string csc_csc_region_csc_volunteer_Region = "csc_csc_region_csc_volunteer_Region";
 			public const string csc_csc_volunteerapplication_csc_volunteer = "csc_csc_volunteerapplication_csc_volunteer";
 		}
 		
@@ -2407,6 +2412,26 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// 1:N csc_csc_volunteer_csc_schedule_Volunteer
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_schedule_Volunteer")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_Schedule> csc_csc_volunteer_csc_schedule_Volunteer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_Schedule>("csc_csc_volunteer_csc_schedule_Volunteer", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_volunteer_csc_schedule_Volunteer");
+				this.SetRelatedEntities<CrmEarlyBound.csc_Schedule>("csc_csc_volunteer_csc_schedule_Volunteer", null, value);
+				this.OnPropertyChanged("csc_csc_volunteer_csc_schedule_Volunteer");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N csc_csc_volunteer_csc_volunteerapplication_CancelledBy
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_volunteer_csc_volunteerapplication_CancelledBy")]
@@ -2507,6 +2532,90 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// N:1 csc_csc_country_csc_volunteer_HomeAddressCountry
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_homeaddresscountry")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_country_csc_volunteer_HomeAddressCountry")]
+		public CrmEarlyBound.csc_Country csc_csc_country_csc_volunteer_HomeAddressCountry
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Country>("csc_csc_country_csc_volunteer_HomeAddressCountry", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_country_csc_volunteer_HomeAddressCountry");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Country>("csc_csc_country_csc_volunteer_HomeAddressCountry", null, value);
+				this.OnPropertyChanged("csc_csc_country_csc_volunteer_HomeAddressCountry");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_country_csc_volunteer_MailingAddressCountry
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_mailingaddresscountry")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_country_csc_volunteer_MailingAddressCountry")]
+		public CrmEarlyBound.csc_Country csc_csc_country_csc_volunteer_MailingAddressCountry
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Country>("csc_csc_country_csc_volunteer_MailingAddressCountry", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_country_csc_volunteer_MailingAddressCountry");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Country>("csc_csc_country_csc_volunteer_MailingAddressCountry", null, value);
+				this.OnPropertyChanged("csc_csc_country_csc_volunteer_MailingAddressCountry");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_location_csc_volunteer_AdminLocation
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_adminlocation")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_location_csc_volunteer_AdminLocation")]
+		public CrmEarlyBound.csc_Location csc_csc_location_csc_volunteer_AdminLocation
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Location>("csc_csc_location_csc_volunteer_AdminLocation", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_location_csc_volunteer_AdminLocation");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Location>("csc_csc_location_csc_volunteer_AdminLocation", null, value);
+				this.OnPropertyChanged("csc_csc_location_csc_volunteer_AdminLocation");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_nationality_csc_volunteer_Citizenship
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_citizenship")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_nationality_csc_volunteer_Citizenship")]
+		public CrmEarlyBound.csc_Nationality csc_csc_nationality_csc_volunteer_Citizenship
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Nationality>("csc_csc_nationality_csc_volunteer_Citizenship", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_nationality_csc_volunteer_Citizenship");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Nationality>("csc_csc_nationality_csc_volunteer_Citizenship", null, value);
+				this.OnPropertyChanged("csc_csc_nationality_csc_volunteer_Citizenship");
+			}
+		}
+		
+		/// <summary>
 		/// N:1 csc_csc_provinceorstate_csc_volunteer_HomeAddressProvinceOrState
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_homeaddressprovinceorstate")]
@@ -2545,6 +2654,27 @@ namespace CrmEarlyBound
 				this.OnPropertyChanging("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState");
 				this.SetRelatedEntity<CrmEarlyBound.csc_ProvinceOrState>("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState", null, value);
 				this.OnPropertyChanged("csc_csc_provinceorstate_csc_volunteer_MailingAddressProvinceOrState");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 csc_csc_region_csc_volunteer_Region
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_region")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_region_csc_volunteer_Region")]
+		public CrmEarlyBound.csc_Region csc_csc_region_csc_volunteer_Region
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CrmEarlyBound.csc_Region>("csc_csc_region_csc_volunteer_Region", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_region_csc_volunteer_Region");
+				this.SetRelatedEntity<CrmEarlyBound.csc_Region>("csc_csc_region_csc_volunteer_Region", null, value);
+				this.OnPropertyChanged("csc_csc_region_csc_volunteer_Region");
 			}
 		}
 		

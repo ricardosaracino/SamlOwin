@@ -12,7 +12,7 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
-	public enum csc_RegionState
+	public enum csc_ActivityTypeState
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -23,12 +23,12 @@ namespace CrmEarlyBound
 	}
 	
 	/// <summary>
-	/// Lookup table to store the CSC Regions
+	/// Lookup table to store the Volunteer Activity types
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("csc_region")]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("csc_activitytype")]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
-	public partial class csc_Region : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class csc_ActivityType : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		public static class Fields
@@ -36,12 +36,15 @@ namespace CrmEarlyBound
 			public const string CreatedBy = "createdby";
 			public const string CreatedOn = "createdon";
 			public const string CreatedOnBehalfBy = "createdonbehalfby";
-			public const string csc_Description = "csc_description";
+			public const string csc_ActivityCategory = "csc_activitycategory";
+			public const string csc_ActivityTypeCode = "csc_activitytypecode";
+			public const string csc_ActivityTypeEnglish = "csc_activitytypeenglish";
+			public const string csc_ActivityTypeFrench = "csc_activitytypefrench";
+			public const string csc_ActivityTypeId = "csc_activitytypeid";
+			public const string Id = "csc_activitytypeid";
 			public const string csc_name = "csc_name";
-			public const string csc_NameEn = "csc_nameen";
-			public const string csc_NameFr = "csc_namefr";
-			public const string csc_RegionId = "csc_regionid";
-			public const string Id = "csc_regionid";
+			public const string csc_NameEN = "csc_nameen";
+			public const string csc_NameFR = "csc_namefr";
 			public const string ImportSequenceNumber = "importsequencenumber";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedOn = "modifiedon";
@@ -62,20 +65,20 @@ namespace CrmEarlyBound
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public csc_Region() : 
+		public csc_ActivityType() : 
 				base(EntityLogicalName)
 		{
 		}
 		
-		public const string EntityLogicalName = "csc_region";
+		public const string EntityLogicalName = "csc_activitytype";
 		
-		public const string EntitySchemaName = "csc_Region";
+		public const string EntitySchemaName = "csc_ActivityType";
 		
-		public const string PrimaryIdAttribute = "csc_regionid";
+		public const string PrimaryIdAttribute = "csc_activitytypeid";
 		
 		public const string PrimaryNameAttribute = "csc_name";
 		
-		public const int EntityTypeCode = 10072;
+		public const int EntityTypeCode = 10063;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -148,20 +151,123 @@ namespace CrmEarlyBound
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_description")]
-		public string csc_Description
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_activitycategory")]
+		public Microsoft.Xrm.Sdk.EntityReference csc_ActivityCategory
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("csc_description");
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("csc_activitycategory");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_Description");
-				this.SetAttributeValue("csc_description", value);
-				this.OnPropertyChanged("csc_Description");
+				this.OnPropertyChanging("csc_ActivityCategory");
+				this.SetAttributeValue("csc_activitycategory", value);
+				this.OnPropertyChanged("csc_ActivityCategory");
+			}
+		}
+		
+		/// <summary>
+		/// Code to Uniquely Identify this record
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_activitytypecode")]
+		public string csc_ActivityTypeCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("csc_activitytypecode");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_ActivityTypeCode");
+				this.SetAttributeValue("csc_activitytypecode", value);
+				this.OnPropertyChanged("csc_ActivityTypeCode");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_activitytypeenglish")]
+		public string csc_ActivityTypeEnglish
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("csc_activitytypeenglish");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_ActivityTypeEnglish");
+				this.SetAttributeValue("csc_activitytypeenglish", value);
+				this.OnPropertyChanged("csc_ActivityTypeEnglish");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_activitytypefrench")]
+		public string csc_ActivityTypeFrench
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("csc_activitytypefrench");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_ActivityTypeFrench");
+				this.SetAttributeValue("csc_activitytypefrench", value);
+				this.OnPropertyChanged("csc_ActivityTypeFrench");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_activitytypeid")]
+		public System.Nullable<System.Guid> csc_ActivityTypeId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("csc_activitytypeid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_ActivityTypeId");
+				this.SetAttributeValue("csc_activitytypeid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("csc_ActivityTypeId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_activitytypeid")]
+		public override System.Guid Id
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return base.Id;
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.csc_ActivityTypeId = value;
 			}
 		}
 		
@@ -186,10 +292,10 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// 
+		/// English Name - Use for Localization
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_nameen")]
-		public string csc_NameEn
+		public string csc_NameEN
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -199,17 +305,17 @@ namespace CrmEarlyBound
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_NameEn");
+				this.OnPropertyChanging("csc_NameEN");
 				this.SetAttributeValue("csc_nameen", value);
-				this.OnPropertyChanged("csc_NameEn");
+				this.OnPropertyChanged("csc_NameEN");
 			}
 		}
 		
 		/// <summary>
-		/// 
+		/// French Name - Used for Localization
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_namefr")]
-		public string csc_NameFr
+		public string csc_NameFR
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -219,52 +325,9 @@ namespace CrmEarlyBound
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_NameFr");
+				this.OnPropertyChanging("csc_NameFR");
 				this.SetAttributeValue("csc_namefr", value);
-				this.OnPropertyChanged("csc_NameFr");
-			}
-		}
-		
-		/// <summary>
-		/// Unique identifier for entity instances
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_regionid")]
-		public System.Nullable<System.Guid> csc_RegionId
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<System.Guid>>("csc_regionid");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_RegionId");
-				this.SetAttributeValue("csc_regionid", value);
-				if (value.HasValue)
-				{
-					base.Id = value.Value;
-				}
-				else
-				{
-					base.Id = System.Guid.Empty;
-				}
-				this.OnPropertyChanged("csc_RegionId");
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("csc_regionid")]
-		public override System.Guid Id
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return base.Id;
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.csc_RegionId = value;
+				this.OnPropertyChanged("csc_NameFR");
 			}
 		}
 		
@@ -414,10 +477,10 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Status of the Region
+		/// Status of the Activity Type
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CrmEarlyBound.csc_RegionState> StateCode
+		public System.Nullable<CrmEarlyBound.csc_ActivityTypeState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -425,7 +488,7 @@ namespace CrmEarlyBound
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CrmEarlyBound.csc_RegionState)(System.Enum.ToObject(typeof(CrmEarlyBound.csc_RegionState), optionSet.Value)));
+					return ((CrmEarlyBound.csc_ActivityTypeState)(System.Enum.ToObject(typeof(CrmEarlyBound.csc_ActivityTypeState), optionSet.Value)));
 				}
 				else
 				{
@@ -449,7 +512,7 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// Reason for the status of the Region
+		/// Reason for the status of the Activity Type
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
 		public Microsoft.Xrm.Sdk.OptionSetValue StatusCode
@@ -522,82 +585,22 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
-		/// 1:N csc_csc_region_csc_location_Region
+		/// 1:N csc_csc_activitytype_csc_scheduledactivity_ActivityType
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_region_csc_location_Region")]
-		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_Location> csc_csc_region_csc_location_Region
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_activitytype_csc_scheduledactivity_ActivityType")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_ScheduledActivity> csc_csc_activitytype_csc_scheduledactivity_ActivityType
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CrmEarlyBound.csc_Location>("csc_csc_region_csc_location_Region", null);
+				return this.GetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_activitytype_csc_scheduledactivity_ActivityType", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("csc_csc_region_csc_location_Region");
-				this.SetRelatedEntities<CrmEarlyBound.csc_Location>("csc_csc_region_csc_location_Region", null, value);
-				this.OnPropertyChanged("csc_csc_region_csc_location_Region");
-			}
-		}
-		
-		/// <summary>
-		/// 1:N csc_csc_region_csc_scheduledactivity_Region
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_region_csc_scheduledactivity_Region")]
-		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_ScheduledActivity> csc_csc_region_csc_scheduledactivity_Region
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_region_csc_scheduledactivity_Region", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_csc_region_csc_scheduledactivity_Region");
-				this.SetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_region_csc_scheduledactivity_Region", null, value);
-				this.OnPropertyChanged("csc_csc_region_csc_scheduledactivity_Region");
-			}
-		}
-		
-		/// <summary>
-		/// 1:N csc_csc_region_csc_volunteer_Region
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_region_csc_volunteer_Region")]
-		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_Volunteer> csc_csc_region_csc_volunteer_Region
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<CrmEarlyBound.csc_Volunteer>("csc_csc_region_csc_volunteer_Region", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_csc_region_csc_volunteer_Region");
-				this.SetRelatedEntities<CrmEarlyBound.csc_Volunteer>("csc_csc_region_csc_volunteer_Region", null, value);
-				this.OnPropertyChanged("csc_csc_region_csc_volunteer_Region");
-			}
-		}
-		
-		/// <summary>
-		/// 1:N csc_csc_region_csc_volunteerapplication
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_region_csc_volunteerapplication")]
-		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_VolunteerApplication> csc_csc_region_csc_volunteerapplication
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_region_csc_volunteerapplication", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("csc_csc_region_csc_volunteerapplication");
-				this.SetRelatedEntities<CrmEarlyBound.csc_VolunteerApplication>("csc_csc_region_csc_volunteerapplication", null, value);
-				this.OnPropertyChanged("csc_csc_region_csc_volunteerapplication");
+				this.OnPropertyChanging("csc_csc_activitytype_csc_scheduledactivity_ActivityType");
+				this.SetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_activitytype_csc_scheduledactivity_ActivityType", null, value);
+				this.OnPropertyChanged("csc_csc_activitytype_csc_scheduledactivity_ActivityType");
 			}
 		}
 		
@@ -606,7 +609,7 @@ namespace CrmEarlyBound
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public csc_Region(object anonymousType) : 
+		public csc_ActivityType(object anonymousType) : 
 				this()
 		{
             foreach (var p in anonymousType.GetType().GetProperties())
@@ -624,9 +627,9 @@ namespace CrmEarlyBound
                 {
                     case "id":
                         base.Id = (System.Guid)value;
-                        Attributes["csc_regionid"] = base.Id;
+                        Attributes["csc_activitytypeid"] = base.Id;
                         break;
-                    case "csc_regionid":
+                    case "csc_activitytypeid":
                         var id = (System.Nullable<System.Guid>) value;
                         if(id == null){ continue; }
                         base.Id = id.Value;
@@ -644,12 +647,12 @@ namespace CrmEarlyBound
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public virtual csc_Region_StatusCode? StatusCodeEnum
+		public virtual csc_ActivityType_StatusCode? StatusCodeEnum
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((csc_Region_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+				return ((csc_ActivityType_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set

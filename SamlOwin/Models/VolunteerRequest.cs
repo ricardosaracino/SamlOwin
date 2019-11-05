@@ -65,6 +65,6 @@ namespace SamlOwin.Models
         
         public bool AgreeContactedWork { get; set; }
         
-        [MaxLength(500)] public string Availability { get; set; }
+        [MaxLength(2000)] public string Availability { get; set; }
     }
 }

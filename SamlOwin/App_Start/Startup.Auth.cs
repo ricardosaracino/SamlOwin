@@ -81,6 +81,8 @@ namespace SamlOwin
                 MetadataLocation = HostingEnvironment.MapPath("~/App_Data/cbs-metadata-signed.xml")
             };
 
+            cbs.SigningKeys.AddConfiguredKey(GetGccfSigninCertificate());
+
 
             var gckey = new IdentityProvider(
                 new EntityId("https://te.clegc-gckey.gc.ca"), spOptions)
@@ -88,6 +90,9 @@ namespace SamlOwin
                 MetadataLocation = HostingEnvironment.MapPath("~/App_Data/gckey-metadata-signed.xml")
             };
 
+            gckey.SigningKeys.AddConfiguredKey(GetGccfSigninCertificate());
+
+            
             saml2Options.Notifications = new Saml2Notifications
             {
                 GetBinding = GccfAuthorizationFilter.GetSaml2Binding()
@@ -131,25 +136,25 @@ namespace SamlOwin
             // add to metadata: <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
             spOptions.ServiceCertificates.Add(new ServiceCertificate
             {
-                Certificate = GetEncryptionCertificate(),
+                Certificate = GetGccfEncryptionCertificate(),
                 Use = CertificateUse.Encryption
             });
 
             spOptions.ServiceCertificates.Add(new ServiceCertificate
             {
-                Certificate = GetSigninCertificate(),
+                Certificate = GetGccfSigninCertificate(),
                 Use = CertificateUse.Signing,
             });
 
             return spOptions;
         }
 
-        private static X509Certificate2 GetEncryptionCertificate()
+        private static X509Certificate2 GetGccfEncryptionCertificate()
         {
             return FindFirstByFriendlyName("GCCF Encryption", "1CA-AC1");
         }
 
-        private static X509Certificate2 GetSigninCertificate()
+        private static X509Certificate2 GetGccfSigninCertificate()
         {
             return FindFirstByFriendlyName("GCCF Verification", "1CA-AC1");
         }

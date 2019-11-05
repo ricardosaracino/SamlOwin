@@ -817,6 +817,86 @@ namespace CrmEarlyBound
 		}
 		
 		/// <summary>
+		/// 1:N csc_csc_location_csc_schedule_ActivityLocation
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_location_csc_schedule_ActivityLocation")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_Schedule> csc_csc_location_csc_schedule_ActivityLocation
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_Schedule>("csc_csc_location_csc_schedule_ActivityLocation", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_location_csc_schedule_ActivityLocation");
+				this.SetRelatedEntities<CrmEarlyBound.csc_Schedule>("csc_csc_location_csc_schedule_ActivityLocation", null, value);
+				this.OnPropertyChanged("csc_csc_location_csc_schedule_ActivityLocation");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N csc_csc_location_csc_schedule_Location
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_location_csc_schedule_Location")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_Schedule> csc_csc_location_csc_schedule_Location
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_Schedule>("csc_csc_location_csc_schedule_Location", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_location_csc_schedule_Location");
+				this.SetRelatedEntities<CrmEarlyBound.csc_Schedule>("csc_csc_location_csc_schedule_Location", null, value);
+				this.OnPropertyChanged("csc_csc_location_csc_schedule_Location");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N csc_csc_location_csc_scheduledactivity_ActivityLocation
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_location_csc_scheduledactivity_ActivityLocation")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_ScheduledActivity> csc_csc_location_csc_scheduledactivity_ActivityLocation
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_location_csc_scheduledactivity_ActivityLocation", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_location_csc_scheduledactivity_ActivityLocation");
+				this.SetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_location_csc_scheduledactivity_ActivityLocation", null, value);
+				this.OnPropertyChanged("csc_csc_location_csc_scheduledactivity_ActivityLocation");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N csc_csc_location_csc_scheduledactivity_Location
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_location_csc_scheduledactivity_Location")]
+		public System.Collections.Generic.IEnumerable<CrmEarlyBound.csc_ScheduledActivity> csc_csc_location_csc_scheduledactivity_Location
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_location_csc_scheduledactivity_Location", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("csc_csc_location_csc_scheduledactivity_Location");
+				this.SetRelatedEntities<CrmEarlyBound.csc_ScheduledActivity>("csc_csc_location_csc_scheduledactivity_Location", null, value);
+				this.OnPropertyChanged("csc_csc_location_csc_scheduledactivity_Location");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N csc_csc_location_csc_volunteer_AdminLocation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("csc_csc_location_csc_volunteer_AdminLocation")]

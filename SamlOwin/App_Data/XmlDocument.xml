@@ -496,6 +496,11 @@
             Finds all Nationalities
             </summary>
         </member>
+        <member name="M:SamlOwin.Controllers.VolunteerApplicationController.FindAll">
+            <summary>
+            Finds the Volunteer Applications assigned to Current User
+            </summary>
+        </member>
         <member name="M:SamlOwin.Controllers.VolunteerController.Find">
             <summary>
             Finds the Volunteer assigned to Current User
@@ -536,6 +541,16 @@
             Updates or Creates all Volunteer References and assigns them to the Current User
             </summary>
         </member>
+        <member name="M:SamlOwin.Controllers.VolunteerSelfIdentificationController.Find">
+            <summary>
+            Finds the Volunteer Self Identification to Current User
+            </summary>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerSelfIdentificationController.Save(SamlOwin.Models.VolunteerSelfIdentificationRequest)">
+            <summary>
+            Updates or Creates the Volunteer Self Identification assigned to the Current User
+            </summary>
+        </member>
         <member name="M:SamlOwin.Controllers.AuthController.SigninCallback(System.String)">
             <summary>
             Creates Application Cookie
@@ -573,7 +588,7 @@
             JSend Status can be success, fail, error
             </summary>
         </member>
-        <member name="F:SamlOwin.Models.ApiErrorResponse.Message">
+        <member name="P:SamlOwin.Models.ApiErrorResponse.Message">
             <summary>
             JSend Message
             </summary>

@@ -32,6 +32,30 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_ActivityType_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_AM_PM
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		am = 862430000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		pm = 862430001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum csc_appovedordenied
 	{
 		
@@ -284,6 +308,48 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Hours
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_1 = 862430001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_10 = 862430010,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_11 = 862430011,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_12 = 862430012,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_2 = 862430002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_3 = 862430003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_4 = 862430004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_5 = 862430005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_6 = 862430006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_7 = 862430007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_8 = 862430008,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_9 = 862430009,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum csc_Language_StatusCode
 	{
 		
@@ -304,6 +370,48 @@ namespace CrmEarlyBound
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Inactive = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Minutes
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_0 = 862430000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_10 = 862430002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_15 = 862430003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_20 = 862430004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_25 = 862430005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_30 = 862430006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_35 = 862430007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_40 = 862430008,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_45 = 862430009,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_5 = 862430001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_50 = 862430010,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		_55 = 862430011,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -434,6 +542,21 @@ namespace CrmEarlyBound
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_RecurringFrequency
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		EveryMonth = 862430002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		EveryWeek = 862430000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Never = 862430004,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum csc_referencetype
 	{
 		
@@ -450,6 +573,30 @@ namespace CrmEarlyBound
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum csc_Region_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_Schedule_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
+	public enum csc_ScheduledActivity_StatusCode
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
