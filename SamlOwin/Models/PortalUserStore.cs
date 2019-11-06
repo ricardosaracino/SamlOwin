@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CrmEarlyBound;
@@ -22,7 +23,17 @@ namespace SamlOwin.Models
             _ctx = crmServiceContext;
             _mapper = AutoMapperProvider.GetMapper();
         }
-
+        
+        public new Task<DateTimeOffset> GetLockoutEndDateAsync(TUser user)
+        {
+            return  Task.FromResult(DateTimeOffset.Now);
+        }
+        
+        public new Task<bool> GetLockoutEnabledAsync(TUser user)
+        {
+            return Task.FromResult(true);
+        }
+        
         public override Task<TUser> FindAsync(UserLoginInfo login)
         {
             Log.Logger.Information("PortalUserStore.FindAsync");
@@ -32,7 +43,7 @@ namespace SamlOwin.Models
                     into gj
                 from cscVolunteer in gj.DefaultIfEmpty()
                 where cscPortalUser.csc_ProviderKey.Contains(login.ProviderKey)
-                      && cscPortalUser.csc_LoginProvider.Contains(login.LoginProvider)
+                where cscPortalUser.csc_LoginProvider.Contains(login.LoginProvider)
                 select new {cscPortalUser, cscVolunteer};
 
             var result = queryable.FirstOrDefault();
@@ -59,10 +70,10 @@ namespace SamlOwin.Models
                 portalUserEntity.csc_LoginOn = DateTime.Now.ToUniversalTime();
                 _ctx.SaveChanges();
             }
-
+            
             var portalUser = _mapper.Map<PortalUser>(portalUserEntity);
             portalUser.Volunteer = _mapper.Map<Volunteer>(volunteerEntity);
-
+            
             return Task.FromResult(portalUser as TUser);
         }
 
@@ -80,16 +91,13 @@ namespace SamlOwin.Models
                     gj
                 from cscVolunteer in gj.DefaultIfEmpty()
                 where cscPortalUser.csc_PortalUserId.Equals(userId)
-                select new {cscPortalUser, cscVolunteer};
-
-            var result = queryable.FirstOrDefault();
-
-            if (result == null) return Task.FromResult(null as TUser);
-
-            var portalUser = _mapper.Map<PortalUser>(result.cscPortalUser);
-            portalUser.Volunteer = _mapper.Map<Volunteer>(result.cscVolunteer);
-
-            return Task.FromResult(portalUser as TUser);
+                select _mapper.Map(cscPortalUser, new PortalUser
+                    {
+                        Volunteer = _mapper.Map<Volunteer>(cscVolunteer),
+                    }
+                );
+            
+            return Task.FromResult(queryable.Single() as TUser);
         }
     }
 }

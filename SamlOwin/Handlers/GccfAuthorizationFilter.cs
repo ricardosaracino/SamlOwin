@@ -11,9 +11,11 @@ using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Serilog;
+using Sustainsys.Saml2.Saml2P;
 using Sustainsys.Saml2.WebSso;
 
 namespace SamlOwin.Handlers
@@ -26,44 +28,41 @@ namespace SamlOwin.Handlers
     {
         // Saml2Namespaces.Saml2P
         private const string ClaimTypeSessionIndex = "http://Sustainsys.se/Saml2/SessionIndex";
-        private const string LoginCallbackAbsolutePath = "/api/auth/loginCallback";
-        private const string LogoutCallbackAbsolutePath = "/api/saml/Logout";
 
-        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
+        public async Task<HttpResponseMessage> OOFExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
             Log.Logger.Information("SessionActionFilter.ExecuteAuthorizationFilterAsync");
 
+            // MAKE SURE LOGIN AND LOGOUT HAVE AllowAnonymous
+            var skipAuthorization = actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
+
             var doSignOut = false;
 
-            if (HttpContext.Current.User.Identity is ClaimsIdentity identity)
+            if (!skipAuthorization && HttpContext.Current.User.Identity is ClaimsIdentity identity)
             {
-                // NOT on LOGIN
-                if (actionContext.Request.RequestUri.AbsolutePath != LoginCallbackAbsolutePath)
+                var sessionIndex = identity.Claims
+                    .Where(c => c.Type == ClaimTypeSessionIndex)
+                    .Select(c => c.Value).LastOrDefault();
+
+                if (sessionIndex != null && MemoryCache.Default.Get(sessionIndex) == null)
                 {
-                    var sessionIndex = identity.Claims
-                        .Where(c => c.Type == ClaimTypeSessionIndex)
-                        .Select(c => c.Value).LastOrDefault();
+                    Log.Logger.Information(
+                        "SessionActionFilter.OnActionExecuting Unauthorized User {sessionIndex}", sessionIndex);
 
-                    if (sessionIndex != null && MemoryCache.Default.Get(sessionIndex) == null)
-                    {
-                        Log.Logger.Information(
-                            "SessionActionFilter.OnActionExecuting Unauthorized User {sessionIndex}", sessionIndex);
+                    HttpContext.Current.User =
+                        new GenericPrincipal(new GenericIdentity(string.Empty), null);
 
-                        HttpContext.Current.User =
-                            new GenericPrincipal(new GenericIdentity(string.Empty), null);
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
 
-                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+                    // Getting message Authorization has been denied for this request.
+                    actionContext.Response.Content = new StringContent("{\"message\":\"Unauthorized\"}");
 
-                        // Getting message Authorization has been denied for this request.
-                        actionContext.Response.Content = new StringContent("{\"message\":\"Unauthorized\"}");
+                    actionContext.Response.Content.Headers.ContentType =
+                        new MediaTypeHeaderValue("application/json");
 
-                        actionContext.Response.Content.Headers.ContentType =
-                            new MediaTypeHeaderValue("application/json");
-
-                        doSignOut = true;
-                    }
+                    doSignOut = true;
                 }
             }
 
@@ -77,7 +76,8 @@ namespace SamlOwin.Handlers
                 var cookieHeaderValues = new List<CookieHeaderValue>()
                 {
                     // manually remove the OWIN ApplicationCookie cookie
-                    new ExpiredCookeHeaderValue(ConfigurationManager.AppSettings["ApplicationCookieName"])
+                    new ExpiredCookeHeaderValue(ConfigurationManager.AppSettings["ApplicationCookieName"]),
+                    new ExpiredCookeHeaderValue(".AspNet.ExternalCookie")
                 };
 
                 // remove these too to be safe, i set the cache expiration low and these got out of sync
@@ -146,24 +146,24 @@ namespace SamlOwin.Handlers
                     request.Url.AbsolutePath,
                     request.HttpMethod);
 
-                // SOAP Logout
                 // ReSharper disable once InvertIf
-                if (request.Url.AbsolutePath == LogoutCallbackAbsolutePath && request.HttpMethod == "POST")
+                if (request.Form.Count > 0
+                    && request.Form.Keys.First().ToUpper().Contains("<SOAP-ENV:ENVELOPE")
+                    && request.Form.Values.First().ToUpper().Contains("LOGOUTREQUEST"))
                 {
-                    var sessionIndex = request.User.Claims
-                        .Where(c => c.Type == ClaimTypeSessionIndex)
-                        .Select(c => c.Value).LastOrDefault();
+                    // I made this Saml2SoapLogoutBinding class 
+                    var saml2SoapLogoutBinding = new Saml2SoapLogoutBinding(request);
+                    
+                    var sessionIndex = saml2SoapLogoutBinding.GetSessionIndex();
 
-                    if (sessionIndex != null)
-                    {
-                        MemoryCache.Default.Remove(sessionIndex);
-                    }
-
+                    if (sessionIndex == null) return saml2SoapLogoutBinding;
+                    
+                    MemoryCache.Default.Remove(sessionIndex);
+                        
                     Log.Logger.Information("SessionActionFilter.GetSaml2Binding SOAP Logout {sessionIndex}",
                         sessionIndex);
-                    
-                    // We got a saml logout... just let it do its thing
-                    return  new Saml2SoapLogoutBinding {Request = request};
+
+                    return saml2SoapLogoutBinding;
                 }
 
                 //  Post Assertion (/api/saml/Acs)

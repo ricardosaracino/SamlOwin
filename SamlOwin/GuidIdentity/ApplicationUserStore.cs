@@ -6,8 +6,10 @@ using Microsoft.AspNet.Identity;
 
 namespace SamlOwin.GuidIdentity
 {
-    public abstract class ApplicationUserStore<TUser> : IUserLoginStore<TUser, Guid>, IUserRoleStore<TUser, Guid>,
-        IUserClaimStore<TUser, Guid>, IUserLockoutStore<TUser, Guid>,
+    public abstract class ApplicationUserStore<TUser> : IUserLoginStore<TUser, Guid>, 
+        IUserRoleStore<TUser, Guid>,
+        IUserClaimStore<TUser, Guid>, 
+        IUserLockoutStore<TUser, Guid>,
         IUserTwoFactorStore<TUser, Guid> where TUser : ApplicationUser
     {
         public abstract Task<IList<Claim>> GetClaimsAsync(TUser user);

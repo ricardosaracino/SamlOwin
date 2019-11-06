@@ -17,6 +17,8 @@ namespace SamlOwin.Models
 
         public string LoginProvider { get; set; }
 
+        public bool Active { get; set; }
+
         public Volunteer Volunteer { get; set; }
 
         public override async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager)

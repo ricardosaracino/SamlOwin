@@ -10,8 +10,8 @@ namespace SamlOwin.Profiles
         {
             CreateMap<csc_ActivityType, ScheduledActivityTypeResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s.csc_ActivityTypeId))
-                .ForMember(dest => dest.EnLabel, opt => opt.MapFrom(s => s.csc_ActivityTypeEnglish))
-                .ForMember(dest => dest.FrLabel, opt => opt.MapFrom(s => s.csc_ActivityTypeFrench))
+                .ForMember(dest => dest.EnLabel, opt => opt.MapFrom(s => s.csc_NameEN))
+                .ForMember(dest => dest.FrLabel, opt => opt.MapFrom(s => s.csc_NameFR))
                 ;
         }
     }

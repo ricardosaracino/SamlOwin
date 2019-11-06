@@ -13,6 +13,7 @@ namespace SamlOwin.Profiles
                 .ForMember(dest => dest.LoginProvider, opt => opt.MapFrom(s => s.csc_LoginProvider))
                 .ForMember(dest => dest.ProviderKey, opt => opt.MapFrom(s => s.csc_ProviderKey))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(s => s.csc_ProviderKey))
+                .ForMember(dest => dest.Active, opt => opt.MapFrom(s => s.StateCode == csc_PortalUserState.Active))
                 ;
         }
     }

@@ -716,6 +716,7 @@
     <Content Include="App_Data\idp5-metadata.xml" />
     <Content Include="App_Data\idp5.canadacentral.cloudapp.azure.com.cer" />
     <Content Include="App_Data\sp-metadata.xml" />
+    <Content Include="App_Data\test.xml" />
     <Content Include="App_Data\XmlDocument.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />

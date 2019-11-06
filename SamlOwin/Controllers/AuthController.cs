@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using SamlOwin.GuidIdentity;
 using SamlOwin.Handlers;
 using SamlOwin.Models;
+using Serilog;
 
 namespace SamlOwin.Controllers
 {
@@ -44,11 +45,18 @@ namespace SamlOwin.Controllers
              */
 
             var requestParams = Request.RequestUri.ParseQueryString();
-
             var returnUrl = requestParams["returnUrl"] ?? $"{BaseUrl}/en/";
-            var errorUrl = requestParams["errorUrl"] ?? $"{BaseUrl}/en/";
-            var unauthorizedUrl = requestParams["unauthorizedUrl"] ?? $"{BaseUrl}/en/";
-
+            var errorUrl = requestParams["errorUrl"] ?? $"{BaseUrl}/en/bad-request";
+            var unauthorizedUrl = requestParams["unauthorizedUrl"] ?? $"{BaseUrl}/en/unauthorized";
+            
+            // errorUrl is not set on saml error
+            var samlError = requestParams["error"];
+            
+            if (samlError != null)
+            {
+                return new RedirectActionResult($"{errorUrl}?error=SamlSignInError");
+            }
+            
             try
             {
                 // refreshing url will be null
@@ -74,6 +82,8 @@ namespace SamlOwin.Controllers
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e, "");
+                
                 return new RedirectActionResult($"{errorUrl}?error=Exception");
             }
 
@@ -84,13 +94,21 @@ namespace SamlOwin.Controllers
         /// Removes Application Cookie, Redirects
         /// </summary>
         /// <returns>RedirectActionResult</returns>
+        [AllowAnonymous]
         [HttpGet, Route("logout")]
         public RedirectActionResult Logout()
         {
             var requestParams = Request.RequestUri.ParseQueryString();
             var returnUrl = requestParams["returnUrl"] ?? $"{BaseUrl}/en/";
             var errorUrl = requestParams["errorUrl"] ?? $"{BaseUrl}/en/";
-
+            var unauthorizedUrl = requestParams["unauthorizedUrl"] ?? $"{BaseUrl}/en/";
+            
+            // AllowAnonymous so we can redirect to unauthorized instead of returning json
+            if (!User.Identity.IsAuthenticated)
+            {
+                return new RedirectActionResult($"{unauthorizedUrl}?error=IsAuthenticated");
+            }
+            
             try
             {
                 // triggers the saml2 sign out
@@ -101,6 +119,8 @@ namespace SamlOwin.Controllers
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e, "");
+
                 return new RedirectActionResult($"{errorUrl}?error=Exception");
             }
 

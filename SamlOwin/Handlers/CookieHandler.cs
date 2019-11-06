@@ -74,7 +74,7 @@ namespace SamlOwin.Handlers
                 }
                 else
                 {
-                    expires = DateTimeOffset.Now.AddMinutes(
+                    expires = DateTimeOffset.UtcNow.AddMinutes(
                         Convert.ToDouble(ConfigurationManager.AppSettings["SessionTimeInMinutes"]));
                 }
 
