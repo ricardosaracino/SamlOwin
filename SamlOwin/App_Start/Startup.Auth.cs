@@ -22,6 +22,8 @@ namespace SamlOwin
 {
     public partial class Startup
     {
+        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
         private static void ConfigureAuth(IAppBuilder app)
         {
             app.CreatePerOwinContext(CrmServiceContextProvider.Create);
@@ -113,13 +115,13 @@ namespace SamlOwin
                 EntityId = new EntityId("https://dev-ep-pe.csc-scc.gc.ca"),
 
                 // 	proxied 
-                PublicOrigin = new Uri("https://dev-ep-pe.csc-scc.gc.ca"),
+                PublicOrigin = new Uri(BaseUrl),
 
                 // Indicates the base path of the Saml2 endpoints. Defaults to /Saml2 if not specified.
                 ModulePath = "api/saml",
 
                 // 
-                ReturnUrl = new Uri("https://dev-ep-pe.csc-scc.gc.ca/api/auth/saml2/callback"),
+                ReturnUrl = new Uri($"{BaseUrl}/api/auth/saml2/callback"),
 
                 // add to metadata: <X509SubjectName>CN=dev-ep-pe,OU=csc-scc,O=GC,C=CA</X509SubjectName>
                 WantAssertionsSigned = true,

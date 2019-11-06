@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -17,7 +20,7 @@ namespace SamlOwin.Controllers
     {
         private readonly ApplicationSignInManager _signInManager;
 
-        private const string BaseUrl = "https://dev-ep-pe.csc-scc.gc.ca";
+        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
         public AuthController()
         {
@@ -30,56 +33,78 @@ namespace SamlOwin.Controllers
         /// <summary>
         /// Creates Application Cookie, Redirects
         /// </summary>
-        /// <param name="returnUrl"></param>
         /// <returns>RedirectActionResult</returns>
         [AllowAnonymous]
         [HttpGet, Route("saml2/callback")]
-        public async Task<RedirectActionResult> SigninCallback(string returnUrl = null)
+        public async Task<RedirectActionResult> SigninCallback()
         {
             /**
              * Could create a session in SamlOwin.Identity.ApplicationSignInManager.CreateUserIdentityAsync
              * and have it checked and deleted on soap logout
              */
 
-            // refreshing url will be null
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var requestParams = Request.RequestUri.ParseQueryString();
 
-            if (loginInfo == null)
+            var returnUrl = requestParams["returnUrl"] ?? $"{BaseUrl}/en/";
+            var errorUrl = requestParams["errorUrl"] ?? $"{BaseUrl}/en/";
+            var unauthorizedUrl = requestParams["unauthorizedUrl"] ?? $"{BaseUrl}/en/";
+
+            try
             {
-                return new RedirectActionResult($"{BaseUrl}/en/bad-request?error=ExternalLoginInfo");
+                // refreshing url will be null
+                var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+
+                if (loginInfo == null)
+                {
+                    return new RedirectActionResult($"{errorUrl}?error=ExternalLoginInfo");
+                }
+
+                // If IsPersistent property of AuthenticationProperties is set to false, then the cookie expiration time is set to Session.
+                var signInStatus = await _signInManager.ExternalSignInAsync(loginInfo, true);
+
+                if (signInStatus != SignInStatus.Success)
+                {
+                    return new RedirectActionResult($"{unauthorizedUrl}?error={signInStatus:G}");
+                }
+
+                // required for saml2 single sign out
+                AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
+
+                GccfAuthorizationFilter.RegisterSession(loginInfo.ExternalIdentity);
+            }
+            catch (Exception e)
+            {
+                return new RedirectActionResult($"{errorUrl}?error=Exception");
             }
 
-            // If IsPersistent property of AuthenticationProperties is set to false, then the cookie expiration time is set to Session.
-            var signInStatus = await _signInManager.ExternalSignInAsync(loginInfo, true);
-
-            if (signInStatus != SignInStatus.Success)
-            {
-                return new RedirectActionResult($"{BaseUrl}/en/bad-request?error={signInStatus:G}");
-            }
-
-            // required for saml2 single sign out
-            AuthenticationManager.User.AddIdentity(loginInfo.ExternalIdentity);
-
-            GccfAuthorizationFilter.RegisterSession(loginInfo.ExternalIdentity);
-
-            return new RedirectActionResult(returnUrl ?? $"{BaseUrl}/en/#SignIn");
+            return new RedirectActionResult($"{returnUrl}#SignIn");
         }
 
         /// <summary>
         /// Removes Application Cookie, Redirects
         /// </summary>
-        /// <param name="returnUrl"></param>
         /// <returns>RedirectActionResult</returns>
         [HttpGet, Route("logout")]
-        public RedirectActionResult Logout(string returnUrl = null)
+        public RedirectActionResult Logout()
         {
-            // triggers the saml2 sign out
-            AuthenticationManager.SignOut();
+            var requestParams = Request.RequestUri.ParseQueryString();
+            var returnUrl = requestParams["returnUrl"] ?? $"{BaseUrl}/en/";
+            var errorUrl = requestParams["errorUrl"] ?? $"{BaseUrl}/en/";
 
-            // Dont clear Current.User needed for sign out
-            GccfAuthorizationFilter.DeregisterSession();
+            try
+            {
+                // triggers the saml2 sign out
+                AuthenticationManager.SignOut();
 
-            return new RedirectActionResult(returnUrl ?? $"{BaseUrl}/en/#SignOut");
+                // Dont clear Current.User needed for sign out
+                GccfAuthorizationFilter.DeregisterSession();
+            }
+            catch (Exception e)
+            {
+                return new RedirectActionResult($"{errorUrl}?error=Exception");
+            }
+
+            return new RedirectActionResult(returnUrl);
         }
 
         /// <summary>

@@ -29,7 +29,7 @@ namespace SamlOwin.Handlers
         private const string LoginCallbackAbsolutePath = "/api/auth/loginCallback";
         private const string LogoutCallbackAbsolutePath = "/api/saml/Logout";
 
-        public async Task<HttpResponseMessage> OFFFExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
+        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
@@ -161,9 +161,9 @@ namespace SamlOwin.Handlers
 
                     Log.Logger.Information("SessionActionFilter.GetSaml2Binding SOAP Logout {sessionIndex}",
                         sessionIndex);
-
+                    
                     // We got a saml logout... just let it do its thing
-                    return Saml2Binding.Get(request);
+                    return  new Saml2SoapLogoutBinding {Request = request};
                 }
 
                 //  Post Assertion (/api/saml/Acs)

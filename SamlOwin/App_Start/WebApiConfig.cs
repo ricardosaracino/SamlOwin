@@ -33,11 +33,8 @@ namespace SamlOwin
             config.Filters.Add(new ValidationFilterAttribute());
             
             config.Filters.Add(new WebApiAuthorizationAttribute());
-
         }
-
-     
-
+        
         private static void RegisterFormatters(HttpConfiguration config)
         {
             var jsonFormatter = config.Formatters.JsonFormatter;

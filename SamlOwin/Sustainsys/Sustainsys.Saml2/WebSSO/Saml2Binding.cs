@@ -126,7 +126,9 @@ namespace Sustainsys.Saml2.WebSso
             {
                 {Saml2BindingType.HttpRedirect, new Saml2RedirectBinding()},
                 {Saml2BindingType.HttpPost, new Saml2PostBinding()},
-                {Saml2BindingType.Artifact, new Saml2ArtifactBinding()}
+                {Saml2BindingType.Artifact, new Saml2ArtifactBinding()},
+                {Saml2BindingType.SoapLogout, new Saml2SoapLogoutBinding()}
+                
             };
 
         /// <summary>

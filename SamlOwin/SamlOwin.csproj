@@ -16,7 +16,7 @@
     <AssemblyName>SamlOwin</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44325</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -114,8 +114,8 @@
       <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.6.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.3.0\lib\net461\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.2.4\lib\net451\Microsoft.IdentityModel.Protocols.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -138,22 +138,24 @@
       <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -183,8 +185,9 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
@@ -199,12 +202,6 @@
       <HintPath>..\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sustainsys.Saml2, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sustainsys.Saml2.2.3.0\lib\net47\Sustainsys.Saml2.dll</HintPath>
-    </Reference>
-    <Reference Include="Sustainsys.Saml2.Owin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sustainsys.Saml2.Owin.2.3.0\lib\net461\Sustainsys.Saml2.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.Activities.Presentation" />
@@ -217,8 +214,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.6.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.4.1\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
@@ -261,8 +259,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Security" />
-    <Reference Include="System.Security.AccessControl, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.AccessControl.4.6.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
@@ -284,14 +283,17 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Xml.4.6.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.5.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Security.Permissions, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Permissions.4.6.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Security.Principal.Windows, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Principal.Windows.4.6.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -391,16 +393,31 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\NationalityController.cs" />
+    <Compile Include="Controllers\VolunteerScheduleController.cs" />
+    <Compile Include="Controllers\VolunteerApplicationController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="Controllers\VolunteerEmergencyContactController.cs" />
     <Compile Include="Controllers\VolunteerLanguageController.cs" />
     <Compile Include="Controllers\VolunteerReferenceController.cs" />
     <Compile Include="Controllers\VolunteerSelfIdentificationController.cs" />
+    <Compile Include="CrmEarlyBound\CrmServiceContext.cs" />
+    <Compile Include="CrmEarlyBound\csc_ActivityType.cs" />
     <Compile Include="CrmEarlyBound\csc_Country.cs" />
     <Compile Include="CrmEarlyBound\csc_Language.cs" />
     <Compile Include="CrmEarlyBound\csc_Location.cs" />
     <Compile Include="CrmEarlyBound\csc_Nationality.cs" />
+    <Compile Include="CrmEarlyBound\csc_PortalUser.cs" />
+    <Compile Include="CrmEarlyBound\csc_ProvinceOrState.cs" />
     <Compile Include="CrmEarlyBound\csc_Region.cs" />
+    <Compile Include="CrmEarlyBound\csc_Schedule.cs" />
+    <Compile Include="CrmEarlyBound\csc_ScheduledActivity.cs" />
+    <Compile Include="CrmEarlyBound\csc_Volunteer.cs" />
+    <Compile Include="CrmEarlyBound\csc_VolunteerApplication.cs" />
+    <Compile Include="CrmEarlyBound\csc_VolunteerEmergencyContact.cs" />
+    <Compile Include="CrmEarlyBound\csc_VolunteerLanguage.cs" />
+    <Compile Include="CrmEarlyBound\csc_VolunteerReference.cs" />
+    <Compile Include="CrmEarlyBound\OptionSets.cs" />
+    <Compile Include="Handlers\RedirectActionResult.cs" />
     <Compile Include="Handlers\WebApiAuthorizationAttribute.cs" />
     <Compile Include="Handlers\WebApiExceptionHandler.cs" />
     <Compile Include="Handlers\WebApiExceptionLogger.cs" />
@@ -411,15 +428,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="CrmEarlyBound\CrmServiceContext.cs" />
-    <Compile Include="CrmEarlyBound\csc_PortalUser.cs" />
-    <Compile Include="CrmEarlyBound\csc_ProvinceOrState.cs" />
-    <Compile Include="CrmEarlyBound\csc_Volunteer.cs" />
-    <Compile Include="CrmEarlyBound\csc_VolunteerApplication.cs" />
-    <Compile Include="CrmEarlyBound\csc_VolunteerEmergencyContact.cs" />
-    <Compile Include="CrmEarlyBound\csc_VolunteerLanguage.cs" />
-    <Compile Include="CrmEarlyBound\csc_VolunteerReference.cs" />
-    <Compile Include="CrmEarlyBound\OptionSets.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -433,12 +441,17 @@
     <Compile Include="Identity\IdentityExtensions.cs" />
     <Compile Include="Models\CountryResponse.cs" />
     <Compile Include="Models\LanguageResponse.cs" />
+    <Compile Include="Models\LocationResponse.cs" />
     <Compile Include="Models\NationalityResponse.cs" />
+    <Compile Include="Models\ScheduleCalendarRequestParams.cs" />
+    <Compile Include="Models\ScheduledActivityTypeResponse.cs" />
+    <Compile Include="Models\VolunteerApplicationResponse.cs" />
     <Compile Include="Models\VolunteerEmergencyContactRequest.cs" />
     <Compile Include="Models\VolunteerEmergencyContactResponse.cs" />
     <Compile Include="Models\VolunteerReferenceRequest.cs" />
     <Compile Include="Models\VolunteerRequest.cs" />
     <Compile Include="Models\VolunteerResponse.cs" />
+    <Compile Include="Models\VolunteerScheduleResponse.cs" />
     <Compile Include="Models\VolunteerSelfIdentificationRequest.cs" />
     <Compile Include="Models\VolunteerSelfIdentificationResponse.cs" />
     <Compile Include="Models\WebApiErrorResponse.cs" />
@@ -455,9 +468,12 @@
     <Compile Include="Profiles\CountryEntityToCountryResponse.cs" />
     <Compile Include="Profiles\EntityReferenceToReference.cs" />
     <Compile Include="Profiles\LanguageEntityToLanguageResponse.cs" />
+    <Compile Include="Profiles\LocationEntityToLocationResponse.cs" />
     <Compile Include="Profiles\NationalityEntityToNationalityResponse.cs" />
     <Compile Include="Profiles\PortalUserEntityToPortalUserModel.cs" />
     <Compile Include="Profiles\ProvinceOrStateEntityToProvinceOrStateResponse.cs" />
+    <Compile Include="Profiles\ScheduledActivityTypeEntityToScheduledActivityTypeResponse.cs" />
+    <Compile Include="Profiles\VolunteerApplicationEntityToVolunteerApplicationResponse.cs" />
     <Compile Include="Profiles\VolunteerEmergencyContactEntityToVolunteerEmergencyContactResponse.cs" />
     <Compile Include="Profiles\VolunteerEmergencyContactRequestToVolunteerEmergencyContactEntity.cs" />
     <Compile Include="Profiles\VolunteerEntityToVolunteer.cs" />
@@ -468,11 +484,228 @@
     <Compile Include="Profiles\VolunteerReferenceEntityToVolunteerReferenceResponse.cs" />
     <Compile Include="Profiles\VolunteerReferenceRequestToVolunteerReferenceEntity.cs" />
     <Compile Include="Profiles\VolunteerRequestToVolunteerEntity.cs" />
+    <Compile Include="Profiles\VolunteerScheduleEntityToVolunteerScheduleResponse.cs" />
     <Compile Include="Profiles\VolunteerSelfIdentificationRequestToVolunteerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AutoMapperProvider.cs" />
     <Compile Include="Providers\CrmServiceContextProvider.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\CommandResultExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\Constants.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\GlobalSuppressions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\MultipleIdentityAuthenticationTicket.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\OwinContextExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\OwinLoggerAdapter.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\Saml2AuthenticationExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\Saml2AuthenticationHandler.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\Saml2AuthenticationMiddleware.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2.Owin\Saml2AuthenticationOptions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\CertificateStatus.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\CertificateUse.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\ClaimsExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\ClaimsIdentityExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ArtifactResolutionServiceCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ArtifactResolutionServiceElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\CertificateCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\CertificateElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\Compatibility.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\CompatibilityElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ConfiguredAndLoadedSigningKeysCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ContactPersonElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ContactPersonsCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\CustomTypeElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\EntityIdConverter.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\FederationCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\FederationElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ICustomIdentityConfiguration.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\IdentityProviderCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\IdentityProviderDictionary.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\IdentityProviderElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\IOptions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\MetadataElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\NameIdPolicyElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\Options.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\OrganizationElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\RequestedAttributeElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\RequestedAttributesCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\RequestedAuthnContextElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\Saml2Notifications.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ServiceCertificateCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ServiceCertificateElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\ServiceCertificateElementCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\SigningBehavior.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\SPOptions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\SustainsysSaml2Section.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Configuration\TokenReplayDetectionElement.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\DateTimeExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Exceptions\BadFormatSamlResponseException.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Exceptions\InvalidSignatureException.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Exceptions\NoSamlResponseFoundException.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Exceptions\Saml2Exception.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Exceptions\Saml2ResponseFailedValidationException.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Exceptions\UnexpectedInResponseToException.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Exceptions\UnsuccessfulSAMLOperationException.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Federation.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\ICachedMetadata.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\IdentityProvider.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\ILoggerAdapter.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\ClientCertificateWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\CompareHelper.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\CryptographyExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\DateTimeHelper.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\DelimitedString.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\DictionaryExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\EntityIdEqualityComparer.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\Enumerator.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\EnvironmentHelpers.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\PathHelper.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\QueryStringHelper.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\RSAEncryptedXml.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\StatusCodeHelper.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Internal\StringHelpers.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\ManagedSha256SignatureDescription.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\MetadataPublishOverrideType.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AdditionalMetadataLocation.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AffiliationDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ApplicationServiceDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ApplicationServiceEndpoint.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ArtifactResolutionService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AssertionConsumerService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AssertionIdRequestService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AttributeAuthorityDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AttributeConsumingService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AttributeProfile.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AttributeService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AuthnAuthorityDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AuthnQueryService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\AuthzService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\CipherData.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\CipherReference.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ConstrainedValue.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ContactPerson.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ContactType.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ContactTypeHelpers.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\DisplayClaim.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EncryptedData.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EncryptedValue.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EncryptionMethod.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EncryptionProperties.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EncryptionProperty.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\Endpoint.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EndpointReference.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EntitiesDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EntityDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\EntityId.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ExtendedMetadataSerializer.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\FilteringXmlDictionaryReader.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\IdpSsoDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\IndexedCollectionWithDefault.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\IndexedEndpoint.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\KeyDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\KeyInfo.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\KeyInfoSerializer.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\KeyType.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\LocalizedEntry.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\LocalizedEntryCollection.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\LocalizedName.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\LocalizedUri.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\ManageNameIDService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\MetadataBase.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\MetadatabaseExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\MetadataLoader.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\MetadataRefreshScheduler.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\MetadataSerializer.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\NameIDFormat.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\NameIDMappingService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\Organization.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\PassiveRequestorEndpoint.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\PDPDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\RequestedAttribute.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\RoleDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SecurityTokenSerializer.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SecurityTokenServiceDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SingleLogoutService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SingleSignOnService.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SingleSignOutNotificationEndpoint.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SPOptionsExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SpSsoDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\SsoDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\WebServiceDescriptor.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Metadata\XEncEncryptionMethod.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\NameIdFormatExtension.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\NullLoggerAdapter.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\RelayStateGenerator.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Saml2AssertionExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Saml2ClaimTypes.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Saml2ConditionsExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Saml2NameIdExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Saml2Namespaces.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\AuthnContextComparisonType.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\BootstrapContext.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\EnvelopedSignatureWriterWithReferenceIdFix.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\FilteringXmlNodeReader.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\ISaml2Message.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\NameIdFormat.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2ArtifactResolve.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2ArtifactResponse.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2AuthenticationRequest.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2IdPEntry.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2LogoutRequest.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2LogoutResponse.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2NameIDPolicy.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2PSecurityTokenHandler.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2PSerializer.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2RequestBase.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2RequestedAuthnContext.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2Response.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2Scoping.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2SoapBinding.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2StatusCode.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\SAML2P\Saml2StatusResponseType.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Saml2StatementExtension.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Saml2SubjectExtensions.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Selectors\NullSecurityTokenResolver.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Selectors\SecurityTokenResolver.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\ServiceCertificate.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\StoredRequestState.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\AsymmetricSecurityKey.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\AudienceRestriction.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\BinaryKeyIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\DsaKeyIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\EcKeyIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\KeyNameIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\RsaKeyIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\SecurityAlgorithms.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\SecurityKey.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\SecurityKeyIdentifier.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\SecurityKeyIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\TokenReplayCache.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\X509AsymmetricSecurityKey.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\X509IssuerSerialKeyIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\X509RawDataKeyIdentifierClause.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\Tokens\X509SecurityToken.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\TrustLevel.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\AcsCommand.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Cacheability.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\CommandFactory.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\CommandResult.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\HttpRequestData.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\ICommand.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\LogOutCommand.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\MetadataCommand.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\NotFoundCommand.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Saml2ArtifactBinding.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Saml2Binding.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Saml2BindingType.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Saml2PostBinding.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Saml2RedirectBinding.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Saml2SoapLogoutBinding.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\Saml2Urls.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\WebSSO\SignInCommand.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\XmlHelpers.cs" />
+    <Compile Include="Sustainsys\Sustainsys.Saml2\XsdDuration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -28,5 +28,10 @@ namespace Sustainsys.Saml2.WebSso
         /// The artifact resolution binding according to bindings section 3.6
         /// </summary>
         Artifact = 4,
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        SoapLogout = 5
     }
 }

@@ -80,8 +80,18 @@ namespace Sustainsys.Saml2.WebSso
             CommandResult commandResult;
             var returnUrl = GetReturnUrl(request, returnPath, options);
             var binding = options.Notifications.GetBinding(request);
+            
             if (binding != null)
             {
+                if (binding.GetType() == typeof(Saml2SoapLogoutBinding))
+                {
+                    return new CommandResult
+                    {
+                        HttpStatusCode = HttpStatusCode.SeeOther,
+                        TerminateLocalSession = true
+                    };
+                }
+                
                 var unbindResult = binding.Unbind(request, options);
                 options.Notifications.MessageUnbound(unbindResult);
 
