@@ -14,7 +14,10 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
-    [VolunteerAuthorization]
+    /// <summary>
+    /// Volunteer Authorize Permission
+    /// </summary>
+    [VolunteerAuthorize]
     [RoutePrefix("api/volunteer-languages")]
     public class VolunteerLanguageController : ApiController
     {

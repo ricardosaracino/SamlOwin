@@ -12,7 +12,10 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
-    [VolunteerAuthorization]
+    /// <summary>
+    /// Volunteer Authorize Permission
+    /// </summary>
+    [VolunteerAuthorize]
     [RoutePrefix("api/volunteer-schedules")]
     public class VolunteerScheduleController : ApiController
     {
@@ -55,7 +58,6 @@ namespace SamlOwin.Controllers
                     }))
             };
         }
-        
         
         /// <summary>
         /// Updates the Volunteer Schedule assigned to the Current User

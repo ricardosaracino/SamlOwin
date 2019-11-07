@@ -11,6 +11,9 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
+    /// <summary>
+    /// Authorize Permission
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/languages")]
     public class LanguageController : ApiController

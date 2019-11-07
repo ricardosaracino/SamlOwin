@@ -37,26 +37,23 @@ namespace SamlOwin.Controllers
         /// <returns>RedirectActionResult</returns>
         [AllowAnonymous]
         [HttpGet, Route("saml2/callback")]
-        public async Task<RedirectActionResult> SigninCallback()
+        public async Task<RedirectActionResult> SigninCallback([FromUri] SigninCallbackRequestParams requestParams)
         {
             /**
              * Could create a session in SamlOwin.Identity.ApplicationSignInManager.CreateUserIdentityAsync
              * and have it checked and deleted on soap logout
              */
 
-            var requestParams = Request.RequestUri.ParseQueryString();
-            var returnUrl = requestParams["returnUrl"] ?? $"{BaseUrl}/en/";
-            var errorUrl = requestParams["errorUrl"] ?? $"{BaseUrl}/en/bad-request";
-            var unauthorizedUrl = requestParams["unauthorizedUrl"] ?? $"{BaseUrl}/en/unauthorized";
-            
-            // errorUrl is not set on saml error
-            var samlError = requestParams["error"];
-            
+            var returnUrl = requestParams.ReturnUrl ?? $"{BaseUrl}/en/";
+            var errorUrl = requestParams.ErrorUrl ?? $"{BaseUrl}/en/bad-request";
+            var unauthorizedUrl = requestParams.UnauthorizedUrl ?? $"{BaseUrl}/en/unauthorized";
+            var samlError = requestParams.Error;
+
             if (samlError != null)
             {
                 return new RedirectActionResult($"{errorUrl}?error=SamlSignInError");
             }
-            
+
             try
             {
                 // refreshing url will be null
@@ -83,7 +80,7 @@ namespace SamlOwin.Controllers
             catch (Exception e)
             {
                 Log.Logger.Error(e, "");
-                
+
                 return new RedirectActionResult($"{errorUrl}?error=Exception");
             }
 
@@ -96,19 +93,18 @@ namespace SamlOwin.Controllers
         /// <returns>RedirectActionResult</returns>
         [AllowAnonymous]
         [HttpGet, Route("logout")]
-        public RedirectActionResult Logout()
+        public RedirectActionResult Logout([FromUri] LogoutRequestParams requestParams)
         {
-            var requestParams = Request.RequestUri.ParseQueryString();
-            var returnUrl = requestParams["returnUrl"] ?? $"{BaseUrl}/en/";
-            var errorUrl = requestParams["errorUrl"] ?? $"{BaseUrl}/en/";
-            var unauthorizedUrl = requestParams["unauthorizedUrl"] ?? $"{BaseUrl}/en/";
-            
+            var returnUrl = requestParams.ReturnUrl ?? $"{BaseUrl}/en/";
+            var errorUrl = requestParams.ErrorUrl ?? $"{BaseUrl}/en/bad-request";
+            var unauthorizedUrl = requestParams.UnauthorizedUrl ?? $"{BaseUrl}/en/unauthorized";
+
             // AllowAnonymous so we can redirect to unauthorized instead of returning json
             if (!User.Identity.IsAuthenticated)
             {
                 return new RedirectActionResult($"{unauthorizedUrl}?error=IsAuthenticated");
             }
-            
+
             try
             {
                 // triggers the saml2 sign out

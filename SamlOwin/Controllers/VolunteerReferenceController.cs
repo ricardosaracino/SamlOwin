@@ -14,7 +14,10 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
-    [VolunteerAuthorization]
+    /// <summary>
+    /// Volunteer Authorize Permission
+    /// </summary>
+    [VolunteerAuthorize]
     [RoutePrefix("api/volunteer-references")]
     public class VolunteerReferenceController : ApiController
     {
@@ -43,6 +46,7 @@ namespace SamlOwin.Controllers
                 Data = queryable.ToList().ConvertAll(entity => _mapper.Map<VolunteerReferenceResponse>(entity))
             };
         }
+        
         /// <summary>
         /// Updates or Creates all Volunteer References and assigns them to the Current User
         /// </summary>

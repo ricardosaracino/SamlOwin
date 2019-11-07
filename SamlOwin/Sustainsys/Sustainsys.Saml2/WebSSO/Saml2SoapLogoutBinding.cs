@@ -34,7 +34,7 @@ namespace Sustainsys.Saml2.WebSso
             {
                 _doc = Saml2SoapBinding.ExtractBody(soapString);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }

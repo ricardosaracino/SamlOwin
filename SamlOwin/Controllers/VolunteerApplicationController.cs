@@ -13,7 +13,10 @@ using SamlOwin.Providers;
 
 namespace SamlOwin.Controllers
 {
-    [VolunteerAuthorization]
+    /// <summary>
+    /// Volunteer Authorize Permission
+    /// </summary>
+    [VolunteerAuthorize]
     [RoutePrefix("api/volunteer-applications")]
     public class VolunteerApplicationController : ApiController
     {

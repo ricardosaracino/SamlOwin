@@ -6,7 +6,7 @@ using SamlOwin.Identity;
 namespace SamlOwin.Handlers
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class VolunteerAuthorizationAttribute : AuthorizeAttribute
+    public class VolunteerAuthorizeAttribute : AuthorizeAttribute
     {
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
