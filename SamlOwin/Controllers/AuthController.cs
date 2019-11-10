@@ -44,10 +44,10 @@ namespace SamlOwin.Controllers
              * and have it checked and deleted on soap logout
              */
 
-            var returnUrl = requestParams.ReturnUrl ?? $"{BaseUrl}/en/";
-            var errorUrl = requestParams.ErrorUrl ?? $"{BaseUrl}/en/bad-request";
-            var unauthorizedUrl = requestParams.UnauthorizedUrl ?? $"{BaseUrl}/en/unauthorized";
-            var samlError = requestParams.Error;
+            var returnUrl = requestParams?.ReturnUrl ?? $"{BaseUrl}/en/";
+            var errorUrl = requestParams?.ErrorUrl ?? $"{BaseUrl}/en/bad-request";
+            var unauthorizedUrl = requestParams?.UnauthorizedUrl ?? $"{BaseUrl}/en/unauthorized";
+            var samlError = requestParams?.Error;
 
             if (samlError != null)
             {
@@ -95,9 +95,9 @@ namespace SamlOwin.Controllers
         [HttpGet, Route("logout")]
         public RedirectActionResult Logout([FromUri] LogoutRequestParams requestParams)
         {
-            var returnUrl = requestParams.ReturnUrl ?? $"{BaseUrl}/en/";
-            var errorUrl = requestParams.ErrorUrl ?? $"{BaseUrl}/en/bad-request";
-            var unauthorizedUrl = requestParams.UnauthorizedUrl ?? $"{BaseUrl}/en/unauthorized";
+            var returnUrl = requestParams?.ReturnUrl ?? $"{BaseUrl}/en/";
+            var errorUrl = requestParams?.ErrorUrl ?? $"{BaseUrl}/en/bad-request";
+            var unauthorizedUrl = requestParams?.UnauthorizedUrl ?? $"{BaseUrl}/en/unauthorized";
 
             // AllowAnonymous so we can redirect to unauthorized instead of returning json
             if (!User.Identity.IsAuthenticated)
@@ -120,6 +120,7 @@ namespace SamlOwin.Controllers
                 return new RedirectActionResult($"{errorUrl}?error=Exception");
             }
 
+            // todo CookieHandler has this route hardcoded to clear cookies
             return new RedirectActionResult(returnUrl);
         }
 

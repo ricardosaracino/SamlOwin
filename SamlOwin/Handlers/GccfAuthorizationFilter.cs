@@ -29,7 +29,7 @@ namespace SamlOwin.Handlers
         // Saml2Namespaces.Saml2P
         private const string ClaimTypeSessionIndex = "http://Sustainsys.se/Saml2/SessionIndex";
 
-        public async Task<HttpResponseMessage> OOFExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
+        public async Task<HttpResponseMessage> OffExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {

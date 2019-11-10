@@ -3,7 +3,7 @@
     /// <summary>
     /// JSend https://github.com/omniti-labs/jsend
     /// </summary>
-    public class ApiErrorResponse
+    public class WebApiErrorResponse
     {
         /// <summary>
         /// JSend Status can be success, fail, error

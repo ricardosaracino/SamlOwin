@@ -417,6 +417,8 @@
     <Compile Include="CrmEarlyBound\csc_VolunteerLanguage.cs" />
     <Compile Include="CrmEarlyBound\csc_VolunteerReference.cs" />
     <Compile Include="CrmEarlyBound\OptionSets.cs" />
+    <Compile Include="CrmServiceContextExtensions\CrmServiceContextExtensions.cs" />
+    <Compile Include="CrmServiceContextExtensions\ICrmServiceContext.cs" />
     <Compile Include="Handlers\RedirectActionResult.cs" />
     <Compile Include="Handlers\WebApiAuthorizationAttribute.cs" />
     <Compile Include="Handlers\WebApiExceptionHandler.cs" />
@@ -444,9 +446,11 @@
     <Compile Include="Models\LocationResponse.cs" />
     <Compile Include="Models\LogoutRequestParams.cs" />
     <Compile Include="Models\NationalityResponse.cs" />
+    <Compile Include="Models\VolunteerApplicationRequestAttribute.cs" />
     <Compile Include="Models\ScheduleCalendarRequestParams.cs" />
     <Compile Include="Models\ScheduledActivityTypeResponse.cs" />
     <Compile Include="Models\SigninCallbackRequestParams.cs" />
+    <Compile Include="Models\VolunteerApplicationRequest.cs" />
     <Compile Include="Models\VolunteerApplicationResponse.cs" />
     <Compile Include="Models\VolunteerEmergencyContactRequest.cs" />
     <Compile Include="Models\VolunteerEmergencyContactResponse.cs" />
@@ -476,6 +480,7 @@
     <Compile Include="Profiles\ProvinceOrStateEntityToProvinceOrStateResponse.cs" />
     <Compile Include="Profiles\ScheduledActivityTypeEntityToScheduledActivityTypeResponse.cs" />
     <Compile Include="Profiles\VolunteerApplicationEntityToVolunteerApplicationResponse.cs" />
+    <Compile Include="Profiles\VolunteerApplicationRequestToVolunteerApplicationEntity.cs" />
     <Compile Include="Profiles\VolunteerEmergencyContactEntityToVolunteerEmergencyContactResponse.cs" />
     <Compile Include="Profiles\VolunteerEmergencyContactRequestToVolunteerEmergencyContactEntity.cs" />
     <Compile Include="Profiles\VolunteerEntityToVolunteer.cs" />

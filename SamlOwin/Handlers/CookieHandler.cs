@@ -42,8 +42,8 @@ namespace SamlOwin.Handlers
 
         public static readonly string[] CookieNames =
         {
-            "session.expiresAt", "session.authenticated", "volunteer.id", "volunteer.canApplyCac",
-            "volunteer.canApplyCsc", "volunteer.canApplyReac", "volunteer.emailVerified"
+            "session.expiresAt", "session.authenticated", "volunteer.canApplyCac",
+            "volunteer.canApplyCsc", "volunteer.canApplyReac", "volunteer.emailVerified", "volunteer.ready?"
         };
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
@@ -82,7 +82,6 @@ namespace SamlOwin.Handlers
                     expires));
 
                 cookieHeaderValues.Add(new SessionCookeHeaderValue("session.authenticated", "1", expires));
-                cookieHeaderValues.Add(new SessionCookeHeaderValue("volunteer.ready", "1", expires));
 
                 cookieHeaderValues.AddRange(
                     (from claimType in CookieNames

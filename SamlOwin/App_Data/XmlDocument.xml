@@ -536,6 +536,17 @@
             Finds the Volunteer Applications assigned to Current User
             </summary>
         </member>
+        <member name="M:SamlOwin.Controllers.VolunteerApplicationController.FindOne(System.Guid)">
+            <summary>
+            Finds the Volunteer Application assigned to Current User
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamlOwin.Controllers.VolunteerApplicationController.Create(SamlOwin.Models.VolunteerApplicationRequest)">
+            <summary>
+            Creates the Volunteer Application and assigns it to the Current User
+            </summary>
+        </member>
         <member name="T:SamlOwin.Controllers.VolunteerController">
             <summary>
             Volunteer Authorize Permission
@@ -681,11 +692,6 @@
         <member name="P:SamlOwin.Models.SigninCallbackRequestParams.Error">
             <summary>
             Passed From Saml Middleware
-            </summary>
-        </member>
-        <member name="P:SamlOwin.Models.VolunteerApplicationResponse.Status">
-            <summary>
-            Draft, Submitted
             </summary>
         </member>
         <member name="T:SamlOwin.Models.ApiErrorResponse">

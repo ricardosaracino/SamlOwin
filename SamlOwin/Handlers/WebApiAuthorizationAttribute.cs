@@ -20,7 +20,7 @@ namespace SamlOwin.Handlers
             {
                 RequestMessage = actionContext.Request,
                 Content = new StringContent(JsonConvert.SerializeObject(
-                    new ApiErrorResponse
+                    new WebApiErrorResponse
                     {
                         Message = "Authorization has been denied for this request."
                     },

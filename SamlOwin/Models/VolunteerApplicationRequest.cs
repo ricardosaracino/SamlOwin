@@ -1,46 +1,44 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SamlOwin.Models
 {
-    public class VolunteerApplicationResponse
+    public class VolunteerApplicationRequest
     {
-        public Guid Id { get; set; }
-
-        //
-        public string ReferenceNumber { get; set; }
-
-        public int? DecisionStatus { get; set; }
+        public Guid? Id { get; set; }
         
-        public DateTime? DecisionOn { get; set; }
-
-        public DateTime? CancelledOn { get; set; }
-        
-        public string CancelledComment { get; set; }
-        
-        public DateTime CreatedOn { get; set; }
-        
-        //
+        [Required]
         public int ApplicationStatus { get; set; }
-
+        
+        [Required]
         public int ApplicationType { get; set; }
-
-
+        
         //
+        [RequiredApplicationStatusSubmitted]
         public bool? AgreeAgeOfMajority { get; set; }
         
+        [RequiredApplicationStatusSubmitted]
         public bool? AgreeCanadianCitizen { get; set; }
         
-
         //
+        [RequiredApplicationStatusSubmitted]
         public bool? OnInmateVisitingList { get; set; }
         
+        [RequiredApplicationStatusSubmitted]        
         public bool? PersonallyKnowOffenders { get; set; }
-
+        
+        [RequiredApplicationStatusSubmitted]
         public bool? ConvictedNotPardoned { get; set; }
         
+        [RequiredApplicationStatusSubmitted]        
         public bool? OutstandingCharges { get; set; }
+        
+        
+        
+        [RequiredApplicationStatusSubmittedApplicationTypeCac]
+        public int[] GeneralActivities { get; set; }
 
-                        
+        
         //
         public string HearAboutVolunteering { get; set; }
         
@@ -50,6 +48,7 @@ namespace SamlOwin.Models
         
         
         //
+        [RequiredApplicationStatusSubmitted]        
         public bool? AgreementAcknowledged { get; set; }
     }
 }

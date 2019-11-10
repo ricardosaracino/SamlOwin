@@ -5,6 +5,7 @@ using System.Web.Http;
 using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.AspNet.Identity.Owin;
+using SamlOwin.CrmServiceContextExtensions;
 using SamlOwin.Handlers;
 using SamlOwin.Identity;
 using SamlOwin.Models;
@@ -17,7 +18,7 @@ namespace SamlOwin.Controllers
     /// </summary>
     [VolunteerAuthorize]
     [RoutePrefix("api/volunteer-self-identifications")]
-    public class VolunteerSelfIdentificationController : ApiController
+    public class VolunteerSelfIdentificationController : ApiController, ICrmServiceContext
     {
         private readonly CrmServiceContext _ctx;
         private readonly Mapper _mapper;
@@ -27,14 +28,10 @@ namespace SamlOwin.Controllers
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
             _mapper = AutoMapperProvider.GetMapper();
         }
-
-        private csc_Volunteer GetVolunteerEntityById(Guid id)
+        
+        public CrmServiceContext GetCrmServiceContext()
         {
-            var queryable = from volunteerEntity in _ctx.csc_VolunteerSet
-                where volunteerEntity.Id.Equals(id)
-                select volunteerEntity;
-
-            return queryable.Single();
+            return _ctx;
         }
 
         /// <summary>
@@ -45,7 +42,7 @@ namespace SamlOwin.Controllers
         {
             return new WebApiSuccessResponse<VolunteerSelfIdentificationResponse>
             {
-                Data = _mapper.Map<VolunteerSelfIdentificationResponse>(GetVolunteerEntityById(User.Identity.GetVolunteerId()))
+                Data = _mapper.Map<VolunteerSelfIdentificationResponse>(this.GetVolunteerEntity(User.Identity.GetVolunteerId()))
             };
         }
 
@@ -55,7 +52,7 @@ namespace SamlOwin.Controllers
         [HttpPost, Route("")]
         public WebApiSuccessResponse Save(VolunteerSelfIdentificationRequest volunteerSelfIdentificationRequest)
         {
-            var volunteerEntity = GetVolunteerEntityById(User.Identity.GetVolunteerId());
+            var volunteerEntity = this.GetVolunteerEntity(User.Identity.GetVolunteerId());
 
             _ctx.UpdateObject(_mapper.Map(volunteerSelfIdentificationRequest, volunteerEntity));
 

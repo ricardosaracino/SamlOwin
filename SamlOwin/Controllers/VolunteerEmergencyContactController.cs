@@ -59,8 +59,8 @@ namespace SamlOwin.Controllers
 
                 var volunteerEntity = _mapper.Map<csc_VolunteerEmergencyContact>(volunteerEmergencyContact);
 
-                volunteerEntity.csc_Volunteer = new EntityReference(csc_Volunteer.EntityLogicalName,
-                    User.Identity.GetVolunteerId());
+                volunteerEntity.csc_Volunteer =
+                    new EntityReference(csc_Volunteer.EntityLogicalName, User.Identity.GetVolunteerId());
 
                 _ctx.AddObject(volunteerEntity);
             }
