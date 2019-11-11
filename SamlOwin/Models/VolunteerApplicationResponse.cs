@@ -30,7 +30,6 @@ namespace SamlOwin.Models
 
         public bool? AgreeCanadianCitizen { get; set; }
 
-
         //
         public bool? OnInmateVisitingList { get; set; }
 
@@ -40,8 +39,23 @@ namespace SamlOwin.Models
 
         public bool? OutstandingCharges { get; set; }
 
-
         //
+        public int[] GeneralActivities { get; set; }
+
+        public string ActivityChoiceReason { get; set; }
+
+        public string AffiliationsWithGroups { get; set; }
+
+        public string CurrentlyVolunteeringApplyingWith { get; set; }
+
+        public string SkillOrExpertise { get; set; }
+
+        public string CommitteeExperience { get; set; }
+
+        public string PreviousWorkVolunteerExperience { get; set; }
+
+        public string MemberOfUnderRepresentedGroup { get; set; }
+
         public string HearAboutVolunteering { get; set; }
 
         public string ReasonForVolunteering { get; set; }

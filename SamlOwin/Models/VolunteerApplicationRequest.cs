@@ -35,13 +35,12 @@ namespace SamlOwin.Models
         public bool? OutstandingCharges { get; set; }
 
         //
-        // [MinLength(2)] only apply if Required
+        [MinLength(1)] // applied when not null
         [RequiredApplicationStatusSubmittedApplicationTypeCsc]
         public int[] GeneralActivities { get; set; }
         
-        // [StringLength(2000, MinimumLength = 2)]
-        // [RequiredApplicationStatusSubmittedApplicationTypeCsc]
         [StringLength(2000)]
+        [RequiredApplicationStatusSubmittedApplicationTypeCsc]
         public string ActivityChoiceReason { get; set; }
 
         [StringLength(2000)]

@@ -34,9 +34,10 @@ namespace SamlOwin.Profiles
                     opt =>
                     {
                         // skip if creating empty .. XRM sdk kept throwing exceptions
-                        opt.PreCondition(s => (s.Id != null || s.GeneralActivities?.Length > 0));
-                        opt.MapFrom((s, d) =>
-                            new OptionSetValueCollection(
+                        opt.PreCondition(s => s.Id != null || s.GeneralActivities?.Length > 0);
+                        opt.MapFrom(s => s.GeneralActivities == null
+                            ? null
+                            : new OptionSetValueCollection(
                                 s.GeneralActivities.ToList().ConvertAll(v => new OptionSetValue(v))));
                     })
                 .ForMember(dest => dest.csc_ActivityChoiceReason,
