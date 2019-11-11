@@ -35,6 +35,12 @@ namespace SamlOwin.Models
         public bool? OutstandingCharges { get; set; }
 
         //
+        [RequiredApplicationStatusSubmittedApplicationTypeCac, RequiredApplicationStatusSubmittedApplicationTypeReac]
+        public ReferenceRequest Region { get; set; }
+
+        [RequiredApplicationStatusSubmittedApplicationTypeCac]
+        public ReferenceRequest Location { get; set; }
+        
         [MinLength(1)] // applied when not null
         [RequiredApplicationStatusSubmittedApplicationTypeCsc]
         public int[] GeneralActivities { get; set; }

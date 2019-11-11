@@ -30,6 +30,10 @@ namespace SamlOwin.Profiles
                     opt => opt.MapFrom(s => s.ConvictedNotPardoned))
                 .ForMember(dest => dest.csc_OutstandingCharges,
                     opt => opt.MapFrom(s => s.OutstandingCharges))
+                .ForMember(dest => dest.csc_RegionId, opt => opt.MapFrom(s =>
+                    s.Region == null ? null : new EntityReference(csc_Region.EntityLogicalName, s.Region.Id)))
+                .ForMember(dest => dest.csc_LocationId, opt => opt.MapFrom(s =>
+                    s.Location == null ? null : new EntityReference(csc_Location.EntityLogicalName, s.Location.Id)))
                 .ForMember(dest => dest.csc_GeneralActivityTypes,
                     opt =>
                     {

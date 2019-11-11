@@ -394,6 +394,7 @@
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\NationalityController.cs" />
+    <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\VolunteerScheduleController.cs" />
     <Compile Include="Controllers\VolunteerApplicationController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
@@ -447,6 +448,7 @@
     <Compile Include="Models\LocationResponse.cs" />
     <Compile Include="Models\LogoutRequestParams.cs" />
     <Compile Include="Models\NationalityResponse.cs" />
+    <Compile Include="Models\RegionResponse.cs" />
     <Compile Include="Models\VolunteerApplicationRequestAttribute.cs" />
     <Compile Include="Models\ScheduleCalendarRequestParams.cs" />
     <Compile Include="Models\ScheduledActivityTypeResponse.cs" />
@@ -479,6 +481,7 @@
     <Compile Include="Profiles\NationalityEntityToNationalityResponse.cs" />
     <Compile Include="Profiles\PortalUserEntityToPortalUserModel.cs" />
     <Compile Include="Profiles\ProvinceOrStateEntityToProvinceOrStateResponse.cs" />
+    <Compile Include="Profiles\RegionEntityToRegionResponse.cs" />
     <Compile Include="Profiles\ScheduledActivityTypeEntityToScheduledActivityTypeResponse.cs" />
     <Compile Include="Profiles\VolunteerApplicationEntityToVolunteerApplicationResponse.cs" />
     <Compile Include="Profiles\VolunteerApplicationRequestToVolunteerApplicationEntity.cs" />
@@ -719,7 +722,6 @@
     <Content Include="App.config" />
     <Content Include="App.example.config" />
     <Content Include="App_Data\cbs-metadata-signed.xml" />
-    <Content Include="App_Data\CSC_EP_DEV_2019-10-18.xml" />
     <Content Include="App_Data\gckey-metadata-signed.xml" />
     <Content Include="App_Data\idp5-metadata.xml" />
     <Content Include="App_Data\idp5.canadacentral.cloudapp.azure.com.cer" />

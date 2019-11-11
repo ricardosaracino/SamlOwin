@@ -43,15 +43,13 @@ namespace SamlOwin.Handlers
         public static readonly string[] CookieNames =
         {
             "session.expiresAt", "session.authenticated", "volunteer.canApplyCac",
-            "volunteer.canApplyCsc", "volunteer.canApplyReac", "volunteer.emailVerified", "volunteer.ready?"
+            "volunteer.canApplyCsc", "volunteer.canApplyReac", "volunteer.emailVerified"
         };
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
 
         {
-            Log.Logger.Information("CookieHandler.ExecuteAuthorizationFilterAsync");
-
             var response = await base.SendAsync(request, cancellationToken);
 
             var identity =
@@ -87,14 +85,16 @@ namespace SamlOwin.Handlers
                     (from claimType in CookieNames
                         where identity.HasClaim(c => c.Type == claimType)
                         select new SessionCookeHeaderValue(claimType, identity.FindFirstValue(claimType), expires)));
+                
+                Log.Logger.Information("CookieHandler.ExecuteAuthorizationFilterAsync Cookies Added");
             }
             else
             {
                 cookieHeaderValues.AddRange(CookieNames.Select(claimType => new ExpiredCookeHeaderValue(claimType)));
+                
+                Log.Logger.Information("CookieHandler.ExecuteAuthorizationFilterAsync Cookies Cleared");
             }
-
-            Log.Logger.Information("CookieHandler.ExecuteAuthorizationFilterAsync Headers added");
-
+            
             response.Headers.AddCookies(cookieHeaderValues);
 
             return response;

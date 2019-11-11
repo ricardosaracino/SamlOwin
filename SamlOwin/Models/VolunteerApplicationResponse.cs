@@ -42,6 +42,10 @@ namespace SamlOwin.Models
         //
         public int[] GeneralActivities { get; set; }
 
+        public ReferenceResponse Region { get; set; }
+        
+        public ReferenceResponse Location { get; set; }
+        
         public string ActivityChoiceReason { get; set; }
 
         public string AffiliationsWithGroups { get; set; }

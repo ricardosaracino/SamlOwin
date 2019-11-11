@@ -21,6 +21,8 @@ namespace SamlOwin.Controllers
         private readonly CrmServiceContext _ctx;
         private readonly Mapper _mapper;
 
+        private const string CacheKey = "LocationController.LocationResponse";
+
         public LocationController()
         {
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
@@ -34,7 +36,7 @@ namespace SamlOwin.Controllers
         public WebApiSuccessResponse<List<LocationResponse>> FindAll()
         {
             var locationResponses =
-                (List<LocationResponse>) MemoryCache.Default.Get("LocationController.LocationResponse");
+                (List<LocationResponse>) MemoryCache.Default.Get(CacheKey);
 
             if (locationResponses == null)
             {
@@ -43,8 +45,7 @@ namespace SamlOwin.Controllers
 
                 locationResponses = queryable.ToList().ConvertAll(entity => _mapper.Map<LocationResponse>(entity));
 
-                MemoryCache.Default.Set(new CacheItem("LocationController.LocationResponse", locationResponses),
-                    new CacheItemPolicy());
+                MemoryCache.Default.Set(new CacheItem(CacheKey, locationResponses), new CacheItemPolicy());
             }
 
             return new WebApiSuccessResponse<List<LocationResponse>>

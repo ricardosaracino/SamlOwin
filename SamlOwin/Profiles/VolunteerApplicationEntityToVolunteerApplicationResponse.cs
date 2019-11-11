@@ -30,6 +30,10 @@ namespace SamlOwin.Profiles
                     opt => opt.MapFrom(s => s.csc_ConvictedNotPardoned))
                 .ForMember(dest => dest.OutstandingCharges,
                     opt => opt.MapFrom(s => s.csc_OutstandingCharges))
+                .ForMember(dest => dest.Region,
+                    opt => opt.MapFrom(s => s.csc_RegionId))  
+                .ForMember(dest => dest.Location,
+                    opt => opt.MapFrom(s => s.csc_LocationId)) 
                 .ForMember(dest => dest.GeneralActivities,
                     opt => opt.MapFrom(s => s.csc_GeneralActivityTypesEnum))                
                 .ForMember(dest => dest.ActivityChoiceReason,

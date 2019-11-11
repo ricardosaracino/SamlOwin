@@ -20,6 +20,8 @@ namespace SamlOwin.Controllers
     {
         private readonly CrmServiceContext _ctx;
         private readonly Mapper _mapper;
+        
+        private const string CacheKey = "CountryController.CountryResponse";
 
         public CountryController()
         {
@@ -34,7 +36,7 @@ namespace SamlOwin.Controllers
         public WebApiSuccessResponse<List<CountryResponse>> FindAll()
         {
             var countryResponses =
-                (List<CountryResponse>) MemoryCache.Default.Get("countryController.countryResponse");
+                (List<CountryResponse>) MemoryCache.Default.Get(CacheKey);
 
             if (countryResponses == null)
             {
@@ -58,8 +60,7 @@ namespace SamlOwin.Controllers
                     countryResponse.ProvinceStates.Add(_mapper.Map<ProvinceOrStateResponse>(psEntity));
                 });
 
-                MemoryCache.Default.Set(new CacheItem("countryController.countryResponse", countryResponses),
-                    new CacheItemPolicy());
+                MemoryCache.Default.Set(new CacheItem(CacheKey, countryResponses), new CacheItemPolicy());
             }
 
             return new WebApiSuccessResponse<List<CountryResponse>>

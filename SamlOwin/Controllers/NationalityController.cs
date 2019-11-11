@@ -21,6 +21,8 @@ namespace SamlOwin.Controllers
         private readonly CrmServiceContext _ctx;
         private readonly Mapper _mapper;
 
+        private const string CacheKey = "NationalityController.NationalityResponse";
+
         public NationalityController()
         {
             _ctx = HttpContext.Current.GetOwinContext().Get<CrmServiceContext>();
@@ -34,7 +36,7 @@ namespace SamlOwin.Controllers
         public WebApiSuccessResponse<List<NationalityResponse>> FindAll()
         {
             var nationalityResponses =
-                (List<NationalityResponse>) MemoryCache.Default.Get("NationalityController.NationalityResponse");
+                (List<NationalityResponse>) MemoryCache.Default.Get(CacheKey);
 
             if (nationalityResponses == null)
             {
@@ -44,9 +46,7 @@ namespace SamlOwin.Controllers
                 nationalityResponses =
                     queryable.ToList().ConvertAll(entity => _mapper.Map<NationalityResponse>(entity));
 
-                MemoryCache.Default.Set(
-                    new CacheItem("NationalityController.NationalityResponse", nationalityResponses),
-                    new CacheItemPolicy());
+                MemoryCache.Default.Set(new CacheItem(CacheKey, nationalityResponses), new CacheItemPolicy());
             }
 
             return new WebApiSuccessResponse<List<NationalityResponse>>
