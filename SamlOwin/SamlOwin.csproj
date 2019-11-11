@@ -392,6 +392,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\NationalityController.cs" />
     <Compile Include="Controllers\VolunteerScheduleController.cs" />
     <Compile Include="Controllers\VolunteerApplicationController.cs" />
@@ -472,7 +473,7 @@
     <Compile Include="Models\VolunteerLanguageResponse.cs" />
     <Compile Include="Models\VolunteerReferenceResponse.cs" />
     <Compile Include="Profiles\CountryEntityToCountryResponse.cs" />
-    <Compile Include="Profiles\EntityReferenceToReference.cs" />
+    <Compile Include="Profiles\EntityReferenceToReferenceResponse.cs" />
     <Compile Include="Profiles\LanguageEntityToLanguageResponse.cs" />
     <Compile Include="Profiles\LocationEntityToLocationResponse.cs" />
     <Compile Include="Profiles\NationalityEntityToNationalityResponse.cs" />

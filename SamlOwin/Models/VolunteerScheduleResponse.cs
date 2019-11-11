@@ -11,7 +11,7 @@ namespace SamlOwin.Models
         public DateTime ShiftEnd { get; set; }
 
         public LocationResponse Location { get; set; }
-        
+
         public ScheduledActivityTypeResponse ScheduledActivityType { get; set; }
 
         public ReferenceResponse Volunteer { get; set; }

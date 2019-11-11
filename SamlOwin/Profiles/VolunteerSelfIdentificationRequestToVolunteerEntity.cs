@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using CrmEarlyBound;
 using Microsoft.Xrm.Sdk;
@@ -16,19 +17,19 @@ namespace SamlOwin.Profiles
                 
                 .ForMember(dest => dest.csc_AboriginalPerson,
                     opt => opt.MapFrom(s =>
-                        new OptionSetValueCollection(s.AboriginalTypes.ConvertAll(v => new OptionSetValue(v)))))
+                        new OptionSetValueCollection(s.AboriginalTypes.ToList().ConvertAll(v => new OptionSetValue(v)))))
                 
                 .ForMember(dest => dest.csc_CultureGroups,
                     opt => opt.MapFrom(s =>
-                        new OptionSetValueCollection(s.CultureTypes.ConvertAll(v => new OptionSetValue(v)))))
+                        new OptionSetValueCollection(s.CultureTypes.ToList().ConvertAll(v => new OptionSetValue(v)))))
                 
                 .ForMember(dest => dest.csc_Disabilities,
                     opt => opt.MapFrom(s =>
-                        new OptionSetValueCollection(s.DisabilityTypes.ConvertAll(v => new OptionSetValue(v)))))
+                        new OptionSetValueCollection(s.DisabilityTypes.ToList().ConvertAll(v => new OptionSetValue(v)))))
                 
                 .ForMember(dest => dest.csc_MinorityGroups,
                     opt => opt.MapFrom(s =>
-                        new OptionSetValueCollection(s.MinorityTypes.ConvertAll(v => new OptionSetValue(v)))))
+                        new OptionSetValueCollection(s.MinorityTypes.ToList().ConvertAll(v => new OptionSetValue(v)))))
                 
                 .ForMember(dest => dest.csc_PermissiontouseSelfIdentification,
                     opt => opt.MapFrom(s => s.AgreeSelfIdentification))

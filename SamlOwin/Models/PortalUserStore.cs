@@ -23,17 +23,17 @@ namespace SamlOwin.Models
             _ctx = crmServiceContext;
             _mapper = AutoMapperProvider.GetMapper();
         }
-        
+
         public new Task<DateTimeOffset> GetLockoutEndDateAsync(TUser user)
         {
-            return  Task.FromResult(DateTimeOffset.Now);
+            return Task.FromResult(DateTimeOffset.Now);
         }
-        
+
         public new Task<bool> GetLockoutEnabledAsync(TUser user)
         {
             return Task.FromResult(true);
         }
-        
+
         public override Task<TUser> FindAsync(UserLoginInfo login)
         {
             Log.Logger.Information("PortalUserStore.FindAsync");
@@ -70,10 +70,10 @@ namespace SamlOwin.Models
                 portalUserEntity.csc_LoginOn = DateTime.Now.ToUniversalTime();
                 _ctx.SaveChanges();
             }
-            
+
             var portalUser = _mapper.Map<PortalUser>(portalUserEntity);
             portalUser.Volunteer = _mapper.Map<Volunteer>(volunteerEntity);
-            
+
             return Task.FromResult(portalUser as TUser);
         }
 
@@ -96,7 +96,7 @@ namespace SamlOwin.Models
                         Volunteer = _mapper.Map<Volunteer>(cscVolunteer),
                     }
                 );
-            
+
             return Task.FromResult(queryable.Single() as TUser);
         }
     }

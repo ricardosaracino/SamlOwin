@@ -9,12 +9,12 @@ namespace SamlOwin.Models
 
         public bool AgreeSelfIdentification { get; set; }
 
-        public List<int> AboriginalTypes { get; set; }
+        public int[] AboriginalTypes { get; set; }
 
-        public List<int> CultureTypes { get; set; }
+        public int[] CultureTypes { get; set; }
 
-        public List<int> DisabilityTypes { get; set; }
+        public int[] DisabilityTypes { get; set; }
 
-        public List<int> MinorityTypes { get; set; }
+        public int[] MinorityTypes { get; set; }
     }
 }

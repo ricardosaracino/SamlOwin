@@ -16,7 +16,7 @@ namespace SamlOwin.Models
         public string LastName { get; set; }
 
         public string MaidenName { get; set; }
-        
+
         public string Email { get; set; }
 
         public string SecondaryEmail { get; set; }
@@ -24,7 +24,7 @@ namespace SamlOwin.Models
         public ReferenceResponse Citizenship { get; set; }
 
         public int PreferredLanguage { get; set; }
-        
+
         public int? Gender { get; set; }
 
         public string GenderOther { get; set; }
@@ -40,7 +40,7 @@ namespace SamlOwin.Models
         public string HomeAddressPostalCode { get; set; }
 
         public ReferenceResponse HomeAddressProvinceOrState { get; set; }
-        
+
         public bool MailingAddressSameAsHomeAddress { get; set; }
 
         public string MailingAddressCity { get; set; }
@@ -64,7 +64,7 @@ namespace SamlOwin.Models
         public string OtherTelephone { get; set; }
 
         public string OtherTelephoneExt { get; set; }
-        
+
         public bool AgreeContactedWork { get; set; }
 
         public string Availability { get; set; }

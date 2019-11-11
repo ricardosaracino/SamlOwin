@@ -36,7 +36,8 @@ namespace SamlOwin.Handlers
                     Content = new StringContent(JsonConvert.SerializeObject(
                         new WebApiErrorResponse
                         {
-                            Message = "The request is invalid.",
+                            Message = "Internal Server Error.",
+                            Data = Message
                         },
                         new JsonSerializerSettings
                         {

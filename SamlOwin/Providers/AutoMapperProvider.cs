@@ -21,7 +21,8 @@ namespace SamlOwin.Providers
 
         private static MapperConfiguration CreateConfiguration()
         {
-            var cfg = new MapperConfigurationExpression();
+            var cfg = new MapperConfigurationExpression {AllowNullCollections = true};
+
 
             cfg.AddMaps(Assembly.GetExecutingAssembly());
 

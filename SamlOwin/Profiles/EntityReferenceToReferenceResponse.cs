@@ -4,9 +4,9 @@ using SamlOwin.Models;
 
 namespace SamlOwin.Profiles
 {
-    public class EntityReferenceToReference : Profile
+    public class EntityReferenceToReferenceResponse : Profile
     {
-        public EntityReferenceToReference()
+        public EntityReferenceToReferenceResponse()
         {
             CreateMap<EntityReference, ReferenceResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s.Id))

@@ -90,7 +90,8 @@ namespace SamlOwin.Controllers
             if (volunteerApplicationRequest.Id != null)
             {
                 // attached to context
-                volunteerApplicationEntity = this.GetVolunteerApplicationEntity(volunteerApplicationRequest.Id ?? Guid.Empty,
+                volunteerApplicationEntity = this.GetVolunteerApplicationEntity(
+                    volunteerApplicationRequest.Id ?? Guid.Empty,
                     User.Identity.GetVolunteerId());
 
                 if (volunteerApplicationEntity.StatusCodeEnum != csc_VolunteerApplication_StatusCode.Draft &&

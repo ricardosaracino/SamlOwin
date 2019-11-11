@@ -7,17 +7,17 @@ namespace SamlOwin.Models
         public Guid Id { get; set; }
 
         public string FullName { get; set; }
-        
+
         public int? ReferenceType { get; set; }
-        
+
         public string Title { get; set; }
 
         public string Occupation { get; set; }
-        
+
         public int? FirstContactMethod { get; set; }
 
         public string FirstContactValue { get; set; }
-        
+
         public int? SecondContactMethod { get; set; }
 
         public string SecondContactValue { get; set; }

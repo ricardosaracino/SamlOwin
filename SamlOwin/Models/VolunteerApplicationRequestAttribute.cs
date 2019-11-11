@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using CrmEarlyBound;
 
 namespace SamlOwin.Models
@@ -17,16 +19,17 @@ namespace SamlOwin.Models
             var applicationStatus =
                 (validationContext.ObjectInstance as VolunteerApplicationRequest)?.ApplicationStatus;
 
-            if (applicationStatus == _applicationStatus && !base.IsValid(value))
+            var isValid = base.IsValid(value, validationContext);
+            
+            if (applicationStatus == _applicationStatus && isValid != ValidationResult.Success)
             {
-                return new ValidationResult(
-                    $"The {validationContext.DisplayName} field is required on Application Status {_applicationStatus}.");
+                return isValid;
             }
 
             return ValidationResult.Success;
         }
     }
-    
+
     public class RequiredApplicationStatusSubmittedAttribute : RequiredApplicationStatusAttribute
     {
         public RequiredApplicationStatusSubmittedAttribute() : base((int) csc_VolunteerApplication_StatusCode.Submitted)
@@ -38,44 +41,54 @@ namespace SamlOwin.Models
     {
         private readonly int _applicationType;
 
-        public RequiredApplicationStatusSubmittedApplicationTypeAttribute(int applicationType) : base(
+        protected RequiredApplicationStatusSubmittedApplicationTypeAttribute(int applicationType) : base(
             (int) csc_VolunteerApplication_StatusCode.Submitted)
         {
             _applicationType = applicationType;
         }
-        
+
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var applicationType =
                 (validationContext.ObjectInstance as VolunteerApplicationRequest)?.ApplicationType;
 
-            if (applicationType == _applicationType && !base.IsValid(value))
+            var isValid = base.IsValid(value, validationContext);
+
+            if (applicationType == _applicationType && isValid != ValidationResult.Success)
             {
-                return new ValidationResult(
-                    $"The {validationContext.DisplayName} field is required on Application Type {_applicationType}.");
+                return isValid;
             }
 
             return ValidationResult.Success;
         }
     }
-    
-    public class RequiredApplicationStatusSubmittedApplicationTypeCacAttribute : RequiredApplicationStatusAttribute
+
+    public class
+        RequiredApplicationStatusSubmittedApplicationTypeCacAttribute :
+            RequiredApplicationStatusSubmittedApplicationTypeAttribute
     {
-        public RequiredApplicationStatusSubmittedApplicationTypeCacAttribute() : base((int) csc_VolunteerApplicationType.CitizensAdvisoryCommittee_CACMembership)
+        public RequiredApplicationStatusSubmittedApplicationTypeCacAttribute() : base(
+            (int) csc_VolunteerApplicationType.CitizensAdvisoryCommittee_CACMembership)
         {
         }
     }
-    
-    public class RequiredApplicationStatusSubmittedApplicationTypeCscAttribute : RequiredApplicationStatusAttribute
+
+    public class
+        RequiredApplicationStatusSubmittedApplicationTypeCscAttribute :
+            RequiredApplicationStatusSubmittedApplicationTypeAttribute
     {
-        public RequiredApplicationStatusSubmittedApplicationTypeCscAttribute() : base((int) csc_VolunteerApplicationType.CSCVolunteer)
+        public RequiredApplicationStatusSubmittedApplicationTypeCscAttribute() : base(
+            (int) csc_VolunteerApplicationType.CSCVolunteer)
         {
         }
     }
-    
-    public class RequiredApplicationStatusSubmittedApplicationTypeReacAttribute : RequiredApplicationStatusAttribute
+
+    public class
+        RequiredApplicationStatusSubmittedApplicationTypeReacAttribute :
+            RequiredApplicationStatusSubmittedApplicationTypeAttribute
     {
-        public RequiredApplicationStatusSubmittedApplicationTypeReacAttribute() : base((int) csc_VolunteerApplicationType.RegionalEthnoCulturalAdvisoryCommitee_REACMembership)
+        public RequiredApplicationStatusSubmittedApplicationTypeReacAttribute() : base(
+            (int) csc_VolunteerApplicationType.RegionalEthnoCulturalAdvisoryCommitee_REACMembership)
         {
         }
     }
