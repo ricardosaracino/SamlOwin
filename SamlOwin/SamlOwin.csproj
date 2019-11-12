@@ -392,7 +392,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
-    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\NationalityController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\VolunteerScheduleController.cs" />
